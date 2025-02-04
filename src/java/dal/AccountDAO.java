@@ -85,6 +85,7 @@ public class AccountDAO extends DBContext {
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
         System.out.print(a.getTotalCustumers() + ", " + a.getTotalStaffs());
+        //test if everything go 
     }
     
     
