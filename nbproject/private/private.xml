@@ -3,26 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/AccountDAO.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/blog-single.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/js/main.js</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/blog.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/about.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/rooms.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/prepros-6.config</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/index.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/js/google-map.js</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/restaurant.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/js/bootstrap-datepicker.js</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/QuantityIndexController.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/scss/style.scss</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/includes/navbar.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/rooms-single.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Role.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/contact.jsp</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Account.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/scss/bootstrap/_root.scss</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/includes/navbar.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/model/Role.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/scss/style.scss</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/dal/DBContext.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/verify.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/LogoutController.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/VerifyController.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/scss/bootstrap/_root.scss</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/dal/AccountDAO.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/rooms.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/LoginController.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/model/Account.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/login.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/register.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/index.jsp</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/QuantityIndexController.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/email/EmailUtil.java</file>
+            <file>file:/D:/prn221/hotel_Deluxe_Project/web/META-INF/context.xml</file>
         </group>
     </open-files>
 </project-private>

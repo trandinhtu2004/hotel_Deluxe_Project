@@ -1,36 +1,24 @@
-<%-- 
-    Document   : navbar.jsp
-    Created on : Jan 25, 2025, 9:11:16 PM
-    Author     : Admin
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.jsp">Deluxe</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="rooms.jsp" class="nav-link">Rooms</a></li>
-	          <li class="nav-item"><a href="restaurant.jsp" class="nav-link">Restaurant</a></li>
-	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
-    </body>
-</html>
+<%@ page import="model.Account" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
+<%
+    Account account = (Account) session.getAttribute("account");
+%>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.jsp">Deluxe</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="rooms.jsp" class="nav-link">Rooms</a></li>
+                <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+                
+                <% if (account != null) { %>
+                    <li class="nav-item"><a href="#" class="nav-link">Welcome, <%= account.getFullName() %></a></li>
+                    <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                <% } else { %>
+                    <li class="nav-item"><a href="login.jsp" class="nav-link">Login</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
