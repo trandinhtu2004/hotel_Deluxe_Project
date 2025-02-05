@@ -13,6 +13,10 @@ import java.sql.SQLException;
  * @author Admin
  */
 public class DBContext {
+
+    static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     protected Connection connection;
     public DBContext()
     {
