@@ -69,7 +69,7 @@
 <body>
     <div class="screen-1">
         <div class="logo">Deluxe Hotel</div>
-        
+        <form action="login" method="post">
         <div class="email">
             <label for="email">Email Address</label>
             <input type="email" id="email" name="email" placeholder="Username@gmail.com">
@@ -81,7 +81,7 @@
         </div>
 
         <button class="login">Login</button>
-
+</form>
         <div class="footer">
             <a href="register.jsp"><span>Sign Up</span></a>
 

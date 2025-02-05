@@ -13,20 +13,22 @@ import model.Role;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Giả lập tài khoản cứng (Có thể thay bằng truy vấn database)
-        Account admin = new Account(1, new Role(1, "Admin"), "Admin User", "admin@gmail.com", "123456", "0123456789");
+        AccountDAO accountDAO = new AccountDAO();
+        Account account = accountDAO.login(email, password);
 
-        if (email.equals(admin.getEmail()) && password.equals(admin.getPassword())) {
+        if (account != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("user", admin);
-            response.sendRedirect("index.jsp"); // Chuyển hướng về trang chủ
+            session.setAttribute("account", account); // Lưu thông tin tài khoản vào session
+            response.sendRedirect("index.jsp"); // Chuyển hướng về trang chính
         } else {
-            request.setAttribute("error", "Invalid email or password!");
+            request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
+
 }

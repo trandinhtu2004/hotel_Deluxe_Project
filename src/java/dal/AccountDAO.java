@@ -22,7 +22,7 @@ public class AccountDAO extends DBContext {
      private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "123";
-    Connection conn = DBContext.getConnection();
+    
     
      public boolean emailExists(String email) {
         String sql = "SELECT email FROM Account WHERE email = ?";
