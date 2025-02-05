@@ -18,6 +18,10 @@ import model.Role;
  */
 public class AccountDAO extends DBContext {
     
+    public void addAccount(){
+        
+    }
+    
     public int getTotalStaffs() {
        List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n" +

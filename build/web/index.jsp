@@ -152,10 +152,10 @@
     <section class="ftco-section ftc-no-pb ftc-no-pt">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/bg_2.jpg);">
-						<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
+					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image:url(images/bg_1.jpg);">
+<!--						<a href="#" class="icon popup-vimeo d-flex justify-content-center align-items-center">
 							<span class="icon-play"></span>
-						</a>
+						</a>-->
 					</div>
 					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section heading-section-wo-line pt-md-5 pl-md-5 mb-5">
@@ -255,7 +255,7 @@
     					</a>
     					<div class="text p-3 text-center">
     						<h3 class="mb-3"><a href="rooms.html">Suite Room</a></h3>
-    						<p><span class="price mr-2">$120.00</span> <span class="per">per night</span></p>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
     						<hr>
     						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
     					</div>
@@ -270,7 +270,7 @@
     					</a>
     					<div class="text p-3 text-center">
     						<h3 class="mb-3"><a href="rooms.html">Family Room</a></h3>
-    						<p><span class="price mr-2">$20.00</span> <span class="per">per night</span></p>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
     						<hr>
     						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
     					</div>
@@ -285,7 +285,7 @@
     					</a>
     					<div class="text p-3 text-center">
     						<h3 class="mb-3"><a href="rooms.html">Deluxe Room</a></h3>
-    						<p><span class="price mr-2">$150.00</span> <span class="per">per night</span></p>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
     						<hr>
     						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
     					</div>

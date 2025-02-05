@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@page import="model.*" %>
+<%@page import="dal.*" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
 <html lang="en">
   <head>
     <title>Deluxe - Free Bootstrap 4 Template by Colorlib</title>
@@ -38,6 +42,13 @@
           	<div class="text">
 	            <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home</a></span> <span>About</span></p>
 	            <h1 class="mb-4 bread">About Us</h1>
+                    <%
+                                        AccountDAO a = new AccountDAO(); 
+        
+        //lay database - > chuyen sang product.jsp
+        request.setAttribute("totalCustumers", a.getTotalCustumers());
+        request.setAttribute("totalStaffs", a.getTotalStaffs());
+                                        %>
             </div>
           </div>
         </div>
@@ -76,7 +87,7 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		                <strong class="number" data-number="100">0</strong>
+                                  <strong class="number" data-number="${totalStaffs}   ">0</strong>
 		                <span>Destination</span>
 		              </div>
 		            </div>
