@@ -24,4 +24,6 @@
         <servlet-name>VerifyController</servlet-name>
         <url-pattern>/VerifyController</url-pattern>
     </servlet-mapping>
+  
 </web-app>
+

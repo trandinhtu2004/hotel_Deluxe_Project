@@ -26,7 +26,8 @@ public class AccountDAO extends DBContext {
     
      public boolean emailExists(String email) {
         String sql = "SELECT email FROM Account WHERE email = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -38,7 +39,8 @@ public class AccountDAO extends DBContext {
 
     public void insert(Account account) {
         String sql = "INSERT INTO Account (fullName, email, password, phone, roleId, isVerified) VALUES (?, ?, ?, ?, ?, false)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, account.getFullName());
             ps.setString(2, account.getEmail());
             ps.setString(3, account.getPassword());
@@ -52,7 +54,8 @@ public class AccountDAO extends DBContext {
 
     public void saveVerificationCode(String email, String code) {
         String sql = "INSERT INTO VerificationCode (email, code, expiration) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE)) ON DUPLICATE KEY UPDATE code = ?, expiration = DATE_ADD(NOW(), INTERVAL 5 MINUTE)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             ps.setString(2, code);
             ps.setString(3, code);
@@ -63,7 +66,8 @@ public class AccountDAO extends DBContext {
     }
     public boolean verifyCode(String email, String code) {
     String sql = "SELECT * FROM VerificationCode WHERE email = ? AND code = ? AND expiration > NOW()";
-    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+     try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+    PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setString(1, email);
         ps.setString(2, code);
         ResultSet rs = ps.executeQuery();
@@ -76,7 +80,8 @@ public class AccountDAO extends DBContext {
 
 public void markEmailAsVerified(String email) {
     String sql = "UPDATE Account SET isVerified = true WHERE email = ?";
-    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+     try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+    PreparedStatement ps = conn.prepareStatement(sql)) {
         ps.setString(1, email);
         ps.executeUpdate();
     } catch (SQLException e) {
@@ -199,27 +204,7 @@ public void markEmailAsVerified(String email) {
         return list;
     }
 
-//    public User getUserByEmail(String email) {
-//        String sql = "select * from users where email like ?";
-//        User user = null;
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            st.setString(1, "%" + email + "%");
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                user = new User();
-//                user.setId(rs.getInt("id"));
-//                user.setName(rs.getString("fullname"));
-//                user.setEmail(rs.getString("email"));
-//                user.setPassword(rs.getString("password"));
-//                user.setRoleid(rs.getInt("roleid"));
-//                user.setPhone(rs.getString("phone"));
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return user;
-//    }
+
      public Account login(String email, String password) {
         String query = "SELECT a.*, r.roleId, r.roleName FROM Account a " +
                        "JOIN Role r ON a.roleId = r.roleId WHERE a.email = ? AND a.password = ?";
