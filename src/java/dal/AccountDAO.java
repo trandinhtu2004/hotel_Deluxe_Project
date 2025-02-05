@@ -38,7 +38,7 @@ public class AccountDAO extends DBContext {
     }
 
     public void insert(Account account) {
-        String sql = "INSERT INTO Account (fullName, email, password, phone, roleId, isVerified) VALUES (?, ?, ?, ?, ?, false)";
+        String sql = "INSERT INTO Account (fullName, email, password, phone, roleId, isVerified) VALUES (?, ?, ?, ?, ?, 0)";
          try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
         PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, account.getFullName());

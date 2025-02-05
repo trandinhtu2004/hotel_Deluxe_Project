@@ -56,7 +56,7 @@
     </head>
     <script>
         document.getElementById("registerForm").addEventListener("submit", function (event) {
-            event.preventDefault();
+            
 
             const fullName = document.getElementById("fullName").value.trim();
             const email = document.getElementById("email").value.trim();
@@ -106,15 +106,15 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter your phone number" required>
+                    <input type="tel" class="form-control" name="phone"placeholder="Enter your phone number" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Create a password" required>
+                    <input type="password" class="form-control" name="password"placeholder="Create a password" required>
                 </div>
                 <div class="mb-3">
                     <label for="confirm-password" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="confirmPassword" id="confirm-password" placeholder="Confirm your password" required>
+                    <input type="password" class="form-control" name="password"placeholder="Confirm your password" required>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="terms" required>
