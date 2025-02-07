@@ -123,7 +123,7 @@
                 <button type="submit" class="btn btn-custom w-100">Register</button>
             </form>
             <div class="text-muted">
-                Already have an account? <a href="#" class="text-primary">Sign In</a>
+                Already have an account? <a href="login.jsp" class="text-primary">Sign In</a>
             </div>
         </div>
 
