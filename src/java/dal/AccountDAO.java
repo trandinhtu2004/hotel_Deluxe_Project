@@ -226,4 +226,71 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
+    
+    public boolean emailExists(String email) {
+        String sql = "SELECT email FROM Account WHERE email = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public void insert(Account account) {
+        String sql = "INSERT INTO Account (fullName, email, password, phone, roleId, isVerified) VALUES (?, ?, ?, ?, ?, false)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, account.getFullName());
+            ps.setString(2, account.getEmail());
+            ps.setString(3, account.getPassword());
+            ps.setString(4, account.getPhone());
+            ps.setInt(5, account.getRole().getRoleId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public Account getAccountByEmail(String email) {
+        Account account = null;
+        String sql = "SELECT AccountId, RoleId, FullName, Email, Password, Phone FROM Account WHERE Email = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                account = new Account();
+                account.setAccountId(rs.getInt("AccountId"));
+                account.setFullName(rs.getString("FullName"));
+                account.setEmail(rs.getString("Email"));
+                account.setPassword(rs.getString("Password"));
+                account.setPhone(rs.getString("Phone"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return account;
+    }
+    
+    public boolean updateAccount(Account account) {
+        String sql = "UPDATE Account SET FullName = ?, Phone = ? WHERE Email = ?";
+        boolean isUpdated = false;
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, account.getFullName());
+            st.setString(2, account.getPhone());
+            st.setString(3, account.getEmail());
+
+            int rowsUpdated = st.executeUpdate();
+            isUpdated = rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return isUpdated;
+    }
 }
