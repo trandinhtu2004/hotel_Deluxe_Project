@@ -1,34 +1,28 @@
+package emailSender;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package email;
-
-import jakarta.websocket.Session;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+import dal.AccountDAO;
 import java.util.Properties;
-import jdk.internal.net.http.websocket.Transport;
+import javax.mail.*;
+import javax.mail.internet.*;
 
-
-/**
- *
- * @author AD
- */
 public class EmailUtil {
-  public static void sendVerificationEmail(String email, String code) {
-        String host = "smtp.gmail.com";
-        final String user = "minhhieufvc@gmail.com";
-        final String password = "nmh282k2";
 
-        // Thiết lập các thuộc tính cho phiên gửi email
+    public static void sendVerificationEmail(String email, String otp) {
+        final String user = "hieunmhe161551@fpt.edu.vn";
+        final String password = "argc iubf dtlu joga";
+        
+
         Properties props = new Properties();
-        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        // Tạo một phiên làm việc mới với thông tin xác thực
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password);
@@ -36,18 +30,19 @@ public class EmailUtil {
         });
 
         try {
-            // Tạo một message mới
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("Mã xác nhận email");
-            message.setText("Mã xác nhận của bạn là: " + code);
+            message.setSubject("Your OTP Code");
+            message.setText("Your OTP for password reset is: " + otp);
 
-            // Gửi message
             Transport.send(message);
-        } catch (Exception e) {
+            System.out.println("Email sent successfully.");
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
+     public static void main(String[] args) {
+       EmailUtil.sendVerificationEmail("minhhieufvc@.com", "123456");
+    }
 }
-

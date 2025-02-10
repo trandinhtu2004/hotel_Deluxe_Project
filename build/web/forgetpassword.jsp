@@ -55,26 +55,20 @@
     </style>
 </head>
 <body>
-    <div class="registration-form">
-        <div class="form-header">
-            <h2>Forget Password?</h2>
-            <p>Enter your email to get your password!</p>
-        </div>
-        <form action="ForgetPassword" method="post">
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <button type="submit" class="btn btn-custom w-100">Get password!</button>
-            <div class="mt-3">
-            <p>Your password is: <strong>${password}</strong></p>
-        </div>
-        </form>
-        <div class="text-muted">
-            Already have an account? <a href="login.jsp" class="text-primary">Sign In</a>
-        </div>
-        
+  <div class="registration-form">
+    <div class="form-header">
+        <h2>Forgot Password?</h2>
+        <p>Enter your email to reset your password.</p>
     </div>
+    <form action="ForgetPassword" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <button type="submit" class="btn btn-custom w-100">Send OTP</button>
+    </form>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

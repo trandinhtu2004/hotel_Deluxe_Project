@@ -64,28 +64,46 @@
             padding-top: 1em;
         }
         .footer span { cursor: pointer; text-decoration: underline; }
+
+        /* Thêm style cho thông báo lỗi */
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="screen-1">
         <div class="logo">Deluxe Hotel</div>
-        <form action="login" method="post">
-        <div class="email">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="Username@gmail.com">
-        </div>
+        
+        <!-- Hiển thị thông báo lỗi nếu có -->
+        <%
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            if (errorMessage != null) {
+        %>
+            <div class="error-message"><%= errorMessage %></div>
+        <%
+            }
+        %>
 
-        <div class="password">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="············">
-        </div>
+        <form action="LoginController" method="POST">
+            <div class="email">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Username@gmail.com">
+            </div>
 
-        <button class="login">Login</button>
-</form>
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="············">
+            </div>
+
+            <button class="login" type="submit">Login</button>
+        </form>
+
         <div class="footer">
             <a href="register.jsp"><span>Sign Up</span></a>
             <a href="forgetpassword.jsp"><span>Forgot Password?</span></a>
-            
         </div>
     </div>
 </body>

@@ -2,58 +2,52 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dal.AccountDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import model.Account;
-
-
 
 /**
  *
- * @author DELL
- */
-@WebServlet(name = "ProfileControl", urlPatterns = {"/ProfileControl"})
-public class ProfileControl extends HttpServlet {
+ * @author AD
+ */@WebServlet(name = "VerifyOTPServlet", urlPatterns = {"/VerifyOTPServlet"})
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class VerifyOTPServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileControl</title>");            
+            out.println("<title>Servlet VerifyOTPServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VerifyOTPServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,19 +55,12 @@ public class ProfileControl extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        Account account = (Account) session.getAttribute("account");
-        AccountDAO d = new AccountDAO();
-        Account profile = d.getAccountByEmail(account.getEmail());
-        request.setAttribute("account", profile);
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
-    }
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -82,44 +69,21 @@ public class ProfileControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       HttpSession session = request.getSession();
-    Account account = (Account) session.getAttribute("account");
+        String email = request.getParameter("email");
+        String otp = request.getParameter("otp");
+        AccountDAO accountDAO = new AccountDAO();
 
-    if (account == null) {
-        response.sendRedirect("login.jsp");
-        return;
+        if (accountDAO.verifyOTP(email, otp)) {
+            request.setAttribute("email", email);
+            request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
+        } else {
+            request.setAttribute("error", "Invalid OTP.");
+            request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
+        }
     }
 
-    String fullName = request.getParameter("fullName");
-    String phone = request.getParameter("phone");
-    String email = account.getEmail(); // Không thay đổi email
-
-    AccountDAO accountDAO = new AccountDAO();
-
-    // Kiểm tra số điện thoại đã tồn tại chưa
-    if (accountDAO.isPhoneExists(phone, email)) {
-        request.setAttribute("error", "Phone number is already in use.");
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
-        return;
-    }
-
-    // Thực hiện cập nhật thông tin
-    boolean isUpdated = accountDAO.updateAccount(email, fullName, phone);
-    if (isUpdated) {
-        account.setFullName(fullName);
-        account.setPhone(phone);
-        session.setAttribute("account", account);
-        request.setAttribute("success", "Profile updated successfully!");
-    } else {
-        request.setAttribute("error", "Failed to update profile. Please try again.");
-    }
-
-    request.getRequestDispatcher("profile.jsp").forward(request, response);
-    }
-
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

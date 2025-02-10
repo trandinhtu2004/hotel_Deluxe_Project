@@ -25,20 +25,20 @@ import model.Role;
  * @author Admin
  */
 public class AccountDAO extends DBContext {
-    
+
     private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
     private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123456";
-    
-    public void addAccount(){
-        
+    private static final String DB_PASSWORD = "123";
+
+    public void addAccount() {
+
     }
-    
+
     public int getTotalStaffs() {
-       List<Account> list = new ArrayList<>();
-        String sql = "select * from Account\n" +
-"                     join [Role] r on r.RoleId = Account.RoleId\n" +
-"                where r.RoleId = 2";
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+                + "                where r.RoleId = 2";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -46,17 +46,16 @@ public class AccountDAO extends DBContext {
                 //get Account
                 Account p = new Account();
                 p.setAccountId(rs.getInt("AccountId"));
-                
+
                 //getID role
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
                 p.setRole(r);
-                
+
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
                 p.setPassword(rs.getString("Password"));
-                
                 p.setPhone(rs.getString("Phone"));
                 list.add(p);
             }
@@ -65,12 +64,12 @@ public class AccountDAO extends DBContext {
         }
         return list.size();
     }
-    
+
     public int getTotalCustumers() {
-       List<Account> list = new ArrayList<>();
-        String sql = "select * from Account\n" +
-"                     join [Role] r on r.RoleId = Account.RoleId\n" +
-"                where r.RoleId = 3";
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+                + "                where r.RoleId = 3";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -78,17 +77,17 @@ public class AccountDAO extends DBContext {
                 //get Account
                 Account p = new Account();
                 p.setAccountId(rs.getInt("AccountId"));
-                
+
                 //getID role
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
                 p.setRole(r);
-                
+
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
                 p.setPassword(rs.getString("Password"));
-                
+
                 p.setPhone(rs.getString("Phone"));
                 list.add(p);
             }
@@ -97,17 +96,17 @@ public class AccountDAO extends DBContext {
         }
         return list.size();
     }
-    
+
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
-        System.out.print(a.getTotalCustumers() + ", " + a.getTotalStaffs());
         //test if everything go 
+        a.testLogin("minhhieufvc@gmail.com", "123");
+        a.storeOTP("minhhieufvc@gmail.com", "123321");
     }
-    
-    
+
     public int getTotalAccount() {
-        String sql = "select * from Account\n" +
-                     "join [Role] r on r.RoleId = Account.RoleId";
+        String sql = "select * from Account\n"
+                + "join [Role] r on r.RoleId = Account.RoleId";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -122,8 +121,8 @@ public class AccountDAO extends DBContext {
 
     public List<Account> getAllAccount() {
         List<Account> list = new ArrayList<>();
-        String sql = "select * from Account\n" +
-                     "join [Role] r on r.RoleId = Account.RoleId";
+        String sql = "select * from Account\n"
+                + "join [Role] r on r.RoleId = Account.RoleId";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -131,17 +130,17 @@ public class AccountDAO extends DBContext {
                 //get Account
                 Account p = new Account();
                 p.setAccountId(rs.getInt("AccountId"));
-                
+
                 //getID role
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
                 p.setRole(r);
-                
+
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
                 p.setPassword(rs.getString("Password"));
-                
+
                 p.setPhone(rs.getString("Phone"));
                 list.add(p);
             }
@@ -172,63 +171,111 @@ public class AccountDAO extends DBContext {
 //        }
 //        return user;
 //    }
-    
     public void changePassword(int accountId, String newPassword) {
         //Em nghĩ ở đây xài accountID để xác định tài khoản cần đổi mật khẩu sẽ tốt hơn
         //Kiểu xài email hay phone lấy ra từ account nghe nó đần ý
-    String sql = "UPDATE Account SET Password = ? WHERE AccountId = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, newPassword);
-        st.setInt(2, accountId);
-        st.executeUpdate();
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
-    }
-    }
-
-    public String getPasswordByEmail(String email) {
-        //Em xài email trả lại nó cái password luôn chứ có biết xài API gửi email xác nhận đâu :((
-        //Trả lại password luôn khỏi cần đặt lại password
-        //muốn đặt lại thì có changePassword ở trên rồi
-    String password = null;
-    String sql = "SELECT Password FROM Account WHERE Email = ?";
-    try {
-        PreparedStatement st = connection.prepareStatement(sql);
-        st.setString(1, email);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            password = rs.getString("Password");
+        String sql = "UPDATE Account SET Password = ? WHERE AccountId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setInt(2, accountId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
     }
-    return password;
-}
-    
-    
-    public Account login(String email, String password) {
-        String query = "SELECT a.*, r.roleId, r.roleName FROM Account a "
-                + "JOIN Role r ON a.roleId = r.roleId WHERE a.email = ? AND a.password = ?";
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD); PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                Role role = new Role(rs.getInt("roleId"), rs.getString("roleName"));
-                return new Account(rs.getInt("accountId"), role, rs.getString("fullName"),
-                        rs.getString("email"), rs.getString("password"), rs.getString("phone"));
+//    public String getPasswordByEmail(String email) {
+//        //Em xài email trả lại nó cái password luôn chứ có biết xài API gửi email xác nhận đâu :((
+//        //Trả lại password luôn khỏi cần đặt lại password
+//        //muốn đặt lại thì có changePassword ở trên rồi
+//    String password = null;
+//    String sql = "SELECT Password FROM Account WHERE Email = ?";
+//    try {
+//        PreparedStatement st = connection.prepareStatement(sql);
+//        st.setString(1, email);
+//        ResultSet rs = st.executeQuery();
+//        if (rs.next()) {
+//            password = rs.getString("Password");
+//        }
+//    } catch (SQLException e) {
+//        System.out.println(e.getMessage());
+//    }
+//    return password;
+//}
+    // Hàm lưu OTP vào database
+    public void storeOTP(String email, String otp) {
+        String sql = "UPDATE Account SET OTP = ? WHERE Email = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, otp);
+            st.setString(2, email);
+            int rowsUpdated = st.executeUpdate();
+            if (rowsUpdated == 0) {
+                System.out.println("Không tìm thấy email để cập nhật OTP.");
+            } else {
+                System.out.println("OTP đã được cập nhật thành công.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
     }
-    
+
+    // Hàm kiểm tra OTP
+    public boolean verifyOTP(String email, String otp) {
+        String sql = "SELECT OTP FROM Account WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                String storedOTP = rs.getString("OTP");
+                return storedOTP != null && storedOTP.equals(otp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Hàm đặt lại mật khẩu
+    public boolean resetPassword(String email, String newPassword) {
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setString(2, email);
+            int rowsUpdated = st.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Account login(String email, String password) {
+        Account account = null;
+        String sql = "SELECT * FROM Account WHERE Email = ? AND Password = ?";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                account = new Account();
+                account.setEmail(rs.getString("Email"));
+                account.setPassword(rs.getString("Password"));
+                account.setFullName(rs.getString("FullName"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
     public boolean emailExists(String email) {
-        String sql = "SELECT email FROM Account WHERE email = ?";
+        String sql = "SELECT email FROM Account WHERE Email = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
@@ -238,7 +285,7 @@ public class AccountDAO extends DBContext {
             return false;
         }
     }
-    
+
     public void insert(Account account) {
         String sql = "INSERT INTO Account (fullName, email, password, phone, roleId, isVerified) VALUES (?, ?, ?, ?, ?, false)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -252,7 +299,7 @@ public class AccountDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
+
     public Account getAccountByEmail(String email) {
         Account account = null;
         String sql = "SELECT AccountId, RoleId, FullName, Email, Password, Phone FROM Account WHERE Email = ?";
@@ -275,22 +322,68 @@ public class AccountDAO extends DBContext {
         }
         return account;
     }
-    
-    public boolean updateAccount(Account account) {
-        String sql = "UPDATE Account SET FullName = ?, Phone = ? WHERE Email = ?";
-        boolean isUpdated = false;
 
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, account.getFullName());
-            st.setString(2, account.getPhone());
-            st.setString(3, account.getEmail());
-
-            int rowsUpdated = st.executeUpdate();
-            isUpdated = rowsUpdated > 0;
+    public boolean isEmailExists(String email) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE Email = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
         } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
-        return isUpdated;
+        return false;
     }
+
+    public boolean isPhoneExists(String phone, String currentEmail) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE Phone = ? AND Email <> ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, phone);
+            st.setString(2, currentEmail);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateAccount(String email, String fullName, String phone) {
+        String sql = "UPDATE Account SET FullName = ?, Phone = ? WHERE Email = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, fullName);
+            st.setString(2, phone);
+            st.setString(3, email);
+
+            return st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void testLogin(String email, String password) {
+        Account account = login(email, password);
+
+        if (account != null) {
+            System.out.println("Login successful. Account found.");
+            System.out.println("Account email: " + account.getEmail());
+            System.out.println("Account full name: " + account.getFullName());
+        } else {
+            System.out.println("Login failed. Account not found.");
+        }
+    }
+
+    public boolean verifyCode(String email, String code) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void markEmailAsVerified(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

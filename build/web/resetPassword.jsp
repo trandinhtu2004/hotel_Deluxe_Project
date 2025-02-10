@@ -1,9 +1,10 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Password Form</title>
+    <title>Reset Password</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -31,13 +32,6 @@
             text-align: center;
             margin-bottom: 1.5rem;
         }
-        .form-header h2 {
-            font-weight: bold;
-        }
-        .form-header p {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
         .btn-custom {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: #fff;
@@ -47,29 +41,23 @@
         .btn-custom:hover {
             background: linear-gradient(135deg, #2575fc, #6a11cb);
         }
-        .text-muted {
-            font-size: 0.8rem;
-            text-align: center;
-            margin-top: 1rem;
-        }
     </style>
 </head>
 <body>
-  <div class="registration-form">
-    <div class="form-header">
-        <h2>Forgot Password?</h2>
-        <p>Enter your email to reset your password.</p>
-    </div>
-    <form action="ForgetPassword" method="post">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+    <div class="registration-form">
+        <div class="form-header">
+            <h2>Reset Password</h2>
+            <p>Enter your new password below.</p>
         </div>
-        <button type="submit" class="btn btn-custom w-100">Send OTP</button>
-    </form>
-</div>
-
-
+        <form action="ResetPasswordServlet" method="post">
+            <input type="hidden" name="email" value="${email}">
+            <div class="mb-3">
+                <label for="password" class="form-label">New Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required>
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Reset Password</button>
+        </form>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

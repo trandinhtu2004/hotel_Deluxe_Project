@@ -11,24 +11,26 @@ import dal.AccountDAO;
 import java.io.IOException;
 import model.Role;
 
-@WebServlet("/login")
+@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
-      protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.login(email, password);
-
+        
         if (account != null) {
             HttpSession session = request.getSession();
-            session.setAttribute("account", account); // Lưu thông tin tài khoản vào session
-            response.sendRedirect("index.jsp"); // Chuyển hướng về trang chính
+            session.setAttribute("account", account);
+            response.sendRedirect("index.jsp");  // Chuyển hướng về trang chính
         } else {
             request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
+
     }
 
 }

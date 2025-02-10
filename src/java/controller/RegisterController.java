@@ -5,7 +5,6 @@
 package controller;
 
 import dal.AccountDAO;
-import email.EmailUtil;
 import hashPassword.hashUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,10 +58,9 @@ public class RegisterController extends HttpServlet {
     }
 
     // Mã hóa mật khẩu
-    String hashedPassword = hashUtil.hashPassword(password);
 
     // Lưu thông tin tài khoản vào database
-    Account account = new Account(fullName, email, hashedPassword, phone);
+    Account account = new Account(fullName, email, password, phone);
     accountDAO.insert(account);
 
     // Hiển thị thông báo đăng ký thành công

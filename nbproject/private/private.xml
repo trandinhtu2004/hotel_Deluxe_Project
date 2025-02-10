@@ -3,28 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/conf/MANIFEST.MF</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/includes/navbar.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/model/Role.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/scss/style.scss</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/dal/DBContext.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/hashPassword/hashUtil.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/verify.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/LogoutController.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/VerifyController.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/scss/bootstrap/_root.scss</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/WEB-INF/web.xml</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/rooms.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/LoginController.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/model/Account.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/login.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/register.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/index.jsp</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/controller/QuantityIndexController.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/src/java/email/EmailUtil.java</file>
-            <file>file:/D:/prn221/hotel_Deluxe_Project/web/META-INF/context.xml</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/ProfileControl.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/emailSender/EmailUtil.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/hashPassword/hashUtil.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/nbproject/build-impl.xml</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/VerifyOTPServlet.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/META-INF/context.xml</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/index.jsp</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/LoginController.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/verifyOTP.jsp</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/conf/MANIFEST.MF</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/forgetpassword.jsp</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/ForgetPassword.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/VerifyController.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/login.jsp</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/resetPassword.jsp</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/dal/AccountDAO.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/dal/DBContext.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/controller/ResetPasswordServlet.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/nbproject/build-impl.xml~</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/src/java/model/Account.java</file>
+            <file>file:/D:/SWP/hotel_Deluxe_Project/hotel_Deluxe_Project/web/WEB-INF/web.xml</file>
         </group>
     </open-files>
 </project-private>
