@@ -17,39 +17,44 @@ import model.Room;
  *
  * @author Admin
  */
-public class RoomDAO extends DBContext{
-    public void listRoomCategory(){
+public class RoomDAO extends DBContext {
+
+    public void listRoomCategory() {
         String sql = "";
     }
     
-    public int getTotalRoom(){
-    List<Room> list = new ArrayList<>();
-      String sql = "SELECT[RoomId]\n" +
-"      ,[RoomNumber]\n" +
-"      ,[RoomType]\n" +
-"      ,[Capacity]\n" +
-"      ,[PricePerNight]\n" +
-"      ,[Description]\n" +
-"      ,[Status]\n" +
-"  FROM [Room]";
+    public void findRoom(){
+        
+    }
+
+    public int getTotalRoom() {
+        List<Room> list = new ArrayList<>();
+        String sql = "SELECT[RoomId]\n"
+                + "      ,[RoomNumber]\n"
+                + "      ,[RoomType]\n"
+                + "      ,[Capacity]\n"
+                + "      ,[PricePerNight]\n"
+                + "      ,[Description]\n"
+                + "      ,[Status]\n"
+                + "  FROM [Room]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-               Room r = new Room();
-               r.setId(rs.getInt("RoomId"));
-               r.setRoomNumber(rs.getString("RoomNumber"));
-               r.setRoomType(rs.getString("RoomType"));
-               r.setCapacity(rs.getInt("Capacity"));
-               r.setPricePerNight(rs.getDouble("PricePerNight"));
-               r.setDescription(rs.getString("Description"));
-               r.setStatus(rs.getBoolean("Status"));
-               list.add(r);
+                Room r = new Room();
+                r.setId(rs.getInt("RoomId"));
+                r.setRoomNumber(rs.getString("RoomNumber"));
+                r.setRoomType(rs.getString("RoomType"));
+                r.setCapacity(rs.getInt("Capacity"));
+                r.setPricePerNight(rs.getDouble("PricePerNight"));
+                r.setDescription(rs.getString("Description"));
+                r.setStatus(rs.getBoolean("Status"));
+                list.add(r);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-      
-      return list.size();
+
+        return list.size();
     }
 }
