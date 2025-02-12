@@ -4,9 +4,6 @@
  */
 package controller;
 
-import emailSender.EmailUtil;
-import dal.AccountDAO;
-import model.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,15 +12,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
+import dal.AccountDAO;
+
 
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "ForgetPassword", urlPatterns = {"/ForgetPassword"})
-public class ForgetPassword extends HttpServlet {
+@WebServlet(name = "ChangePasswordForget", urlPatterns = {"/ChangePasswordForget"})
+public class ChangePasswordForget extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +40,10 @@ public class ForgetPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgetPassword</title>");            
+            out.println("<title>Servlet ChangePasswordForget</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ForgetPassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangePasswordForget at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +61,7 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("forgetpassword.jsp");
+        processRequest(request, response);
     }
 
     /**
@@ -77,25 +75,25 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String email = request.getParameter("email");
-              String phone = request.getParameter("phone");
-    AccountDAO accountDAO = new AccountDAO();
-
-    if (accountDAO.emailExists(email)) {
-        Account acc = accountDAO.getAccountByEmail(email);
-        if(!phone.equals(acc.getPhone())){
-            request.setAttribute("err", "Email or phone number does not exist or not match in same account  .");
-            request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
-        }
         HttpSession session = request.getSession();
-            session.setAttribute("email", email);
-        request.getRequestDispatcher("changePassAfterForget.jsp").forward(request, response);
-    } else {
-        request.setAttribute("err", "Email or phone number does not exist or not match in same account  .");
-        request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
+        String email = (String) session.getAttribute("email");
+        
+        String firstPassword = request.getParameter("firstpass");
+        String repPassword = request.getParameter("secpass");
+        
+        if(!firstPassword.equals(repPassword)){
+            request.setAttribute("err", "Password not match.");
+            request.getRequestDispatcher("changePassAfterForget.jsp").forward(request, response);
+        }else{
+            AccountDAO accountDAO = new AccountDAO();
+            accountDAO.changePassword(email, firstPassword);
+            response.sendRedirect("login.jsp");
+        }
+        
+        
+        
+        
     }
-    }
-    
 
     /**
      * Returns a short description of the servlet.

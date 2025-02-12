@@ -28,7 +28,7 @@ public class AccountDAO extends DBContext {
 
     private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
     private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123";
+    private static final String DB_PASSWORD = "123456";
 
     public void addAccount() {
 
@@ -97,12 +97,7 @@ public class AccountDAO extends DBContext {
         return list.size();
     }
 
-    public static void main(String[] args) {
-        AccountDAO a = new AccountDAO();
-        //test if everything go 
-        a.testLogin("minhhieufvc@gmail.com", "123");
-        a.storeOTP("minhhieufvc@gmail.com", "123321");
-    }
+    
 
     public int getTotalAccount() {
         String sql = "select * from Account\n"
@@ -149,6 +144,8 @@ public class AccountDAO extends DBContext {
         }
         return list;
     }
+    
+        
 
 //    public User getUserByEmail(String email) {
 //        String sql = "select * from users where email like ?";
@@ -171,18 +168,23 @@ public class AccountDAO extends DBContext {
 //        }
 //        return user;
 //    }
-    public void changePassword(int accountId, String newPassword) {
+    public void changePassword(String email, String newPassword) {
         //Em nghĩ ở đây xài accountID để xác định tài khoản cần đổi mật khẩu sẽ tốt hơn
         //Kiểu xài email hay phone lấy ra từ account nghe nó đần ý
-        String sql = "UPDATE Account SET Password = ? WHERE AccountId = ?";
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
-            st.setInt(2, accountId);
+            st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public static void main(String[] args) {
+        AccountDAO a = new AccountDAO();    
+        a.changePassword("admin@example.com", "quanthuan1");
     }
 
 //    public String getPasswordByEmail(String email) {
@@ -299,6 +301,8 @@ public class AccountDAO extends DBContext {
             e.printStackTrace();
         }
     }
+    
+
 
     public Account getAccountByEmail(String email) {
         Account account = null;

@@ -63,9 +63,10 @@
                                         <div class="col-md-6"><label class="labels">Fullname</label><input type="text" class="form-control" placeholder="full name" name="fullName" value="${account.fullName}"></div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" name="phone" placeholder="enter phone number" value="${account.phone}"><div>
+                                        <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" name="phone" placeholder="enter phone number" value="${account.phone}"><div>
                                                 <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" name="email" readonly="" placeholder="enter email id" value="${account.email}"></div>
                                             </div>
+                                            
                                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                                             <div class="mt-5 text-center"><a class="btn btn-primary profile-button" href="changePassword.jsp">Change Password</a></div>
                                         </div>

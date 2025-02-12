@@ -88,10 +88,10 @@ public class ChangePassword extends HttpServlet {
     
     HttpSession session = request.getSession();
     Account account = (Account) session.getAttribute("account");
-    Integer accountId = account.getAccountId();
+    String email = account.getEmail();
     String oldPasswords = account.getPassword();
     
-    if (accountId == null || oldPasswords == null) {
+    if (email == null || oldPasswords == null) {
         String errorMessage = "Session expired or invalid. Please log in again.";
         request.setAttribute("err", errorMessage);
         request.getRequestDispatcher("changePassword.jsp").forward(request, response);
@@ -106,7 +106,7 @@ public class ChangePassword extends HttpServlet {
         request.setAttribute("err", errorMessage);
         request.getRequestDispatcher("changePassword.jsp").forward(request, response);
     } else {
-        accountDAO.changePassword(accountId, newPassword); // Implement this method
+        accountDAO.changePassword(email, newPassword);
         response.sendRedirect("profile.jsp");
     }
     }
