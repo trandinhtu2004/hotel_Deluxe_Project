@@ -15,7 +15,6 @@ import java.sql.SQLException;
 public class DBContext {
 
     
-    
     protected Connection connection;
     public DBContext()
     {
@@ -33,9 +32,6 @@ public class DBContext {
             System.out.println(ex);
         }
     }
-    
-    
-    
     public static void main(String[] args) {
         DBContext db = new DBContext();
         System.out.println(db);

@@ -24,9 +24,9 @@ import sun.awt.KeyboardFocusManagerPeerImpl;
  *
  * @author Admin
  */
-
 public class RoomDAO extends DBContext {
-
+    
+    
     public ArrayList<Category> getTop3Category() {
 
         ArrayList<Category> list = new ArrayList<>();
@@ -57,8 +57,8 @@ public class RoomDAO extends DBContext {
         }
         return list;
     }
-
-    public ArrayList<Category> ListCategory() {
+    
+    public ArrayList<Category> getCategory() {
 
         ArrayList<Category> list = new ArrayList<>();
         String sql = "SELECT [CategoryId]\n"
@@ -88,6 +88,28 @@ public class RoomDAO extends DBContext {
         return list;
     }
 
+    public ArrayList<Category> listRoomCategory() {
+
+        ArrayList<Category> list = new ArrayList<>();
+        String sql = "";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Category c = new Category();
+                c.setCategoryId(rs.getInt("CategoryId"));
+                c.setCategoryName(sql);
+                c.setCapacity(0);
+                c.setPricePerNight(0);
+                c.setDescription(sql);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     public void findRoom() {
 
@@ -95,9 +117,12 @@ public class RoomDAO extends DBContext {
 
     public int getTotalRoom() {
         ArrayList<Room> list = new ArrayList<>();
-        String sql = "SELECT  [RoomId]\n"
+        String sql = "SELECT[RoomId]\n"
                 + "      ,[RoomNumber]\n"
-                + "      ,[CategoryId]\n"
+                + "      ,[RoomType]\n"
+                + "      ,[Capacity]\n"
+                + "      ,[PricePerNight]\n"
+                + "      ,[Description]\n"
                 + "      ,[Status]\n"
                 + "  FROM [Room]"; //dang sai sql
         try {
@@ -122,7 +147,8 @@ public class RoomDAO extends DBContext {
 
         return list.size();
     }
-
+    
+    
     public static void main(String[] args) {
         RoomDAO r = new RoomDAO();
         ArrayList<Category> topCategory = new ArrayList<>();
@@ -131,9 +157,9 @@ public class RoomDAO extends DBContext {
         for (Category c : topCategory) {
             System.err.println(c.getFormattedPrice());
         }
-
-        System.err.println(r.getTotalRoom());
-
+        
+        System.err.println();
+       
     }
-
+    
 }
