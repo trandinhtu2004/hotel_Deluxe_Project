@@ -47,6 +47,10 @@
         .btn-custom:hover {
             background: linear-gradient(135deg, #2575fc, #6a11cb);
         }
+        .bottoms p{
+            padding-top: 10px;
+            color: red;
+        }
         .text-muted {
             font-size: 0.8rem;
             text-align: center;
@@ -65,7 +69,15 @@
             <label for="email" class="form-label">Email Address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
         </div>
-        <button type="submit" class="btn btn-custom w-100">Send OTP</button>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="phone" class="form-control" id="phone" name="phone" placeholder="Enter your phone number:" required>
+        </div>
+        
+        <div class="bottoms">
+            <button type="submit" class="btn btn-custom w-100">Change Password</button>
+            <p>${err}</p>
+        </div>
     </form>
 </div>
 

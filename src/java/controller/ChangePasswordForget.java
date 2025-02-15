@@ -4,9 +4,6 @@
  */
 package controller;
 
-
-
-import dal.AccountDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,8 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
-import model.Account;
+import dal.AccountDAO;
 
 
 
@@ -24,8 +20,8 @@ import model.Account;
  *
  * @author DELL
  */
-@WebServlet(name = "ChangePassword", urlPatterns = {"/ChangePassword"})
-public class ChangePassword extends HttpServlet {
+@WebServlet(name = "ChangePasswordForget", urlPatterns = {"/ChangePasswordForget"})
+public class ChangePasswordForget extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +40,10 @@ public class ChangePassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");            
+            out.println("<title>Servlet ChangePasswordForget</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChangePasswordForget at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -79,36 +75,24 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountDAO accountDAO = new AccountDAO();
-    
-    String oldPassword = request.getParameter("oldp");
-    String newPassword = request.getParameter("newp");
-    String reNewPassword = request.getParameter("renewp");
-    
-    
-    HttpSession session = request.getSession();
-    Account account = (Account) session.getAttribute("account");
-    String email = account.getEmail();
-    String oldPasswords = account.getPassword();
-    
-    if (email == null || oldPasswords == null) {
-        String errorMessage = "Session expired or invalid. Please log in again.";
-        request.setAttribute("err", errorMessage);
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-        return;
-    }
-    
-    boolean isOldPasswordCorrect = oldPassword.equals(oldPasswords);
-    boolean isNewPasswordMatch = newPassword.equals(reNewPassword);
-
-    if (!isOldPasswordCorrect || !isNewPasswordMatch) {
-        String errorMessage = "Old password incorrect or New Password and Re-enter Password do not match";
-        request.setAttribute("err", errorMessage);
-        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-    } else {
-        accountDAO.changePassword(email, newPassword);
-        response.sendRedirect("profile.jsp");
-    }
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        
+        String firstPassword = request.getParameter("firstpass");
+        String repPassword = request.getParameter("secpass");
+        
+        if(!firstPassword.equals(repPassword)){
+            request.setAttribute("err", "Password not match.");
+            request.getRequestDispatcher("changePassAfterForget.jsp").forward(request, response);
+        }else{
+            AccountDAO accountDAO = new AccountDAO();
+            accountDAO.changePassword(email, firstPassword);
+            response.sendRedirect("login.jsp");
+        }
+        
+        
+        
+        
     }
 
     /**

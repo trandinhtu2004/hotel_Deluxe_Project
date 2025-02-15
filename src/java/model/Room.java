@@ -11,22 +11,16 @@ package model;
 public class Room {
     private int id;
     private String roomNumber;
-    private String roomType;
-    private int capacity;
-    private double pricePerNight;
-    private String description;
+    private Category category;
     private boolean status;
 
     public Room() {
     }
 
-    public Room(int id, String roomNumber, String roomType, int capacity, double pricePerNight, String description, boolean status) {
+    public Room(int id, String roomNumber, Category category, boolean status) {
         this.id = id;
         this.roomNumber = roomNumber;
-        this.roomType = roomType;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
-        this.description = description;
+        this.category = category;
         this.status = status;
     }
 
@@ -46,36 +40,12 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public String getRoomType() {
-        return roomType;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public double getPricePerNight() {
-        return pricePerNight;
-    }
-
-    public void setPricePerNight(double pricePerNight) {
-        this.pricePerNight = pricePerNight;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public boolean isStatus() {
@@ -85,6 +55,5 @@ public class Room {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
-    
+
 }
