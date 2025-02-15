@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,8 +53,6 @@ public class RoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        RoomDAO r = new RoomDAO();
-        request.setAttribute("topRoom", r.getTop3Category());
         processRequest(request, response);
     } 
 
