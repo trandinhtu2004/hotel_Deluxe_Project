@@ -348,17 +348,7 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		                <strong class="number" data-number="
-                                        
-                                        <%
-                                        AccountDAO a = new AccountDAO(); 
-        
-        //lay database - > chuyen sang product.jsp
-        request.setAttribute("totalCustumers", a.getTotalCustumers());
-        request.setAttribute("totalStaffs", a.getTotalStaffs());
-                                        %>
-                                        ${totalCustumers}
-                                        ">0</strong>
+		               
 		                <span>Happy Guests</span>
 		              </div>
 		            </div>
@@ -366,14 +356,7 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		                <strong class="number" data-number="
-                                        <%
-                                        RoomDAO r = new RoomDAO(); 
-        
-        request.setAttribute("totalRooms", r.getTotalRoom());
-                                        %>
-                                        ${totalRooms}
-                                        ">0</strong>
+		               
 		                <span>Rooms</span>
 		              </div>
 		            </div>

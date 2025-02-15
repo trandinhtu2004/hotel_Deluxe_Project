@@ -11,7 +11,7 @@ package model;
 public class Account {
 
     int accountId;
-    Role role;
+    int role;
     String fullName;
     String email;
     String password;
@@ -22,7 +22,7 @@ public class Account {
     }
 
     public Account(String fullName, String email, String password, String phone) {
-        this.role = new Role(2, "Customer");
+       
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -38,14 +38,15 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public Role getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
+ 
     public String getFullName() {
         return fullName;
     }

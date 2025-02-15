@@ -14,16 +14,14 @@ import java.sql.SQLException;
  */
 public class DBContext {
 
-    static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     protected Connection connection;
     public DBContext()
     {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
             String url = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;"
-                    + "databaseName = HotelManagement;"
+                    + "databaseName=HotelManagement;"
                     + "encrypt=true;"
                     + "trustServerCertificate=true;";
             String username = "sa";

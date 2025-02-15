@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
 
-
 /**
  *
  * @author DELL
@@ -41,7 +40,7 @@ public class ForgetPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgetPassword</title>");            
+            out.println("<title>Servlet ForgetPassword</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ForgetPassword at " + request.getContextPath() + "</h1>");
@@ -76,23 +75,24 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String email = request.getParameter("email");
-    AccountDAO accountDAO = new AccountDAO();
+        String email = request.getParameter("email");
+        AccountDAO accountDAO = new AccountDAO();
 
-    if (accountDAO.emailExists(email)) {
-        String otp = generateOTP();
-        HttpSession session = request.getSession();
-        session.setAttribute("otp", otp);
-        session.setAttribute("email", email);
+        if (accountDAO.emailExists(email)) {
+            String otp = generateOTP();
+            HttpSession session = request.getSession();
+            session.setAttribute("otp", otp);
+            session.setAttribute("email", email);
 
-        request.setAttribute("otp", otp);
-        request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
-    } else {
-        request.setAttribute("error", "Email does not exist.");
-        request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
+            request.setAttribute("otp", otp);
+            request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
+        } else {
+            request.setAttribute("error", "Email does not exist.");
+            request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
+        }
     }
-    }
-     private String generateOTP() {
+
+    private String generateOTP() {
         Random random = new Random();
         int otp = 100000 + random.nextInt(900000); // 6 chữ số
         return String.valueOf(otp);
