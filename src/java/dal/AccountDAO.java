@@ -30,76 +30,79 @@ public class AccountDAO extends DBContext {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "123";
 
+     
     public void addAccount() {
 
     }
 
-//    public int getTotalStaffs() {
-//        List<Account> list = new ArrayList<>();
-//        String sql = "select * from Account\n"
-//                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-//                + "                where r.RoleId = 2";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                //get Account
-//                Account p = new Account();
-//                p.setAccountId(rs.getInt("AccountId"));
-//
-//                //getID role
-//                Role r = new Role();
-//                r.setRoleId(rs.getInt("RoleId"));
-//                r.setRoleName(rs.getString("RoleName"));
-//                p.setRole(r);
-//
-//                p.setFullName(rs.getString("Fullname"));
-//                p.setEmail(rs.getString("Email"));
-//                p.setPassword(rs.getString("Password"));
-//                p.setPhone(rs.getString("Phone"));
-//                list.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return list.size();
-//    }
+    public int getTotalStaffs() {
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+                + "                where r.RoleId = 2";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                //get Account
+                Account p = new Account();
+               p.setAccountId(rs.getInt("AccountId"));
 
-//    public int getTotalCustumers() {
-//        List<Account> list = new ArrayList<>();
-//        String sql = "select * from Account\n"
-//                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-//                + "                where r.RoleId = 3";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                //get Account
-//                Account p = new Account();
-//                p.setAccountId(rs.getInt("AccountId"));
-//
-//                //getID role
-//                Role r = new Role();
-//                r.setRoleId(rs.getInt("RoleId"));
-//                r.setRoleName(rs.getString("RoleName"));
-//                p.setRole(r);
-//
-//                p.setFullName(rs.getString("Fullname"));
-//                p.setEmail(rs.getString("Email"));
-//                p.setPassword(rs.getString("Password"));
-//
-//                p.setPhone(rs.getString("Phone"));
-//                list.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return list.size();
-//    }
+                //getID role
+                Role r = new Role();
+                r.setRoleId(rs.getInt("RoleId"));
+                r.setRoleName(rs.getString("RoleName"));
+                p.setRole(r);
+
+                p.setFullName(rs.getString("Fullname"));
+                p.setEmail(rs.getString("Email"));
+                p.setPassword(rs.getString("Password"));
+                p.setPhone(rs.getString("Phone"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list.size();
+    }
+
+    public int getTotalCustumers() {
+        List<Account> list = new ArrayList<>();
+       String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+               + "                where r.RoleId = 3";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                //get Account
+                Account p = new Account();
+               p.setAccountId(rs.getInt("AccountId"));
+
+                //getID role
+                Role r = new Role();
+                r.setRoleId(rs.getInt("RoleId"));
+                r.setRoleName(rs.getString("RoleName"));
+                p.setRole(r);
+
+                p.setFullName(rs.getString("Fullname"));
+                p.setEmail(rs.getString("Email"));
+                p.setPassword(rs.getString("Password"));
+
+                p.setPhone(rs.getString("Phone"));
+                list.add(p);
+           }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list.size();
+    }
 
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
         //test if everything go 
+        
+        
        
         Account a1= new Account();
         a1.setAccountId(2);
@@ -107,7 +110,7 @@ public class AccountDAO extends DBContext {
         a1.setFullName("Nguyen Minh Hieu");
         a1.setPassword("123");
         a1.setPhone("0921970999");
-        a1.setRole(1);
+        a1.setRoleid(1);
         a.insert(a1);
         
         
@@ -278,7 +281,7 @@ public class AccountDAO extends DBContext {
                 account.setPassword(rs.getString("Password"));
                 account.setFullName(rs.getString("FullName"));
                 account.setPhone(rs.getString("Phone"));
-                account.setRole(rs.getInt("RoleId"));
+                account.setRoleid(rs.getInt("RoleId"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -378,10 +381,12 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
+    
     public void testLogin(String email, String password) {
         Account account = login(email, password);
 
         if (account != null) {
+            
             System.out.println("Login successful. Account found.");
             System.out.println("Account email: " + account.getEmail());
             System.out.println("Account full name: " + account.getFullName());
