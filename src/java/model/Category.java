@@ -15,6 +15,17 @@ public class Category {
     private double pricePerNight;
     private String description;
     private String image;
+    private String formattedPrice;
+
+    public String getFormattedPrice() {
+        return formattedPrice;
+    }
+
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    
     public Category() {
     }
 
@@ -38,13 +49,7 @@ public class Category {
         this.categoryId = CategoryId;
     }
 
-    public String getRoomType() {
-        return categoryName;
-    }
-
-    public void setRoomType(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    
 
     public int getCapacity() {
         return capacity;
