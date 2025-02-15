@@ -43,7 +43,14 @@
   </head>
   <body>
       <%@include file="includes/navbar.jsp" %>
-    
+    <%
+                    RoomDAO r = new RoomDAO();
+                    AccountDAO d = new AccountDAO();
+        request.setAttribute("staffs", d.getTotalStaffs());
+        request.setAttribute("customers", d.getTotalCustumers());
+                request.setAttribute("topRoom", r.getTop3Category());
+                request.setAttribute("categories", r.ListCategory());
+                        %>
 
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image:url(images/bg_1.jpg);">
@@ -105,12 +112,10 @@
 			        					<div class="select-wrap">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 			                    <select name="" id="" class="form-control">
-			                    	<option value="">Suite</option>
-			                      <option value="">Family Room</option>
-			                      <option value="">Deluxe Room</option>
-			                      <option value="">Classic Room</option>
-			                      <option value="">Superior Room</option>
-			                      <option value="">Luxury Room</option>
+                                                <c:forEach var="c" items="${categories}">
+                                                    <option value="">${c.getCategoryName()}</option>
+                                                </c:forEach>
+			                    	
 			                    </select>
 			                  </div>
 				              </div>
@@ -247,11 +252,7 @@
           </div>
         </div>    		
     		<div class="row">
-                    <%
-                    RoomDAO r = new RoomDAO();
-                request.setAttribute("topRoom", r.getTop3Category());
-                 
-                        %>
+                    
                         <c:forEach var="c" items="${topRoom}">
     			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
     				<div class="room">
@@ -282,6 +283,10 @@
 		            <div class="block-18 text-center">
 		              <div class="text">
 		               
+                                  
+                                  <strong class="number" data-number="
+                                        ${customers}
+                                        ">0</strong>
 		                <span>Happy Guests</span>
 		              </div>
 		            </div>
@@ -289,18 +294,16 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-<<<<<<< Updated upstream
-		               
-=======
+
 		                <strong class="number" data-number="
                                         <%
                                         
-        
         request.setAttribute("totalRooms", r.getTotalRoom());
+        
                                         %>
                                         ${totalRooms}
                                         ">0</strong>
->>>>>>> Stashed changes
+
 		                <span>Rooms</span>
 		              </div>
 		            </div>
@@ -308,7 +311,7 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		                <strong class="number" data-number="${totalStaffs}">0</strong>
+		                <strong class="number" data-number="${Staffs}">0</strong>
 		                <span>Staffs</span>
 		              </div>
 		            </div>

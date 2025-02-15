@@ -17,12 +17,6 @@ public class Room {
     public Room() {
     }
 
-    public Room(int id, String roomNumber, Category category, boolean status) {
-        this.id = id;
-        this.roomNumber = roomNumber;
-        this.category = category;
-        this.status = status;
-    }
 
     public int getId() {
         return id;

@@ -17,6 +17,7 @@ public class Category {
     private String image;
     private String formattedPrice;
 
+    
     public String getFormattedPrice() {
         return formattedPrice;
     }
@@ -25,20 +26,8 @@ public class Category {
         this.formattedPrice = formattedPrice;
     }
 
-    
     public Category() {
     }
-
-    public Category(int categoryId, String categoryName, int capacity, double pricePerNight, String description, String image) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
-        this.description = description;
-        this.image = image;
-    }
-    
-    
 
 
     public int getCategoryId() {
