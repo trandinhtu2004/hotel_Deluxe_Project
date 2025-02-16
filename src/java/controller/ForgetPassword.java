@@ -6,7 +6,6 @@ package controller;
 
 import emailSender.EmailUtil;
 import dal.AccountDAO;
-import model.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
-
 
 /**
  *
@@ -42,7 +40,7 @@ public class ForgetPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgetPassword</title>");            
+            out.println("<title>Servlet ForgetPassword</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ForgetPassword at " + request.getContextPath() + "</h1>");
@@ -77,25 +75,28 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-              String email = request.getParameter("email");
-              String phone = request.getParameter("phone");
-    AccountDAO accountDAO = new AccountDAO();
+        String email = request.getParameter("email");
+        AccountDAO accountDAO = new AccountDAO();
 
-    if (accountDAO.emailExists(email)) {
-        Account acc = accountDAO.getAccountByEmail(email);
-        if(!phone.equals(acc.getPhone())){
-            request.setAttribute("err", "Email or phone number does not exist or not match in same account  .");
+        if (accountDAO.emailExists(email)) {
+            String otp = generateOTP();
+            HttpSession session = request.getSession();
+            session.setAttribute("otp", otp);
+            session.setAttribute("email", email);
+
+            request.setAttribute("otp", otp);
+            request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
+        } else {
+            request.setAttribute("error", "Email does not exist.");
             request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("email", email);
-        request.getRequestDispatcher("changePassAfterForget.jsp").forward(request, response);
-    } else {
-        request.setAttribute("err", "Email or phone number does not exist or not match in same account  .");
-        request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
     }
+
+    private String generateOTP() {
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(900000); // 6 chữ số
+        return String.valueOf(otp);
     }
-    
 
     /**
      * Returns a short description of the servlet.
