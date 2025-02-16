@@ -4,11 +4,27 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/RoomDAO.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Room.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/AccountDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/emailSender/EmailUtil.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/RegisterController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ChangePassword.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/VerifyOTPServlet.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Category.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Account.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/css/style.css</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/hashPassword/hashUtil.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/rooms.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/login.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/index.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/LogoutController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/register.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ProfileControl.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ChangePasswordForget.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Room.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Role.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/RoomController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Account.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/forgetpassword.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -40,7 +40,7 @@ public class RoomDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            DecimalFormat df = new DecimalFormat("#,##0.000");
+            DecimalFormat df = new DecimalFormat();
             while (rs.next()) {
                 Category c = new Category();
                 c.setCategoryName(rs.getString("CategoryName"));
@@ -58,6 +58,7 @@ public class RoomDAO extends DBContext {
         return list;
     }
 
+    
     public ArrayList<Category> ListCategory() {
 
         ArrayList<Category> list = new ArrayList<>();
@@ -71,7 +72,7 @@ public class RoomDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-
+            DecimalFormat df = new DecimalFormat();
             while (rs.next()) {
                 Category c = new Category();
                 c.setCategoryName(rs.getString("CategoryName"));
@@ -79,6 +80,7 @@ public class RoomDAO extends DBContext {
                 c.setDescription(rs.getString("Description"));
                 c.setImage(rs.getString("Image"));
                 c.setPricePerNight(rs.getDouble("PricePerNight"));
+                c.setFormattedPrice(df.format(c.getPricePerNight()));
                 list.add(c);
             }
 
@@ -87,7 +89,67 @@ public class RoomDAO extends DBContext {
         }
         return list;
     }
-
+    
+    public ArrayList<Category> searchCategory(String categoryName) {
+            ArrayList<Category> list = new ArrayList<>();
+            
+            String sql = "SELECT [CategoryId]\n"
+                    + "      ,[CategoryName]\n"
+                    + "      ,[Capacity]\n"
+                    + "      ,[PricePerNight]\n"
+                    + "      ,[Description]\n"
+                    + "      ,[Image]\n"
+                    + "  FROM [Category] c \n"
+                    + "  where c.CategoryName like ?";
+            try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, categoryName);
+            ResultSet rs = st.executeQuery();
+                while (rs.next()) { 
+                    Category c = new Category();
+                c.setCategoryName(rs.getString("CategoryName"));
+                c.setCapacity(rs.getInt("Capacity"));
+                c.setDescription(rs.getString("Description"));
+                c.setImage(rs.getString("Image"));
+                c.setPricePerNight(rs.getDouble("PricePerNight"));
+                list.add(c);    
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
+    public ArrayList<Category> filterRoomCategoryByPrice(double minPrice, double maxPrice) {
+            ArrayList<Category> list = new ArrayList<>();
+            
+            String sql = "SELECT [CategoryId]\n"
+                    + "      ,[CategoryName]\n"
+                    + "      ,[Capacity]\n"
+                    + "      ,[PricePerNight]\n"
+                    + "      ,[Description]\n"
+                    + "      ,[Image]\n"
+                    + "  FROM [Category] \n"
+                    + "  where c.PricePerNight >= ? and c.PricePerNight <= ?";
+            try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setDouble(1, minPrice);
+            st.setDouble(2, maxPrice);
+            ResultSet rs = st.executeQuery();
+                while (rs.next()) { 
+                    Category c = new Category();
+                c.setCategoryName(rs.getString("CategoryName"));
+                c.setCapacity(rs.getInt("Capacity"));
+                c.setDescription(rs.getString("Description"));
+                c.setImage(rs.getString("Image"));
+                c.setPricePerNight(rs.getDouble("PricePerNight"));
+                list.add(c);    
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     public void findRoom() {
 
@@ -127,7 +189,7 @@ public class RoomDAO extends DBContext {
         RoomDAO r = new RoomDAO();
         ArrayList<Category> topCategory = new ArrayList<>();
         topCategory = r.getTop3Category();
-        DecimalFormat df = new DecimalFormat("#,##0.000");
+        DecimalFormat df = new DecimalFormat();
         for (Category c : topCategory) {
             System.err.println(c.getFormattedPrice());
         }

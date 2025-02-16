@@ -125,17 +125,14 @@
 	        			<div class="col-md d-flex">
 	        				<div class="form-group p-4 align-self-stretch d-flex align-items-end">
 	        					<div class="wrap">
-			      					<label for="#">Customer</label>
+			      					<label for="#">Rooms</label>
 			      					<div class="form-field">
 			        					<div class="select-wrap">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 			                    <select name="" id="" class="form-control">
-			                    	<option value="">1 Adult</option>
-			                      <option value="">2 Adult</option>
-			                      <option value="">3 Adult</option>
-			                      <option value="">4 Adult</option>
-			                      <option value="">5 Adult</option>
-			                      <option value="">6 Adult</option>
+			                    	<option value="">1 Room</option>
+			                      <option value="">2 Rooms</option>
+			                      
 			                    </select>
 			                  </div>
 				              </div>

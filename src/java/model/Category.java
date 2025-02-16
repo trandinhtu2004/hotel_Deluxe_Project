@@ -39,7 +39,6 @@ public class Category {
     }
 
     
-
     public int getCapacity() {
         return capacity;
     }

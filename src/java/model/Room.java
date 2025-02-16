@@ -14,6 +14,7 @@ public class Room {
     private Category category;
     private boolean status;
 
+    
     public Room() {
     }
 

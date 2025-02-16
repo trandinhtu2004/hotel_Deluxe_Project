@@ -9,7 +9,6 @@ package model;
  * @author Admin
  */
 public class Account {
-
     int accountId;
     int roleid;
     Role role;
