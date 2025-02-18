@@ -63,13 +63,24 @@
             const phone = document.getElementById("phone").value.trim();
             const password = document.getElementById("password").value.trim();
             const confirmPassword = document.getElementById("confirm-password").value.trim();
+            let errorMessages = [];
 
-            if (!fullName || !email || !phone || !password || !confirmPassword) {
-                alert("Vui lòng ?i?n ??y ?? thông tin!");
-                return;
+            if (!fullName)
+                errorMessages.push("Tên không ???c ?? tr?ng!");
+            if (!email)
+                errorMessages.push("Email không ???c ?? tr?ng!");
+            if (!phone) {
+                errorMessages.push("S? ?i?n tho?i không ???c ?? tr?ng!");
+            } else if (!/^0\d{9}$/.test(phone)) {
+                errorMessages.push("S? ?i?n tho?i ph?i b?t ??u b?ng 0 và có ?úng 10 ch? s?!");
             }
-            if (password !== confirmPassword) {
-                alert("M?t kh?u xác nh?n không kh?p!");
+            if (!password)
+                errorMessages.push("M?t kh?u không ???c ?? tr?ng!");
+            if (password !== confirmPassword)
+                errorMessages.push("M?t kh?u xác nh?n không kh?p!");
+
+            if (errorMessages.length > 0) {
+                alert(errorMessages.join("\n")); // Hi?n th? t?t c? l?i
                 return;
             }
 
@@ -89,13 +100,14 @@
     </script>
 
 
+
     <body>
         <div class="registration-form">
             <div class="form-header">
                 <h2>Create Your Account</h2>
                 <p>Sign up to get started!</p>
             </div>
-            <form id="registerForm" action="register" method="post">
+            <form id="registerForm" action="RegisterController" method="post">
                 <div class="mb-3">
                     <label for="fullName" class="form-label">Username</label>
                     <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your username" required>
@@ -120,6 +132,12 @@
                     <input type="checkbox" class="form-check-input" id="terms" required>
                     <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-primary">terms and conditions</a></label>
                 </div>
+                <input type="hidden" name="otpSent" id="otpSent">
+                <% String message = (String) request.getAttribute("message"); %>
+                <% if (message != null) { %>
+                <div class="alert alert-danger"><%= message %></div>
+                <% } %>
+
                 <button type="submit" class="btn btn-custom w-100">Register</button>
             </form>
             <div class="text-muted">

@@ -1,4 +1,4 @@
-package emailSender;
+    package emailSender;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,6 +9,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+    
 public class EmailUtil {
 
     public static void sendVerificationEmail(String email, String otp) {
@@ -20,9 +21,9 @@ public class EmailUtil {
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-
+        props.put("mail.smtp.starttls.required", "true");
+       props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+       
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password);
@@ -43,6 +44,6 @@ public class EmailUtil {
         }
     }
      public static void main(String[] args) {
-       EmailUtil.sendVerificationEmail("minhhieufvc@.com", "123456");
+       EmailUtil.sendVerificationEmail("tutdhe182353@fpt.edu.vn", "123456");
     }
 }

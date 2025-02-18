@@ -52,14 +52,7 @@
         <servlet-name>ForgetPassword</servlet-name>
         <url-pattern>/ForgetPassword</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>controller.LoginController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/LoginController</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>RoomController</servlet-name>
         <url-pattern>/RoomController</url-pattern>
