@@ -1,76 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import dal.AccountDAO;
-import hashPassword.hashUtil;
+import emailSender.EmailUtil;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Random;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Random;
-import model.Account;
+import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author AD
- */
-@WebServlet("/register")
+@WebServlet("/RegisterController")
 public class RegisterController extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String fullName = request.getParameter("fullName");
-    String email = request.getParameter("email");
-    String password = request.getParameter("password");
-    String phone = request.getParameter("phone");
+        // Kiểm tra mật khẩu có khớp không
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("message", "Passwords do not match!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
 
-    // Debug log để kiểm tra dữ liệu nhận được
-    System.out.println("Full Name: " + fullName);
-    System.out.println("Email: " + email);
-    System.out.println("Phone: " + phone);
-    System.out.println("Password: " + password); // Kiểm tra mật khẩu có bị null không
+        // Kiểm tra email đã tồn tại chưa (giả sử AccountDAO có phương thức này)
+        AccountDAO dao = new AccountDAO();
+        if (dao.emailExists(email)) {
+            request.setAttribute("message", "Email is already registered!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
 
-    if (password == null || password.isEmpty()) {
-        request.setAttribute("message", "Mật khẩu không được để trống!");
-        request.getRequestDispatcher("register.jsp").forward(request, response);
-        return;
-    }
+        // Tạo OTP
+        String otp = String.valueOf(new Random().nextInt(900000) + 100000);
 
-    AccountDAO accountDAO = new AccountDAO();
-    if (accountDAO.emailExists(email)) {
-        request.setAttribute("message", "Email đã tồn tại!");
-        request.getRequestDispatcher("register.jsp").forward(request, response);
-        return;
-    }
+        // Lưu OTP vào session để xác nhận sau
+        HttpSession session = request.getSession();
+        session.setAttribute("otp", otp);
+        session.setAttribute("email", email);
+        session.setAttribute("fullName", fullName);
+        session.setAttribute("phone", phone);
+        session.setAttribute("password", password);
 
-    // Mã hóa mật khẩu
+        // Gửi OTP qua email
+        EmailUtil.sendVerificationEmail(email, otp);
 
-    // Lưu thông tin tài khoản vào database
-    Account account = new Account(fullName, email, password, phone);
-    accountDAO.insert(account);
-
-    // Hiển thị thông báo đăng ký thành công
-    request.setAttribute("message", "Đăng ký thành công! Vui lòng kiểm tra email để xác nhận tài khoản.");
-    request.getRequestDispatcher("login.jsp").forward(request, response);
-}
-
-
-    private String generateVerificationCode() {
-        Random random = new Random();
-        return String.format("%06d", random.nextInt(1000000));
+        // Chuyển hướng đến trang nhập OTP
+        response.sendRedirect("otp_verification.jsp?email=" + email);
     }
 }
