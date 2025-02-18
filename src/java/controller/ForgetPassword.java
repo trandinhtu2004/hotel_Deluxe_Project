@@ -88,7 +88,7 @@ public class ForgetPassword extends HttpServlet {
             request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
         }
         HttpSession session = request.getSession();
-            session.setAttribute("email", email);
+        session.setAttribute("email", email);
         request.getRequestDispatcher("changePassAfterForget.jsp").forward(request, response);
     } else {
         request.setAttribute("err", "Email or phone number does not exist or not match in same account  .");
