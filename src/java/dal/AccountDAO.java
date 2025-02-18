@@ -184,7 +184,10 @@ public class AccountDAO extends DBContext {
     
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();    
-        a.changePassword("admin@example.com", "quanthuan1");
+        List<Account> list= a.getAllAccount();
+        for (Account account : list) {
+            System.out.println(account.getEmail()+" "+account.getPhone()+" "+account.getPassword());
+        }
     }
 
 //    public String getPasswordByEmail(String email) {
