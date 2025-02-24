@@ -10,7 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
 
-@WebServlet("/VerifyOTPServlet")
+@WebServlet(name = "VerifyOTPServlet", urlPatterns = {"/VerifyOTPServlet"})
+
 public class VerifyOTPServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -36,7 +37,7 @@ public class VerifyOTPServlet extends HttpServlet {
             response.sendRedirect("login.jsp?success=registered");
         } else {
             request.setAttribute("message", "Invalid OTP! Please try again.");
-            request.getRequestDispatcher("otp_verification.jsp").forward(request, response);
+            request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
         }
     }
 }

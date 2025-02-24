@@ -72,30 +72,19 @@
             if (!phone) {
                 errorMessages.push("S? ?i?n tho?i không ???c ?? tr?ng!");
             } else if (!/^0\d{9}$/.test(phone)) {
-                errorMessages.push("S? ?i?n tho?i ph?i b?t ??u b?ng 0 và có ?úng 10 ch? s?!");
+                errorMessages.push("S? ?i?n tho?i ph?i b?t ??u là 0 và có ?úng 10 ch? s?!");
             }
             if (!password)
                 errorMessages.push("M?t kh?u không ???c ?? tr?ng!");
             if (password !== confirmPassword)
-                errorMessages.push("M?t kh?u xác nh?n không kh?p!");
+                errorMessages.push("M?t kh?u không kh?p v?i m?t kh?u ?ã nh?p!");
 
             if (errorMessages.length > 0) {
                 alert(errorMessages.join("\n")); // Hi?n th? t?t c? l?i
                 return;
             }
 
-            fetch("register", {
-                method: "POST",
-                body: new FormData(document.getElementById("registerForm"))
-            })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert("??ng ký thành công! Chuy?n h??ng v? trang ??ng nh?p...");
-                        setTimeout(() => {
-                            window.location.href = "login.jsp";
-                        }, 2000);
-                    })
-                    .catch(error => console.error("L?i:", error));
+            
         });
     </script>
 

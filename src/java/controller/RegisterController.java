@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/RegisterController")
+
+@WebServlet(name = "RegisterController", urlPatterns = {"/RegisterController"})
+
 public class RegisterController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fullName = request.getParameter("fullName");
@@ -51,6 +53,6 @@ public class RegisterController extends HttpServlet {
         EmailUtil.sendVerificationEmail(email, otp);
 
         // Chuyển hướng đến trang nhập OTP
-        response.sendRedirect("otp_verification.jsp?email=" + email);
+        response.sendRedirect("verifyOTP.jsp?email=" + email);
     }
 }
