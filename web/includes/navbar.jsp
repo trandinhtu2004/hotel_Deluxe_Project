@@ -14,7 +14,7 @@
                 
                 <% if (account != null) { %>
                     <li class="nav-item"><a href="profile.jsp" class="nav-link">Welcome, <%= account.getFullName() %></a></li>
-                    <li class="nav-item"><a href="logout" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="LogoutController" class="nav-link">Logout</a></li>
                 <% } else { %>
                     <li class="nav-item"><a href="login.jsp" class="nav-link">Login</a></li>
                 <% } %>

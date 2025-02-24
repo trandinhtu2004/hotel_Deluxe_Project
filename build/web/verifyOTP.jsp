@@ -8,7 +8,7 @@
     <div class="container mt-5">
         <h2>Verify Your Email</h2>
         <p>We've sent a verification code to your email. Please enter it below.</p>
-        <form action="VerifyOTPController" method="post">
+        <form action="VerifyOTPServlet" method="post">
             <input type="hidden" name="email" value="<%= request.getParameter("email") %>">
             <div class="mb-3">
                 <label for="otp" class="form-label">Enter OTP</label>

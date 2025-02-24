@@ -28,7 +28,7 @@ public class AccountDAO extends DBContext {
 
     private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
     private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123";
+    private static final String DB_PASSWORD = "123456";
 
     public void addAccount() {
 
@@ -100,16 +100,20 @@ public class AccountDAO extends DBContext {
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
         //test if everything go 
-       
+//       a.login("minhhieufvc@gmail.com", "12");
         Account a1= new Account();
-        a1.setAccountId(2);
-        a1.setEmail("hieu@gmail.com");
+        a1.setAccountId(5);
+        a1.setEmail("hieu1@gmail.com");
         a1.setFullName("Nguyen Minh Hieu");
         a1.setPassword("123");
-        a1.setPhone("0921970999");
+        a1.setPhone("0921971999");
         a1.setRole(1);
         a.insert(a1);
         
+        List<Account> acc = a.getAllAccount();
+        for (Account account : acc) {
+            System.out.println(account.getEmail()+" "+account.getPassword());
+        }
         
     }
 
@@ -128,37 +132,40 @@ public class AccountDAO extends DBContext {
         return 0;
     }
 
-//    public List<Account> getAllAccount() {
-//        List<Account> list = new ArrayList<>();
-//        String sql = "select * from Account\n"
-//                + "join [Role] r on r.RoleId = Account.RoleId";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                //get Account
-//                Account p = new Account();
-//                p.setAccountId(rs.getInt("AccountId"));
-//
-//                //getID role
-//                Role r = new Role();
-//                r.setRoleId(rs.getInt("RoleId"));
-//                r.setRoleName(rs.getString("RoleName"));
-//                p.setRole(r);
-//
-//                p.setFullName(rs.getString("Fullname"));
-//                p.setEmail(rs.getString("Email"));
-//                p.setPassword(rs.getString("Password"));
-//
-//                p.setPhone(rs.getString("Phone"));
-//                list.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return list;
-//    }
+    public List<Account> getAllAccount() {
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "join [Role] r on r.RoleId = Account.RoleId";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                //get Account
+                Account p = new Account();
+                p.setAccountId(rs.getInt("AccountId"));
 
+                //getID role
+                Role r = new Role();
+                r.setRoleId(rs.getInt("RoleId"));
+                r.setRoleName(rs.getString("RoleName"));
+                int m = r.getRoleId();
+                p.setRole(m);
+
+                p.setFullName(rs.getString("Fullname"));
+                p.setEmail(rs.getString("Email"));
+                p.setPassword(rs.getString("Password"));
+
+                p.setPhone(rs.getString("Phone"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    
+    
 //    public User getUserByEmail(String email) {
 //        String sql = "select * from users where email like ?";
 //        User user = null;
@@ -180,14 +187,15 @@ public class AccountDAO extends DBContext {
 //        }
 //        return user;
 //    }
-    public void changePassword(int accountId, String newPassword) {
+    
+    public void changePassword(String email, String newPassword) {
         //Em nghĩ ở đây xài accountID để xác định tài khoản cần đổi mật khẩu sẽ tốt hơn
         //Kiểu xài email hay phone lấy ra từ account nghe nó đần ý
-        String sql = "UPDATE Account SET Password = ? WHERE AccountId = ?";
+        String sql = "UPDATE Account SET Password = ? WHERE Email = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newPassword);
-            st.setInt(2, accountId);
+            st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -378,24 +386,8 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public void testLogin(String email, String password) {
-        Account account = login(email, password);
+    
 
-        if (account != null) {
-            System.out.println("Login successful. Account found.");
-            System.out.println("Account email: " + account.getEmail());
-            System.out.println("Account full name: " + account.getFullName());
-        } else {
-            System.out.println("Login failed. Account not found.");
-        }
-    }
-
-    public boolean verifyCode(String email, String code) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void markEmailAsVerified(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
 }

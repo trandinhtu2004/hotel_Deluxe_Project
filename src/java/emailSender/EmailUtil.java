@@ -33,8 +33,8 @@ public class EmailUtil {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject("Your OTP Code");
-            message.setText("Your OTP for password reset is: " + otp);
+            message.setSubject("[DELUXE_HOTEL] REGISTER OTP");
+            message.setText("[DELUXE_HOTEL] Thank you for using our services .Your OTP for you to register is: " + otp);
 
             Transport.send(message);
             System.out.println("Email sent successfully.");
@@ -43,6 +43,6 @@ public class EmailUtil {
         }
     }
      public static void main(String[] args) {
-       EmailUtil.sendVerificationEmail("tutdhe182353@fpt.edu.vn", "123456");
+       EmailUtil.sendVerificationEmail("minhhieufvc1@gmail.com", "123456");
     }
 }

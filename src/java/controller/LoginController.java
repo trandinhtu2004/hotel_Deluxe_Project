@@ -11,7 +11,7 @@ import dal.AccountDAO;
 import java.io.IOException;
 import model.Role;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name ="LoginController", urlPatterns ={"/LoginController"})
 public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
