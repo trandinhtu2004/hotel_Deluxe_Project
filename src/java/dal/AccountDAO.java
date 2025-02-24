@@ -34,68 +34,70 @@ public class AccountDAO extends DBContext {
 
     }
 
-//    public int getTotalStaffs() {
-//        List<Account> list = new ArrayList<>();
-//        String sql = "select * from Account\n"
-//                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-//                + "                where r.RoleId = 2";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                //get Account
-//                Account p = new Account();
-//                p.setAccountId(rs.getInt("AccountId"));
-//
-//                //getID role
-//                Role r = new Role();
-//                r.setRoleId(rs.getInt("RoleId"));
-//                r.setRoleName(rs.getString("RoleName"));
-//                p.setRole(r);
-//
-//                p.setFullName(rs.getString("Fullname"));
-//                p.setEmail(rs.getString("Email"));
-//                p.setPassword(rs.getString("Password"));
-//                p.setPhone(rs.getString("Phone"));
-//                list.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return list.size();
-//    }
+public int getTotalStaffs() {
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+                + "                where r.RoleId = 2";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                //get Account
+                Account p = new Account();
+                p.setAccountId(rs.getInt("AccountId"));
 
-//    public int getTotalCustumers() {
-//        List<Account> list = new ArrayList<>();
-//        String sql = "select * from Account\n"
-//                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-//                + "                where r.RoleId = 3";
-//        try {
-//            PreparedStatement st = connection.prepareStatement(sql);
-//            ResultSet rs = st.executeQuery();
-//            while (rs.next()) {
-//                //get Account
-//                Account p = new Account();
-//                p.setAccountId(rs.getInt("AccountId"));
-//
-//                //getID role
-//                Role r = new Role();
-//                r.setRoleId(rs.getInt("RoleId"));
-//                r.setRoleName(rs.getString("RoleName"));
-//                p.setRole(r);
-//
-//                p.setFullName(rs.getString("Fullname"));
-//                p.setEmail(rs.getString("Email"));
-//                p.setPassword(rs.getString("Password"));
-//
-//                p.setPhone(rs.getString("Phone"));
-//                list.add(p);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return list.size();
-//    }
+                //getID role
+                Role r = new Role();
+                r.setRoleId(rs.getInt("RoleId"));
+                r.setRoleName(rs.getString("RoleName"));
+                int m = r.getRoleId();
+                p.setRole(m);
+
+                p.setFullName(rs.getString("Fullname"));
+                p.setEmail(rs.getString("Email"));
+                p.setPassword(rs.getString("Password"));
+                p.setPhone(rs.getString("Phone"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list.size();
+    }
+
+public int getTotalCustumers() {
+        List<Account> list = new ArrayList<>();
+        String sql = "select * from Account\n"
+                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
+                + "                where r.RoleId = 3";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                //get Account
+                Account p = new Account();
+                p.setAccountId(rs.getInt("AccountId"));
+
+                //getID role
+                Role r = new Role();
+                r.setRoleId(rs.getInt("RoleId"));
+                r.setRoleName(rs.getString("RoleName"));
+                int m = r.getRoleId();
+                p.setRole(m);
+
+                p.setFullName(rs.getString("Fullname"));
+                p.setEmail(rs.getString("Email"));
+                p.setPassword(rs.getString("Password"));
+
+                p.setPhone(rs.getString("Phone"));
+                list.add(p);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list.size();
+    }
 
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
