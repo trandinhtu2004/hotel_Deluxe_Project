@@ -15,19 +15,19 @@ public class Category {
     private double pricePerNight;
     private String description;
     private String image;
-    public Category() {
+    private String formattedPrice;
+
+    
+    public String getFormattedPrice() {
+        return formattedPrice;
     }
 
-    public Category(int categoryId, String categoryName, int capacity, double pricePerNight, String description, String image) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
-        this.description = description;
-        this.image = image;
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
     }
-    
-    
+
+    public Category() {
+    }
 
 
     public int getCategoryId() {
@@ -38,14 +38,7 @@ public class Category {
         this.categoryId = CategoryId;
     }
 
-    public String getRoomType() {
-        return categoryName;
-    }
-
-    public void setRoomType(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
+    
     public int getCapacity() {
         return capacity;
     }

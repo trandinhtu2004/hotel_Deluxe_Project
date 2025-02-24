@@ -12,8 +12,10 @@ import java.sql.SQLException;
  *
  * @author Admin
  */
+
 public class DBContext {
 
+    
     
     protected Connection connection;
     public DBContext()
@@ -25,13 +27,16 @@ public class DBContext {
                     + "encrypt=true;"
                     + "trustServerCertificate=true;";
             String username = "sa";
-            String password = "123456";
+            String password = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
     }
+    
+    
+    
     public static void main(String[] args) {
         DBContext db = new DBContext();
         System.out.println(db);

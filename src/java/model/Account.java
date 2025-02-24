@@ -9,9 +9,9 @@ package model;
  * @author Admin
  */
 public class Account {
-
     int accountId;
-    int role;
+    int roleid;
+    Role role;
     String fullName;
     String email;
     String password;
@@ -22,14 +22,14 @@ public class Account {
     }
 
     public Account(String fullName, String email, String password, String phone) {
-       
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phone = phone;
-
     }
 
+   
+     
     public int getAccountId() {
         return accountId;
     }
@@ -38,15 +38,24 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public int getRole() {
+    public int getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(int roleid) {
+        this.roleid = roleid;
+    }
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
- 
+    
+    
     public String getFullName() {
         return fullName;
     }
