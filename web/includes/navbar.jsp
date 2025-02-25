@@ -9,7 +9,7 @@
         <a class="navbar-brand" href="index.jsp">Deluxe</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-             <% if (account != null && "Admin".equals(role)) { %>
+             <% if (account != null && ("Admin".equals(role) || "Owner".equals(role))) { %>
                     <li class="nav-item"><a href="dashboard" class="nav-link">Dashboard</a></li>
              <% } %>
                 <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>

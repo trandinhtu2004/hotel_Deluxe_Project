@@ -27,7 +27,7 @@
                             <h5 class="page-title"><b>Role</b></h5>
                             <ul class="nav nav-pills nav-stacked nav-contacts">
                                 <li class="active" data-filter="all"><a>All</a></li>
-                                <li data-filter="staff"><a>Staff</a><li>
+                                <li data-filter="staff"><a>Staff</a></li>
                                 <li data-filter="customer"><a>Customer</a></li>
                             </ul>
                         </div>
@@ -57,7 +57,6 @@
 
                             <div class="list-group contact-group">
                                 <c:forEach var="user" items="${userList}">
-                                    <c:if test="${user.role.roleName ne 'Admin'}">
                                         <a href="#" class="list-group-item"  data-role="${user.role.roleName}">
                                             <div class="media">
                                                 <div class="pull-left">
@@ -75,7 +74,6 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </c:if>
                                 </c:forEach>
                             </div>
                             <div class="pull-right">
@@ -131,7 +129,7 @@
                                                     <div class="form-group">
                                                         <label for="confirmPassword" class="col-sm-2 control-label">Confirm</label>
                                                         <div class="col-sm-10 tabular-border">
-                                                            <input type="confirmPassword" class="form-control" id="password" name="confirmPassword" placeholder="Confirm Password">
+                                                            <input type="confirmPassword" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
                                                             <label id="confirmPassword_error" for="confirmPassword" style="color: red"></label>
                                                         </div>
                                                     </div>
@@ -284,6 +282,7 @@
                 }
 
                 document.getElementById("fullName").addEventListener("input", validateFullName);
+                document.getElementById("email").addEventListener("input", validateEmail);
                 document.getElementById("phoneNumber").addEventListener("input", validatePhoneNumber);
                 document.getElementById("address").addEventListener("input", validateAddress);
                 document.getElementById("password").addEventListener("input", validatePassword);

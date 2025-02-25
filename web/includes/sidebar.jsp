@@ -22,9 +22,10 @@
                         <div class="profile-userpic">
                             <img src="https://bootdey.com/img/Content/User_for_snippets.png" class="img-responsive" alt="">
                         </div>
+                        <c:set var="user" value="${sessionScope.account}"/>
                         <div class="profile-usertitle">
                             <div class="profile-usertitle-name">
-                                A7VA
+                                ${user.fullName}
                             </div>
                         </div>
                         <%

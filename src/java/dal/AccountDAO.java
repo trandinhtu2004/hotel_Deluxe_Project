@@ -38,8 +38,8 @@ public class AccountDAO extends DBContext {
 public int getTotalStaffs() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
-                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-                + "                where r.RoleId = 2";
+                + "join [Role] r on r.RoleId = Account.RoleId\n"
+                + "where r.RoleId = 2";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -70,8 +70,8 @@ public int getTotalStaffs() {
 public int getTotalCustumers() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
-                + "                     join [Role] r on r.RoleId = Account.RoleId\n"
-                + "                where r.RoleId = 3";
+                + "join [Role] r on r.RoleId = Account.RoleId\n"
+                + "where r.RoleId = 3";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
