@@ -16,6 +16,18 @@
         <servlet-name>RoomController</servlet-name>
         <servlet-class>controller.RoomController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageUser</servlet-name>
+        <servlet-class>controller.ManageUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageRoom</servlet-name>
+        <servlet-class>controller.ManageRoom</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -43,5 +55,17 @@
     <servlet-mapping>
         <servlet-name>RoomController</servlet-name>
         <url-pattern>/RoomController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUser</servlet-name>
+        <url-pattern>/manageUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageRoom</servlet-name>
+        <url-pattern>/manageRoom</url-pattern>
     </servlet-mapping>
 </web-app>
