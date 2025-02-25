@@ -9,8 +9,8 @@ package model;
  * @author Admin
  */
 public class Role {
-    int roleId;
-    String roleName;
+    private int roleId;
+    private String roleName;
 
     public Role() {
     }

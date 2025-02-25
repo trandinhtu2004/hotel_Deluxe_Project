@@ -5,6 +5,7 @@
 
 package controller;
 
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +13,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 /**
  *
- * @author AD
+ * @author Overlordil
  */
-public class RoomController extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +34,10 @@ public class RoomController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoomController</title>");  
+            out.println("<title>Servlet DashboardServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoomController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DashboardServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,7 +54,9 @@ public class RoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        AccountDAO account = new AccountDAO();
+        
+        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     } 
 
     /** 

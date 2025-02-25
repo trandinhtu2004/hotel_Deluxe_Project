@@ -9,6 +9,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+
 public class EmailUtil {
 
     public static void sendVerificationEmail(String email, String otp) {

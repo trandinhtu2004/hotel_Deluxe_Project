@@ -20,6 +20,7 @@ import java.util.List;
 import model.Account;
 import model.Role;
 
+
 /**
  *
  * @author Admin
@@ -51,8 +52,8 @@ public int getTotalStaffs() {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                int m = r.getRoleId();
-                p.setRole(m);
+                
+                p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
@@ -83,8 +84,8 @@ public int getTotalCustumers() {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                int m = r.getRoleId();
-                p.setRole(m);
+                
+                p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
@@ -103,14 +104,14 @@ public int getTotalCustumers() {
         AccountDAO a = new AccountDAO();
         //test if everything go 
 //       a.login("minhhieufvc@gmail.com", "12");
-        Account a1= new Account();
-        a1.setAccountId(5);
-        a1.setEmail("hieu1@gmail.com");
-        a1.setFullName("Nguyen Minh Hieu");
-        a1.setPassword("123");
-        a1.setPhone("0921971999");
-        a1.setRole(1);
-        a.insert(a1);
+//        Account a1= new Account();
+//        a1.setAccountId(5);
+//        a1.setEmail("hieu1@gmail.com");
+//        a1.setFullName("Nguyen Minh Hieu");
+//        a1.setPassword("123");
+//        a1.setPhone("0921971999");
+//        a1.setRole(1);
+//        a.insert(a1);
         
         List<Account> acc = a.getAllAccount();
         for (Account account : acc) {
@@ -150,8 +151,8 @@ public int getTotalCustumers() {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                int m = r.getRoleId();
-                p.setRole(m);
+                
+                p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
@@ -273,7 +274,9 @@ public int getTotalCustumers() {
 
     public Account login(String email, String password) {
         Account account = null;
-        String sql = "SELECT * FROM Account WHERE Email = ? AND Password = ?";
+        String sql = "SELECT a.[RoleId],r.[RoleName],[FullName],[Email],[Password]\n"
+                + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]\n"
+                + "WHERE Email = ? AND Password = ?";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -288,7 +291,11 @@ public int getTotalCustumers() {
                 account.setPassword(rs.getString("Password"));
                 account.setFullName(rs.getString("FullName"));
                 account.setPhone(rs.getString("Phone"));
-                account.setRole(rs.getInt("RoleId"));
+                
+                Role role = new Role();
+                role.setRoleId(rs.getInt("RoleId"));
+                role.setRoleName(rs.getString("RoleName"));
+                account.setRole(role);
             }
         } catch (SQLException e) {
             e.printStackTrace();

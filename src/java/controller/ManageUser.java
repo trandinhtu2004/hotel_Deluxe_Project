@@ -5,6 +5,8 @@
 
 package controller;
 
+import dal.AccountDAO;
+import dal.RoleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +14,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 /**
  *
- * @author AD
+ * @author Overlordil
  */
-public class RoomController extends HttpServlet {
+public class ManageUser extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +35,10 @@ public class RoomController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RoomController</title>");  
+            out.println("<title>Servlet ManageUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RoomController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,7 +55,12 @@ public class RoomController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        AccountDAO user = new AccountDAO();
+        RoleDAO role = new RoleDAO();
+        
+        request.setAttribute("roleList", role.getAllRole());
+        request.setAttribute("userList", user.getAllAccount());
+        request.getRequestDispatcher("manageUser.jsp").forward(request, response);
     } 
 
     /** 
@@ -67,7 +73,23 @@ public class RoomController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        int role = Integer.parseInt(request.getParameter("role"));
+        
+        String submit = request.getParameter("submit");
+        AccountDAO user = new AccountDAO();
+        switch (submit) {
+            case "add":
+                
+                response.sendRedirect("manageUser");
+                break;
+            default:
+                throw new AssertionError();
+        }
+        
     }
 
     /** 

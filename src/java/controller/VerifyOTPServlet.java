@@ -27,7 +27,7 @@ public class VerifyOTPServlet extends HttpServlet {
 
             // Lưu tài khoản vào database
             AccountDAO dao = new AccountDAO();
-            Account account=new Account(fullName, email, password, phone);
+            Account account = new Account(fullName, email, password, phone);
             dao.insert(account);
 
             // Xóa session để tránh nhập lại OTP

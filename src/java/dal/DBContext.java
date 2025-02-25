@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 /**
  *
  * @author Admin
@@ -24,7 +25,7 @@ public class DBContext {
                     + "databaseName=HotelManagement;"
                     + "encrypt=true;"
                     + "trustServerCertificate=true;";
-            String username = "sa";
+            String username = "loc";
             String password = "123456";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);

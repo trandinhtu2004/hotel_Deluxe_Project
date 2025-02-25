@@ -10,24 +10,25 @@ package model;
  */
 public class Account {
 
-    int accountId;
-    int role;
-    String fullName;
-    String email;
-    String password;
-    String phone;
-    String OTP;
+    private int accountId;
+    private Role role;
+    private String fullName;
+    private String email;
+    private String password;
+    private String phone;
+    private String OTP;
 
     public Account() {
     }
 
-    public Account(String fullName, String email, String password, String phone) {
-       
+    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String OTP) {
+        this.accountId = accountId;
+        this.role = role;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phone = phone;
-
+        this.OTP = OTP;
     }
 
     public int getAccountId() {
@@ -38,15 +39,14 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public int getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
- 
     public String getFullName() {
         return fullName;
     }
@@ -79,4 +79,12 @@ public class Account {
         this.phone = phone;
     }
 
+    public String getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(String OTP) {
+        this.OTP = OTP;
+    }
+    
 }
