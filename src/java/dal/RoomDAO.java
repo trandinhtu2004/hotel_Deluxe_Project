@@ -51,6 +51,7 @@ public class RoomDAO extends DBContext {
                 category.setDescription(rs.getString("Description"));
                 category.setImage(rs.getString("Image"));
                 category.setSize(rs.getDouble("Size"));
+                category.setBed(rs.getInt("Bed"));
             }
 
         } catch (SQLException e) {

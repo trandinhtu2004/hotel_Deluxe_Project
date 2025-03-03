@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,267 +33,231 @@
 <%@include file="includes/navbar.jsp" %>
 
     <div class="hero-wrap" style="background-image: url('images/bg_1.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
-          <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
-          	<div class="text">
-	            <p class="breadcrumbs mb-2" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="rooms.html">Room</a></span> <span>Room Single</span></p>
-	            <h1 class="mb-4 bread">Room Single</h1>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text d-flex align-itemd-end justify-content-center">
+                <div class="col-md-9 ftco-animate text-center d-flex align-items-end justify-content-center">
+                    <div class="text">
+                        <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index">Home</a></span> <span class="mr-2"><a href="rooms">Rooms</a></span> <span>${category.categoryName}</span></p>
+                        <h1 class="mb-4 bread">${category.categoryName}</h1>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
-
     <section class="ftco-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8">
-          	<div class="row">
-          		<div class="col-md-12 ftco-animate">
-          			<h2 class="mb-4">Family Room</h2>
-          			<div class="single-slider owl-carousel">
-          				<div class="item">
-          					<div class="room-img" style="background-image: url(images/room-1.jpg);"></div>
-          				</div>
-          				<div class="item">
-          					<div class="room-img" style="background-image: url(images/room-2.jpg);"></div>
-          				</div>
-          				<div class="item">
-          					<div class="room-img" style="background-image: url(images/room-3.jpg);"></div>
-          				</div>
-          			</div>
-          		</div>
-          		<div class="col-md-12 room-single mt-4 mb-5 ftco-animate">
-    						<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
-    						<div class="d-md-flex mt-5 mb-5">
-    							<ul class="list">
-	    							<li><span>Max:</span> 3 Persons</li>
-	    							<li><span>Size:</span> 45 m2</li>
-	    						</ul>
-	    						<ul class="list ml-md-5">
-	    							<li><span>View:</span> Sea View</li>
-	    							<li><span>Bed:</span> 1</li>
-	    						</ul>
-    						</div>
-    						<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
-          		</div>
-          		<div class="col-md-12 room-single ftco-animate mb-5 mt-4">
-          			<h3 class="mb-4">Take A Tour</h3>
-          			<div class="block-16">
-		              <figure>
-		                <img src="images/room-4.jpg" alt="Image placeholder" class="img-fluid">
-		                <a href="https://vimeo.com/45830194" class="play-button popup-vimeo"><span class="icon-play"></span></a>
-		              </figure>
-		            </div>
-          		</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12 ftco-animate">
+                            <h2 class="mb-4">${category.categoryName}</h2>
+                            <div class="single-slider owl-carousel">
+                                <div class="item">
+                                    <div class="room-img" style="background-image: url(${category.image});"></div>
+                                </div>
+                                <!-- Additional images would go here if available -->
+                            </div>
+                        </div>
+                        <div class="col-md-12 room-single mt-4 mb-5 ftco-animate">
+                            <p>${category.description}</p>
+                            <div class="d-md-flex mt-5 mb-5">
+                                <ul class="list">
+                                    <li><span>Max:</span> ${category.capacity} Persons</li>
+                                    <li><span>Size:</span> ${category.size} m²</li>
+                                </ul>
+                                <ul class="list ml-md-5">
+<!--                                    <li><span>Available Rooms:</span> ${availableRoomCount}</li>-->
+                                    <li><span>Bed:</span> ${category.bed}</li>
+                                </ul>
+                            </div>
+                            <p>Our ${category.categoryName} offers a luxurious and comfortable stay with all the amenities you need for a perfect vacation or business trip. The room is spacious, elegantly decorated, and equipped with modern facilities to ensure your comfort and convenience.</p>
+                        </div>
 
-          		<div class="col-md-12 properties-single ftco-animate mb-5 mt-4">
-          			<h4 class="mb-4">Review &amp; Ratings</h4>
-          			<div class="row">
-          				<div class="col-md-6">
-          					<form method="post" class="star-rating">
-										  <div class="form-check">
-												<input type="checkbox" class="form-check-input" id="exampleCheck1">
-												<label class="form-check-label" for="exampleCheck1">
-													<p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i> 100 Ratings</span></p>
-												</label>
-										  </div>
-										  <div class="form-check">
-									      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-									      <label class="form-check-label" for="exampleCheck1">
-									    	   <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i> 30 Ratings</span></p>
-									      </label>
-										  </div>
-										  <div class="form-check">
-									      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-									      <label class="form-check-label" for="exampleCheck1">
-									      	<p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 5 Ratings</span></p>
-									     </label>
-										  </div>
-										  <div class="form-check">
-										    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-									      <label class="form-check-label" for="exampleCheck1">
-									      	<p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 0 Ratings</span></p>
-									      </label>
-										  </div>
-										  <div class="form-check">
-									      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-									      <label class="form-check-label" for="exampleCheck1">
-									      	<p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i> 0 Ratings</span></p>
-										    </label>
-										  </div>
-										</form>
-          				</div>
-          			</div>
-          		</div>
-          		<div class="col-md-12 room-single ftco-animate mb-5 mt-5">
-          			<h4 class="mb-4">Available Room</h4>
-          			<div class="row">
-          				<div class="col-sm col-md-6 ftco-animate">
-				    				<div class="room">
-				    					<a href="rooms.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/room-1.jpg);">
-				    						<div class="icon d-flex justify-content-center align-items-center">
-				    							<span class="icon-search2"></span>
-				    						</div>
-				    					</a>
-				    					<div class="text p-3 text-center">
-				    						<h3 class="mb-3"><a href="rooms.html">Suite Room</a></h3>
-				    						<p><span class="price mr-2">$120.00</span> <span class="per">per night</span></p>
-				    						<hr>
-				    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
-				    					</div>
-				    				</div>
-				    			</div>
-				    			<div class="col-sm col-md-6 ftco-animate">
-				    				<div class="room">
-				    					<a href="rooms.html" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/room-2.jpg);">
-				    						<div class="icon d-flex justify-content-center align-items-center">
-				    							<span class="icon-search2"></span>
-				    						</div>
-				    					</a>
-				    					<div class="text p-3 text-center">
-				    						<h3 class="mb-3"><a href="rooms.html">Family Room</a></h3>
-				    						<p><span class="price mr-2">$20.00</span> <span class="per">per night</span></p>
-				    						<hr>
-				    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
-				    					</div>
-				    				</div>
-				    			</div>
-          			</div>
-          		</div>
+                        <!-- Room Amenities Section -->
+                        <div class="col-md-12 room-single ftco-animate mb-5 mt-4">
+                            <h3 class="mb-4">Amenities</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p><i class="icon-wifi"></i> Free Wifi</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><i class="icon-tv"></i> Smart TV</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><i class="icon-air-conditioning"></i> Air Conditioning</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><i class="icon-bath"></i> Private Bathroom</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><i class="icon-fridge"></i> Mini Fridge</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p><i class="icon-safe"></i> Safe Box</p>
+                                </div>
+                            </div>
+                        </div>
 
-          	</div>
-          </div> <!-- .col-md-8 -->
-          <div class="col-lg-4 sidebar ftco-animate">
-            <div class="sidebar-box">
-              <form action="#" class="search-form">
-                <div class="form-group">
-                  <span class="icon fa fa-search"></span>
-                  <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                        <!-- Services Section -->
+                        <div class="col-md-12 room-single ftco-animate mb-5 mt-4">
+                            <h3 class="mb-4">Available Services</h3>
+                            <div class="row">
+                                <c:forEach var="service" items="${services}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="service-item p-3 border rounded">
+                                            <h5>${service.serviceName}</h5>
+                                            <p>${service.description}</p>
+                                            <p class="price"><strong>Price:</strong> <fmt:formatNumber value="${service.price}" type="currency"/></p>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+
+                        <!-- Similar Rooms Section -->
+                        <div class="col-md-12 room-single ftco-animate mb-5 mt-5">
+                            <h4 class="mb-4">Similar Rooms</h4>
+                            <div class="row">
+                                <c:forEach var="similarCategory" items="${similarCategories}">
+                                    <div class="col-sm col-md-6 ftco-animate">
+                                        <div class="room">
+                                            <a href="room-detail?categoryId=${similarCategory.categoryId}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(${similarCategory.image});">
+                                                <div class="icon d-flex justify-content-center align-items-center">
+                                                    <span class="icon-search2"></span>
+                                                </div>
+                                            </a>
+                                            <div class="text p-3 text-center">
+                                                <h3 class="mb-3"><a href="room-detail?categoryId=${similarCategory.categoryId}">${similarCategory.categoryName}</a></h3>
+                                                <p><span class="price mr-2"><fmt:formatNumber value="${similarCategory.pricePerNight}" type="currency"/></span> <span class="per">per night</span></p>
+                                                <hr>
+                                                <p class="pt-1"><a href="room-detail?categoryId=${similarCategory.categoryId}" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .col-md-8 -->
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4 sidebar ftco-animate">
+                    <!-- Booking Form -->
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Check Availability</h3>
+                        <form action="booking" method="get" class="booking-form">
+                            <input type="hidden" name="categoryId" value="${category.categoryId}">
+                            <div class="form-group">
+                                <label for="checkin_date">Check-in Date</label>
+                                <input type="text" name="checkinDate" id="checkin_date" class="form-control checkin_date" placeholder="Check-in date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout_date">Check-out Date</label>
+                                <input type="text" name="checkoutDate" id="checkout_date" class="form-control checkout_date" placeholder="Check-out date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="adults">Adults</label>
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="adults" id="adults" class="form-control">
+                                        <c:forEach var="i" begin="1" end="${category.capacity}">
+                                            <option value="${i}">${i}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="children">Children</label>
+                                <div class="select-wrap one-third">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select name="children" id="children" class="form-control">
+                                        <option value="0">0</option>
+                                        <c:forEach var="i" begin="1" end="${category.capacity - 1}">
+                                            <option value="${i}">${i}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Check Availability" class="btn btn-primary py-3 px-5">
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Price Details -->
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Room Price Details</h3>
+                        <div class="price-details">
+                            <p><strong>Base Price:</strong> <span class="price"><fmt:formatNumber value="${category.pricePerNight}" type="currency"/></span> / night</p>
+                            <hr>
+                            <p><small>* Prices may vary based on season and availability</small></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Room Categories -->
+                    <div class="sidebar-box ftco-animate">
+                        <h3>Room Categories</h3>
+                        <div class="categories">
+                            <c:forEach var="cat" items="${allCategories}">
+                                <li><a href="room-detail?categoryId=${cat.categoryId}">${cat.categoryName} 
+                                    <c:if test="${cat.categoryId == category.categoryId}"><span class="badge badge-primary">Current</span></c:if>
+                                </a></li>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
-              </form>
             </div>
-            <div class="sidebar-box ftco-animate">
-              <div class="categories">
-                <h3>Categories</h3>
-                <li><a href="#">Properties <span>(12)</span></a></li>
-                <li><a href="#">Home <span>(22)</span></a></li>
-                <li><a href="#">House <span>(37)</span></a></li>
-                <li><a href="#">Villa <span>(42)</span></a></li>
-                <li><a href="#">Apartment <span>(14)</span></a></li>
-                <li><a href="#">Condominium <span>(140)</span></a></li>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Recent Blog</h3>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Tag Cloud</h3>
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">dish</a>
-                <a href="#" class="tag-cloud-link">menu</a>
-                <a href="#" class="tag-cloud-link">food</a>
-                <a href="#" class="tag-cloud-link">sweet</a>
-                <a href="#" class="tag-cloud-link">tasty</a>
-                <a href="#" class="tag-cloud-link">delicious</a>
-                <a href="#" class="tag-cloud-link">desserts</a>
-                <a href="#" class="tag-cloud-link">drinks</a>
-              </div>
-            </div>
-
-            <div class="sidebar-box ftco-animate">
-              <h3>Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>
-          </div>
         </div>
-      </div>
     </section> <!-- .section -->
 
-
+    <!-- Instagram Section -->
     <section class="instagram pt-5">
-      <div class="container-fluid">
-        <div class="row no-gutters justify-content-center pb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2><span>Instagram</span></h2>
-          </div>
+        <div class="container-fluid">
+            <div class="row no-gutters justify-content-center pb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <h2><span>Instagram</span></h2>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(images/insta-1.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="images/insta-2.jpg" class="insta-img image-popup" style="background-image: url(images/insta-2.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="images/insta-3.jpg" class="insta-img image-popup" style="background-image: url(images/insta-3.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="images/insta-4.jpg" class="insta-img image-popup" style="background-image: url(images/insta-4.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md ftco-animate">
+                    <a href="images/insta-5.jpg" class="insta-img image-popup" style="background-image: url(images/insta-5.jpg);">
+                        <div class="icon d-flex justify-content-center">
+                            <span class="icon-instagram align-self-center"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="row no-gutters">
-          <div class="col-sm-12 col-md ftco-animate">
-            <a href="images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(images/insta-1.jpg);">
-              <div class="icon d-flex justify-content-center">
-                <span class="icon-instagram align-self-center"></span>
-              </div>
-            </a>
-          </div>
-          <div class="col-sm-12 col-md ftco-animate">
-            <a href="images/insta-2.jpg" class="insta-img image-popup" style="background-image: url(images/insta-2.jpg);">
-              <div class="icon d-flex justify-content-center">
-                <span class="icon-instagram align-self-center"></span>
-              </div>
-            </a>
-          </div>
-          <div class="col-sm-12 col-md ftco-animate">
-            <a href="images/insta-3.jpg" class="insta-img image-popup" style="background-image: url(images/insta-3.jpg);">
-              <div class="icon d-flex justify-content-center">
-                <span class="icon-instagram align-self-center"></span>
-              </div>
-            </a>
-          </div>
-          <div class="col-sm-12 col-md ftco-animate">
-            <a href="images/insta-4.jpg" class="insta-img image-popup" style="background-image: url(images/insta-4.jpg);">
-              <div class="icon d-flex justify-content-center">
-                <span class="icon-instagram align-self-center"></span>
-              </div>
-            </a>
-          </div>
-          <div class="col-sm-12 col-md ftco-animate">
-            <a href="images/insta-5.jpg" class="insta-img image-popup" style="background-image: url(images/insta-5.jpg);">
-              <div class="icon d-flex justify-content-center">
-                <span class="icon-instagram align-self-center"></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
     </section>
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
