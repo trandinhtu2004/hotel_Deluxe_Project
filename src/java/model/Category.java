@@ -9,12 +9,49 @@ package model;
  * @author Admin
  */
 public class Category {
-   private int categoryId;
+    private int categoryId;
     private String categoryName;
     private int capacity;
     private double pricePerNight;
     private String description;
     private String image;
+    private String formattedPrice;
+    private int numberOfRooms;
+    private double size;
+    private int bed; 
+
+    public String getFormattedPrice() {
+        return formattedPrice;
+    }
+
+    public void setFormattedPrice(String formattedPrice) {
+        this.formattedPrice = formattedPrice;
+    }
+
+    public int getNumberOfRooms() {
+        return numberOfRooms;
+    }
+
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public void setSize(double size) {
+        this.size = size;
+    }
+
+    public int getBed() {
+        return bed;
+    }
+
+    public void setBed(int bed) {
+        this.bed = bed;
+    }
+    
     public Category() {
     }
 

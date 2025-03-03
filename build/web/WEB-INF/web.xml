@@ -28,6 +28,14 @@
         <servlet-name>ManageRoom</servlet-name>
         <servlet-class>controller.ManageRoom</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomePageController</servlet-name>
+        <servlet-class>controller.HomePageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListRoomCategoriesController</servlet-name>
+        <servlet-class>controller.ListRoomCategoriesController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -68,4 +76,15 @@
         <servlet-name>ManageRoom</servlet-name>
         <url-pattern>/manageRoom</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomePageController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListRoomCategoriesController</servlet-name>
+        <url-pattern>/rooms</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
 </web-app>
