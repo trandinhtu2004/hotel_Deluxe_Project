@@ -3,12 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
-
-import java.awt.event.FocusEvent;
+ 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,148 +16,73 @@ import model.Account;
 import model.Category;
 import model.Role;
 import model.Room;
-import sun.awt.KeyboardFocusManagerPeerImpl;
 
 /**
  *
  * @author Admin
  */
-
 public class RoomDAO extends DBContext {
-
-    public ArrayList<Category> getTop3Category() {
-
-        ArrayList<Category> list = new ArrayList<>();
-        String sql = "SELECT TOP(3) [CategoryId]\n"
-                + "      ,[CategoryName]\n"
-                + "      ,[Capacity]\n"
-                + "      ,[PricePerNight]\n"
-                + "      ,[Description]\n"
-                + "      ,[Image]\n"
-                + "  FROM [Category]";
-        try {
+    
+    public List<Category> getCategory(){
+        
+            List<Category> list = new ArrayList<>();
+            String sql="";
+           try{ 
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            DecimalFormat df = new DecimalFormat();
-            while (rs.next()) {
-                Category c = new Category();
-                c.setCategoryName(rs.getString("CategoryName"));
-                c.setCapacity(rs.getInt("Capacity"));
-                c.setDescription(rs.getString("Description"));
-                c.setImage(rs.getString("Image"));
-                c.setPricePerNight(rs.getDouble("PricePerNight"));
-                c.setFormattedPrice(df.format(c.getPricePerNight()));
-                list.add(c);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-
-    
-    public ArrayList<Category> ListCategory() {
-
-        ArrayList<Category> list = new ArrayList<>();
-        String sql = "SELECT [CategoryId]\n"
-                + "      ,[CategoryName]\n"
-                + "      ,[Capacity]\n"
-                + "      ,[PricePerNight]\n"
-                + "      ,[Description]\n"
-                + "      ,[Image]\n"
-                + "  FROM [Category]";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            DecimalFormat df = new DecimalFormat();
-            while (rs.next()) {
-                Category c = new Category();
-                c.setCategoryName(rs.getString("CategoryName"));
-                c.setCapacity(rs.getInt("Capacity"));
-                c.setDescription(rs.getString("Description"));
-                c.setImage(rs.getString("Image"));
-                c.setPricePerNight(rs.getDouble("PricePerNight"));
-                c.setFormattedPrice(df.format(c.getPricePerNight()));
-                list.add(c);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-    
-    public ArrayList<Category> searchCategory(String categoryName) {
-            ArrayList<Category> list = new ArrayList<>();
             
-            String sql = "SELECT [CategoryId]\n"
-                    + "      ,[CategoryName]\n"
-                    + "      ,[Capacity]\n"
-                    + "      ,[PricePerNight]\n"
-                    + "      ,[Description]\n"
-                    + "      ,[Image]\n"
-                    + "  FROM [Category] c \n"
-                    + "  where c.CategoryName like ?";
-            try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, categoryName);
-            ResultSet rs = st.executeQuery();
-                while (rs.next()) { 
-                    Category c = new Category();
-                c.setCategoryName(rs.getString("CategoryName"));
-                c.setCapacity(rs.getInt("Capacity"));
-                c.setDescription(rs.getString("Description"));
-                c.setImage(rs.getString("Image"));
-                c.setPricePerNight(rs.getDouble("PricePerNight"));
-                list.add(c);    
-                }
+            while(rs.next()){
+                Category c = new Category();
+                c.setCategoryName(sql);
+                c.setCapacity(0);
+                c.setDescription(sql);
+                c.setImage(sql);
+                c.setPricePerNight(0);
+                
+            }
+             
+            
         } catch (SQLException ex) {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
+           return list;
     }
     
-    public ArrayList<Category> filterRoomCategoryByPrice(double minPrice, double maxPrice) {
-            ArrayList<Category> list = new ArrayList<>();
-            
-            String sql = "SELECT [CategoryId]\n"
-                    + "      ,[CategoryName]\n"
-                    + "      ,[Capacity]\n"
-                    + "      ,[PricePerNight]\n"
-                    + "      ,[Description]\n"
-                    + "      ,[Image]\n"
-                    + "  FROM [Category] \n"
-                    + "  where c.PricePerNight >= ? and c.PricePerNight <= ?";
-            try {
+    public List<Category> listRoomCategory() {
+        
+            List<Category> list = new ArrayList<>();
+            String sql = "";
+            try{
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setDouble(1, minPrice);
-            st.setDouble(2, maxPrice);
             ResultSet rs = st.executeQuery();
-                while (rs.next()) { 
-                    Category c = new Category();
-                c.setCategoryName(rs.getString("CategoryName"));
-                c.setCapacity(rs.getInt("Capacity"));
-                c.setDescription(rs.getString("Description"));
-                c.setImage(rs.getString("Image"));
-                c.setPricePerNight(rs.getDouble("PricePerNight"));
-                list.add(c);    
-                }
+            
+            while (rs.next()){
+                Category c = new Category();
+                c.setCategoryId(rs.getInt("CategoryId"));
+                c.setCategoryName(sql);
+                c.setCapacity(0);
+                c.setPricePerNight(0);
+                c.setDescription(sql);
+            }
+            
         } catch (SQLException ex) {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
+            return list;
     }
-
-    public void findRoom() {
-
+    
+    public void findRoom(){
+        
     }
 
     public int getTotalRoom() {
-        ArrayList<Room> list = new ArrayList<>();
-        String sql = "SELECT  [RoomId]\n"
+        List<Room> list = new ArrayList<>();
+        String sql = "SELECT[RoomId]\n"
                 + "      ,[RoomNumber]\n"
-                + "      ,[CategoryId]\n"
+                + "      ,[RoomType]\n"
+                + "      ,[Capacity]\n"
+                + "      ,[PricePerNight]\n"
+                + "      ,[Description]\n"
                 + "      ,[Status]\n"
                 + "  FROM [Room]"; //dang sai sql
         try {
@@ -184,18 +107,4 @@ public class RoomDAO extends DBContext {
 
         return list.size();
     }
-
-    public static void main(String[] args) {
-        RoomDAO r = new RoomDAO();
-        ArrayList<Category> topCategory = new ArrayList<>();
-        topCategory = r.getTop3Category();
-        DecimalFormat df = new DecimalFormat();
-        for (Category c : topCategory) {
-            System.err.println(c.getFormattedPrice());
-        }
-
-        System.err.println(r.getTotalRoom());
-
-    }
-
 }

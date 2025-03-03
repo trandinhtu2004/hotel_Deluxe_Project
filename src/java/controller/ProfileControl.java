@@ -66,7 +66,6 @@ public class ProfileControl extends HttpServlet {
         
         Account account = (Account) session.getAttribute("account");
         AccountDAO d = new AccountDAO();
-        
         Account profile = d.getAccountByEmail(account.getEmail());
         request.setAttribute("account", profile);
         request.getRequestDispatcher("profile.jsp").forward(request, response);

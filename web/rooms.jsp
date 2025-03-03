@@ -1,11 +1,3 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="model.*" %>
-<%@page import="dal.*" %>
-<%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="java.text.DecimalFormat"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,11 +29,7 @@
   </head>
   <body>
 <%@include file="includes/navbar.jsp" %>
-    <%
-                            RoomDAO r = new RoomDAO();
-                            
-                        request.setAttribute("categories", r.ListCategory());
-        %>
+
     <div class="hero-wrap" style="background-image: url('images/bg_1.jpg');">
       <div class="overlay"></div>
       <div class="container">
@@ -62,28 +50,132 @@
     		<div class="row">
 	        <div class="col-lg-9">
 		    		<div class="row">
-		    			 <c:forEach var="c" items="${categories}">
-                                <div class="col-sm col-md-6 col-lg-4 ftco-animate">
-                                    <div class="room">
-                                        <a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
-                                            <div class="icon d-flex justify-content-center align-items-center">
-                                                <span class="icon-search2"></span>
-                                            </div>
-                                        </a>
-                                        <div class="text p-3 text-center">
-                                            <h3 class="mb-3"><a href="rooms.html">${c.getCategoryName()}</a></h3>
-                                            <p><span class="price mr-2">${c.getFormattedPrice()}VND</span> <span class="per">per night</span></p>
-                                            <ul class="list">
-                                                <li><span>Max:</span> 3 Persons</li>
-                                                <li><span>Size:</span> 45 m2</li>
-                                                <li><span>Bed:</span> 1</li>
-                                            </ul>
-                                            <hr>
-                                            <p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-1.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Suite Room</a></h3>
+		    						<p><span class="price mr-2">$120.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 3 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 1</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-2.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Family Room</a></h3>
+		    						<p><span class="price mr-2">$20.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 3 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 1</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-3.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Deluxe Room</a></h3>
+		    						<p><span class="price mr-2">$150.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 5 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 2</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-4.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Classic Room</a></h3>
+		    						<p><span class="price mr-2">$130.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 5 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 2</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-5.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Superior Room</a></h3>
+		    						<p><span class="price mr-2">$300.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 6 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 3</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
+		    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+		    				<div class="room">
+		    					<a href="rooms-single.jsp" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-6.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+		    							<span class="icon-search2"></span>
+		    						</div>
+		    					</a>
+		    					<div class="text p-3 text-center">
+		    						<h3 class="mb-3"><a href="rooms-single.jsp">Luxury Room</a></h3>
+		    						<p><span class="price mr-2">$500.00</span> <span class="per">per night</span></p>
+		    						<ul class="list">
+		    							<li><span>Max:</span> 5 Persons</li>
+		    							<li><span>Size:</span> 45 m2</li>
+		    							<li><span>View:</span> Sea View</li>
+		    							<li><span>Bed:</span> 2</li>
+		    						</ul>
+		    						<hr>
+		    						<p class="pt-1"><a href="room-single.jsp" class="btn-custom">Book Now <span class="icon-long-arrow-right"></span></a></p>
+		    					</div>
+		    				</div>
+		    			</div>
 		    		</div>
 		    	</div>
 		    	<div class="col-lg-3 sidebar">
@@ -102,9 +194,12 @@
 	                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 	                    <select name="" id="" class="form-control">
 	                    	<option value="">Room Type</option>
-	                    	<c:forEach var="c" items="${categories}">
-                                                    <option value="">${c.getCategoryName()}</option>
-                                                </c:forEach>
+	                    	<option value="">Suite</option>
+	                      <option value="">Family Room</option>
+	                      <option value="">Deluxe Room</option>
+	                      <option value="">Classic Room</option>
+	                      <option value="">Superior Room</option>
+	                      <option value="">Luxury Room</option>
 	                    </select>
 	                  </div>
 		              </div>

@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
-        <servlet-name>LogoutController</servlet-name>
-        <servlet-class>controller.LogoutController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RegisterController</servlet-name>
         <servlet-class>controller.RegisterController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>VerifyController</servlet-name>
-        <servlet-class>controller.VerifyController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyOTPServlet</servlet-name>
@@ -24,6 +16,18 @@
         <servlet-name>RoomController</servlet-name>
         <servlet-class>controller.RoomController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>controller.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageUser</servlet-name>
+        <servlet-class>controller.ManageUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageRoom</servlet-name>
+        <servlet-class>controller.ManageRoom</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -31,10 +35,6 @@
     <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>VerifyController</servlet-name>
-        <url-pattern>/VerifyController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyOTPServlet</servlet-name>
@@ -52,10 +52,20 @@
         <servlet-name>ForgetPassword</servlet-name>
         <url-pattern>/ForgetPassword</url-pattern>
     </servlet-mapping>
-   
     <servlet-mapping>
         <servlet-name>RoomController</servlet-name>
         <url-pattern>/RoomController</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUser</servlet-name>
+        <url-pattern>/manageUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageRoom</servlet-name>
+        <url-pattern>/manageRoom</url-pattern>
+    </servlet-mapping>
 </web-app>

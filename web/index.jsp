@@ -9,7 +9,6 @@
 <%@page import="dal.*" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.ArrayList" %>
-<%@page import="java.text.DecimalFormat"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -43,14 +42,7 @@
   </head>
   <body>
       <%@include file="includes/navbar.jsp" %>
-    <%
-                    RoomDAO r = new RoomDAO();
-                    AccountDAO d = new AccountDAO();
-        request.setAttribute("staffs", d.getTotalStaffs());
-        request.setAttribute("customers", d.getTotalCustumers());
-                request.setAttribute("topRoom", r.getTop3Category());
-                request.setAttribute("categories", r.ListCategory());
-                        %>
+    
 
     <section class="home-slider owl-carousel">
       <div class="slider-item" style="background-image:url(images/bg_1.jpg);">
@@ -112,10 +104,12 @@
 			        					<div class="select-wrap">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 			                    <select name="" id="" class="form-control">
-                                                <c:forEach var="c" items="${categories}">
-                                                    <option value="">${c.getCategoryName()}</option>
-                                                </c:forEach>
-			                    	
+			                    	<option value="">Suite</option>
+			                      <option value="">Family Room</option>
+			                      <option value="">Deluxe Room</option>
+			                      <option value="">Classic Room</option>
+			                      <option value="">Superior Room</option>
+			                      <option value="">Luxury Room</option>
 			                    </select>
 			                  </div>
 				              </div>
@@ -125,14 +119,17 @@
 	        			<div class="col-md d-flex">
 	        				<div class="form-group p-4 align-self-stretch d-flex align-items-end">
 	        					<div class="wrap">
-			      					<label for="#">Rooms</label>
+			      					<label for="#">Customer</label>
 			      					<div class="form-field">
 			        					<div class="select-wrap">
 			                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
 			                    <select name="" id="" class="form-control">
-			                    	<option value="">1 Room</option>
-			                      <option value="">2 Rooms</option>
-			                      
+			                    	<option value="">1 Adult</option>
+			                      <option value="">2 Adult</option>
+			                      <option value="">3 Adult</option>
+			                      <option value="">4 Adult</option>
+			                      <option value="">5 Adult</option>
+			                      <option value="">6 Adult</option>
 			                    </select>
 			                  </div>
 				              </div>
@@ -245,44 +242,122 @@
     	<div class="container">
 				<div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
-            <h2 class="mb-4">Our Recommended Rooms</h2>
+            <h2 class="mb-4">Our Rooms</h2>
           </div>
         </div>    		
     		<div class="row">
-                    
-                        <c:forEach var="c" items="${topRoom}">
     			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
     				<div class="room">
-    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-1.jpg);">
     						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
     					</a>
     					<div class="text p-3 text-center">
-    						<h3 class="mb-3"><a href="rooms.html">${c.getCategoryName()}</a></h3>
-    						<p><span class="price mr-2">${c.getFormattedPrice()}VND</span> <span class="per">per night</span></p>
+    						<h3 class="mb-3"><a href="rooms.html">Suite Room</a></h3>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
     						<hr>
     						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
     					</div>
     				</div>
     			</div>
-                        </c:forEach>		
+    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+    				<div class="room">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-2.jpg);">
+    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+    					</a>
+    					<div class="text p-3 text-center">
+    						<h3 class="mb-3"><a href="rooms.html">Family Room</a></h3>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
+    						<hr>
+    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+    				<div class="room">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-3.jpg);">
+    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+    					</a>
+    					<div class="text p-3 text-center">
+    						<h3 class="mb-3"><a href="rooms.html">Deluxe Room</a></h3>
+    						<p><span class="price mr-2">385.000VND</span> <span class="per">per night</span></p>
+    						<hr>
+    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+    				<div class="room">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-4.jpg);">
+    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+    					</a>
+    					<div class="text p-3 text-center">
+    						<h3 class="mb-3"><a href="rooms.html">Classic Room</a></h3>
+    						<p><span class="price mr-2">$130.00</span> <span class="per">per night</span></p>
+    						<hr>
+    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+    				<div class="room">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-5.jpg);">
+    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+    					</a>
+    					<div class="text p-3 text-center">
+    						<h3 class="mb-3"><a href="rooms.html">Superior Room</a></h3>
+    						<p><span class="price mr-2">$300.00</span> <span class="per">per night</span></p>
+    						<hr>
+    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-sm col-md-6 col-lg-4 ftco-animate">
+    				<div class="room">
+    					<a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(images/room-6.jpg);">
+    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+    					</a>
+    					<div class="text p-3 text-center">
+    						<h3 class="mb-3"><a href="rooms.html">Luxury Room</a></h3>
+    						<p><span class="price mr-2">$500.00</span> <span class="per">per night</span></p>
+    						<hr>
+    						<p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+    					</div>
+    				</div>
+    			</div>
     		</div>
     	</div>
     </section>
-      <!-- information of hotel -->
+
     <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);">
     	<div class="container">
     		<div class="row justify-content-center">
-    			<div class="col-md-9">
+    			<div class="col-md-10">
 		    		<div class="row">
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		               
-                                  
-                                  <strong class="number" data-number="
-                                        ${customers}
+		               <strong class="number" data-number="
+                                        
+                                        <%
+                                        AccountDAO a = new AccountDAO(); 
+        
+        //lay database - > chuyen sang product.jsp
+        request.setAttribute("totalCustumers", a.getTotalCustumers());
+        request.setAttribute("totalStaffs", a.getTotalStaffs());
+                                        %>
+                                        ${totalCustumers}
                                         ">0</strong>
 		                <span>Happy Guests</span>
 		              </div>
@@ -291,16 +366,14 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-
-		                <strong class="number" data-number="
+		               <strong class="number" data-number="
                                         <%
-                                        
-        request.setAttribute("totalRooms", r.getTotalRoom());
+                                        RoomDAO r = new RoomDAO(); 
         
+        request.setAttribute("totalRooms", r.getTotalRoom());
                                         %>
                                         ${totalRooms}
                                         ">0</strong>
-
 		                <span>Rooms</span>
 		              </div>
 		            </div>
@@ -308,7 +381,7 @@
 		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
 		            <div class="block-18 text-center">
 		              <div class="text">
-		                <strong class="number" data-number="${Staffs}">0</strong>
+		                <strong class="number" data-number="${totalStaffs}">0</strong>
 		                <span>Staffs</span>
 		              </div>
 		            </div>
@@ -327,7 +400,7 @@
     	</div>
     </section>
 
-                                <!-- feedback from customer -->
+
     <section class="ftco-section testimony-section bg-light">
       <div class="container">
         <div class="row justify-content-center">

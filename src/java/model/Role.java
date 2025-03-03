@@ -9,14 +9,17 @@ package model;
  * @author Admin
  */
 public class Role {
-    int roleId;
-    String roleName;
+    private int roleId;
+    private String roleName;
 
     public Role() {
     }
 
+    public Role(int roleId, String roleName) {
+        this.roleId = roleId;
+        this.roleName = roleName;
+    }
 
-    
     public int getRoleId() {
         return roleId;
     }

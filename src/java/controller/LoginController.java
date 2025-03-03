@@ -9,9 +9,8 @@ import jakarta.servlet.http.HttpSession;
 import model.Account;
 import dal.AccountDAO;
 import java.io.IOException;
-import model.Role;
 
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name ="LoginController", urlPatterns ={"/LoginController"})
 public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -21,9 +20,10 @@ public class LoginController extends HttpServlet {
 
         AccountDAO accountDAO = new AccountDAO();
         Account account = accountDAO.login(email, password);
-        
         if (account != null) {
+            String role = account.getRole().getRoleName();
             HttpSession session = request.getSession();
+            session.setAttribute("role", role);
             session.setAttribute("account", account);
             response.sendRedirect("index.jsp");  // Chuyển hướng về trang chính
         } else {
