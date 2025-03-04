@@ -12,8 +12,8 @@
              <% if (account != null && ("Admin".equals(role) || "Owner".equals(role))) { %>
                     <li class="nav-item"><a href="dashboard" class="nav-link">Dashboard</a></li>
              <% } %>
-                <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="rooms.jsp" class="nav-link">Rooms</a></li>
+                <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="rooms" class="nav-link">Rooms</a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
 
                 <% if (account != null) { %>
