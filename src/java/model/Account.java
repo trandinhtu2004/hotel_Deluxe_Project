@@ -31,6 +31,13 @@ public class Account {
         this.OTP = OTP;
     }
 
+    public Account(String fullName, String email, String password, String phone) {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+    }
+
     public int getAccountId() {
         return accountId;
     }
