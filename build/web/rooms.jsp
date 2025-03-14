@@ -55,7 +55,7 @@
                             <c:forEach var="c" items="${list}">
                                 <div class="col-sm col-md-6 col-lg-4 ftco-animate">
                                     <div class="room">
-                                        <!-- change href get categoryId -->
+                                        
                                         <a href="room-detail?categoryId=${c.getCategoryId()}" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
                                             <div class="icon d-flex justify-content-center align-items-center">
                                                 <span class="icon-search2"></span>
@@ -65,14 +65,14 @@
                                             
                                             <h3 class="mb-3"><a href="room-detail?categoryId=${c.getCategoryId()}">${c.getCategoryName()}</a></h3>
 
-                                            <p><span class="price mr-2"><fmt:formatNumber value="${c.getPricePerNight()}" type="number" maxFractionDigits="0"/> VND</span> <span class="per">per night</span></p>
+                                            <p><span class="price mr-2"><fmt:formatNumber value="${c.getPricePerNight()}" type="number" maxFractionDigits="0"/>VND</span> <span class="per">1 night</span></p>
                                             <ul class="list">
                                                 <li><span>Max:</span> ${c.getCapacity()}</li>
                                                 <li><span>Size:</span> ${c.getSize()} m2</li>
                                                 <li><span>Bed:</span> ${c.getBed()}</li>
                                             </ul>
                                             <hr>
-                                           
+                                            
                                             <p class="pt-1"><a href="room-detail?categoryId=${c.getCategoryId()}" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
                                         </div>
                                     </div>
@@ -86,10 +86,12 @@
                             <form action="filter">
                                 <div class="fields">
                                     <div class="form-group">
-                                        <input type="text" name="checkin" id="checkin_date" class="form-control checkin_date" placeholder="Check In Date">
+                                        <input type="text" name="checkin" id="checkin_date" class="form-control checkin_date" 
+                                               placeholder="Check In Date" value="${sessionScope.checkin}">         
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="checkout" id="checkin_date" class="form-control checkout_date" placeholder="Check Out Date">
+                                        <input type="text" name="checkout" id="checkout_date" class="form-control checkout_date" 
+                                               placeholder="Check Out Date" value="${sessionScope.checkout}">
                                     </div>
                                     <div class="form-group">
                                         <div class="select-wrap one-third">
@@ -106,7 +108,7 @@
                                     <div class="form-group">
                                         <div class="select-wrap one-third">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="roomType" id="" class="form-control">
+                                            <select name="capacity" id="" class="form-control">
                                                 <option value="">Capacity</option>
                                                 <c:forEach var="c" items="${capacities}">
                                                     <option value="${c.getCapacity()}">${c.getCapacity()}</option>
@@ -118,8 +120,8 @@
                                     <div class="form-group">
                                         <div class="select-wrap one-third">
                                             <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="roomType" id="" class="form-control">
-                                                <option value="">Capacity</option>
+                                            <select name="bed" id="" class="form-control">
+                                                <option value="">Bed</option>
                                                 <c:forEach var="c" items="${capacities}">
                                                     <option value="${c.getCapacity()}">${c.getCapacity()}</option>
                                                 </c:forEach>
@@ -129,23 +131,27 @@
 
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <div  class="filter-price">
+                                            <div class="filter-price">
 
                                                 <h3>Filter by Price</h3>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="100000-200000" id="price1">
+                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="0-100000" id="price1">
+                                                    <label class="form-check-label" for="price1">0 - 100,000</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="100000-200000" id="price2">
                                                     <label class="form-check-label" for="price1">100,000 - 200,000</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="200000-300000" id="price2">
+                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="200000-300000" id="price3">
                                                     <label class="form-check-label" for="price2">200,000 - 300,000</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="300000-400000" id="price3">
+                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="300000-400000" id="price4">
                                                     <label class="form-check-label" for="price3">300,000 - 400,000</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="400000-500000" id="price4">
+                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="400000-500000" id="price5">
                                                     <label class="form-check-label" for="price4">400,000 - 500,000</label>
                                                 </div>
                                                 <div class="form-check">
@@ -206,7 +212,7 @@
         </section>
 
 
-        <section class="instagram pt-5">
+<!--        <section class="instagram pt-5">
             <div class="container-fluid">
                 <div class="row no-gutters justify-content-center pb-5">
                     <div class="col-md-7 text-center heading-section ftco-animate">
@@ -251,7 +257,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
 
         <footer class="ftco-footer ftco-bg-dark ftco-section">
             <div class="container">

@@ -45,6 +45,9 @@
                                 <li class="<%= currentUrl.contains("/manageRoom") ? "active" : "" %>">
                                     <a href="manageRoom"><i class="glyphicon glyphicon-list-alt"></i>Manage Room</a>
                                 </li>
+                                <li class="<%= currentUrl.contains("/manageService") ? "active" : "" %>">
+                                    <a href="manageService"><i class="glyphicon glyphicon-list-alt"></i>Manage Service</a>
+                                </li>
                                 <li class="<%= currentUrl.contains("/setting") ? "active" : "" %>">
                                     <a href="#" target="_blank"><i class="glyphicon glyphicon-cog"></i>Setting</a>
                                 </li>

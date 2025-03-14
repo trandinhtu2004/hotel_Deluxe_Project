@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Category;
 
@@ -30,13 +31,29 @@ public class FilterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String categoryName = request.getParameter("roomType");
-        String capacity = request.getParameter("capacity");
+           HttpSession session = request.getSession();
+        
+      String categoryName = request.getParameter("roomType");
+      String capacityParam = request.getParameter("capacity");
+        String bedParam = request.getParameter("bed");
         String checkinDate = request.getParameter("checkin");
         String checkoutDate = request.getParameter("checkout");
         String[] priceRanges = request.getParameterValues("priceRange");
         
+        int capacity; 
+        if(capacityParam != null && !capacityParam.isEmpty()){
+            capacity = Integer.parseInt(capacityParam);
+        }else{
+            capacity = 0;
+        }
+        int bed; 
+        if(bedParam != null && !bedParam.isEmpty()){
+            bed = Integer.parseInt(bedParam);
+        }else{
+            bed = 0;
+        }
         RoomDAO roomDAO = new RoomDAO();
+        
         ArrayList<Category> filteredCategories = new ArrayList<>();
         
         // Handle price ranges if selected
@@ -52,7 +69,9 @@ public class FilterController extends HttpServlet {
                 ArrayList<Category> categoriesInPriceRange = roomDAO.filterRoomCategory(
                     minPrice, 
                     maxPrice, 
-                    categoryName, 
+                    categoryName,
+                    capacity,
+                    bed,
                     checkoutDate, 
                     checkinDate
                 );
@@ -69,12 +88,13 @@ public class FilterController extends HttpServlet {
                 null,  // min price (will use default 0)
                 null,  // max price (will use max from database)
                 categoryName,
+                0,0,
                 checkoutDate,
                 checkinDate
             );
         }
         
-        // Get all capacities 
+        // Get all capacities for the dropdown
         ArrayList<Category> capacities = roomDAO.getAllCapacities();
         
         // Get all categories for the room type dropdown

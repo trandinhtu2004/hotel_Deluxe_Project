@@ -26,7 +26,7 @@ import model.Room;
  */
 public class RoomDAO extends DBContext {
     
-    public Category getRoomCategoryById(int categoryId) {
+     public Category getRoomCategoryById(int categoryId) {
         Category category = null;
         try {
             String sql = "SELECT [CategoryId]\n"
@@ -51,7 +51,6 @@ public class RoomDAO extends DBContext {
                 category.setDescription(rs.getString("Description"));
                 category.setImage(rs.getString("Image"));
                 category.setSize(rs.getDouble("Size"));
-                category.setBed(rs.getInt("Bed"));
             }
 
         } catch (SQLException e) {
@@ -60,10 +59,11 @@ public class RoomDAO extends DBContext {
         return category;
     }
 
-    public List<Category> getSimilarRoomCategories(int currentCategoryId) {
-        List<Category> similarCategories = new ArrayList<>();
+    public ArrayList<Category> getSimilarRoomCategories(int currentCategoryId) {
+        ArrayList<Category> similarCategories = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Category WHERE CategoryId != ? ORDER BY CategoryId OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY";
+            String sql = "SELECT * FROM Category WHERE CategoryId != ? "
+                    + "ORDER BY CategoryId OFFSET 0 ROWS FETCH NEXT 2 ROWS ONLY";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, currentCategoryId);
             ResultSet rs = statement.executeQuery();
@@ -85,25 +85,7 @@ public class RoomDAO extends DBContext {
         }
         return similarCategories;
     }
-
-    public int getRoomCountByCategoryId(int categoryId) {
-        int count = 0;
-        try {
-            String sql = "SELECT COUNT(*) AS RoomCount FROM Room WHERE CategoryId = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, categoryId);
-            ResultSet rs = statement.executeQuery();
-
-            if (rs.next()) {
-                count = rs.getInt("RoomCount");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-
+    
     public ArrayList<Category> getTop3Category() {
 
         ArrayList<Category> list = new ArrayList<>();
@@ -228,84 +210,144 @@ public class RoomDAO extends DBContext {
         return list;
     }
 
-    public ArrayList<Category> filterRoomCategory(Double minPrice, Double maxPrice, String categoryName,
-            String checkOutDate, String checkInDate) {
-        ArrayList<Category> list = new ArrayList<>();
-        // Handle default values
-        double effectiveMinPrice = (minPrice != null) ? minPrice : 0;
-
-        // Get current date for default check-in
+    public int RoomCountByCategoryId(int categoryId, String checkOutDate, String checkInDate) {
+        int availableRooms = 0; // lưu trữ số lượng phòng trống
         LocalDate currentDate = LocalDate.now();
         String defaultCheckInDate = currentDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String defaultCheckOutDate = LocalDate.of(currentDate.getYear(), 12, 31)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE);
 
-        // Get end of year for default check-out
-        LocalDate endOfYear = LocalDate.of(currentDate.getYear(), 12, 31);
-        String defaultCheckOutDate = endOfYear.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        checkInDate = (checkInDate != null && !checkInDate.trim().isEmpty()) ? checkInDate : defaultCheckInDate;
+        checkOutDate = (checkOutDate != null && !checkOutDate.trim().isEmpty()) ? checkOutDate : defaultCheckOutDate;
 
+        String sql = "SELECT COUNT(r.RoomId) AS NumberOfAvailableRooms "
+                + "FROM Room r "
+                + "WHERE r.CategoryId = ? " // Điều kiện lọc theo categoryId
+                + "AND r.Status = 'Available' "
+                + "AND NOT EXISTS ( "
+                + "    SELECT 1 FROM Booking b "
+                + "    WHERE b.RoomId = r.RoomId "
+                + "    AND (b.CheckInDate <= ? AND b.CheckOutDate >= ?) "
+                + "    AND (b.BookingStatus = 'Done' OR b.BookingStatus = 'Late') "
+                + ")";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, categoryId);
+            ps.setString(2, checkOutDate);
+            ps.setString(3, checkInDate);
+
+            ResultSet rs = ps.executeQuery();
+
+            // Lấy kết quả trả về
+            if (rs.next()) {
+                availableRooms = rs.getInt("NumberOfAvailableRooms");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error counting available rooms: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return availableRooms; // Trả về số lượng phòng trống
+    }
+
+    public ArrayList<Category> filterRoomCategory(Double minPrice, Double maxPrice, String categoryName, int capacity, int bed,
+            String checkOutDate, String checkInDate) {
+        ArrayList<Category> list = new ArrayList<>();
+        double effectiveMinPrice;
+        double effectiveMaxPrice;
+        //lay minPrice
+        if (minPrice != null && minPrice >= 0) {
+            effectiveMinPrice = minPrice;
+        } else {
+            effectiveMinPrice = 0;
+        }
+        //lay Maxprice
+        if (maxPrice != null && maxPrice > 0) {
+            effectiveMaxPrice = maxPrice;
+        } else {
+            effectiveMaxPrice = getMaxPriceFromDatabase();
+        }
+
+        // Xử lý giá trị mặc định cho checkInDate và checkOutDate
+        LocalDate currentDate = LocalDate.now();
+        String defaultCheckInDate = currentDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String defaultCheckOutDate = LocalDate.of(currentDate.getYear(), 12, 31)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+        checkInDate = (checkInDate != null && !checkInDate.trim().isEmpty()) ? checkInDate : defaultCheckInDate;
+        checkOutDate = (checkOutDate != null && !checkOutDate.trim().isEmpty()) ? checkOutDate : defaultCheckOutDate;
+
+        // Xây dựng câu truy vấn SQL
         StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("SELECT \n")
-                .append("c.CategoryId,\n")
-                .append("    c.CategoryName, \n")
-                .append("    c.Capacity, \n")
-                .append("    c.PricePerNight, c.Image, \n")
-                .append("    COUNT(*) AS NumberOfRooms\n")
-                .append("FROM \n")
-                .append("    Room r\n")
-                .append("INNER JOIN \n")
-                .append("    Category c ON r.CategoryId = c.CategoryId\n")
-                .append("WHERE \n")
-                .append("    r.Status = 'Available'\n")
-                .append("    AND NOT EXISTS (\n")
-                .append("        SELECT 1\n")
-                .append("        FROM Booking b\n")
-                .append("        WHERE \n")
-                .append("            b.RoomId = r.RoomId\n")
-                .append("            AND (\n")
-                .append("                (b.CheckInDate <= ? AND b.CheckOutDate >= ?)\n")
-                .append("            )\n")
-                .append("            AND b.BookingStatus = 'Confirmed'\n")
-                .append("    )\n");
+        sqlBuilder.append("SELECT ")
+                .append("c.CategoryId, ")
+                .append("c.CategoryName, ")
+                .append("c.Capacity, c.Size, ")
+                .append("c.Bed, ")
+                .append("c.PricePerNight, ")
+                .append("c.Image, ")
+                .append("COUNT(*) AS NumberOfRooms ")
+                .append("FROM Room r ")
+                .append("INNER JOIN Category c ON r.CategoryId = c.CategoryId ")
+                .append("WHERE r.Status = 'Available' ")
+                .append("AND NOT EXISTS ( ")
+                .append("    SELECT 1 FROM Booking b ")
+                .append("    WHERE b.RoomId = r.RoomId ")
+                .append("    AND (b.CheckInDate <= ? AND b.CheckOutDate >= ?) ")
+                .append("    AND (b.BookingStatus = 'Done' OR b.BookingStatus = 'Late') ")
+                .append(") ");
 
-        // Add dynamic conditions based on parameters
+        // Danh sách tham số cho PreparedStatement
         ArrayList<Object> params = new ArrayList<>();
         params.add(checkOutDate);
         params.add(checkInDate);
 
-        // Handle category name filter
+        // Thêm điều kiện lọc theo categoryName nếu có
         if (categoryName != null && !categoryName.trim().isEmpty()) {
-            sqlBuilder.append("   AND c.CategoryName = ?\n");
+            sqlBuilder.append("AND c.CategoryName = ? ");
             params.add(categoryName);
         }
 
-        // Get default max price if not provided or invalid
-        double actualMaxPrice = (maxPrice != null && maxPrice > 0) ? maxPrice : getMaxPriceFromDatabase();
-        double actualMinPrice = (minPrice != null && minPrice >= 0) ? minPrice : 0;
+        if (bed > 0) {
+            sqlBuilder.append("AND c.Bed = ? ");
+            params.add(bed);
+        }
 
-        sqlBuilder.append("    AND c.PricePerNight >= ? AND c.PricePerNight <= ?\n");
-        params.add(actualMinPrice);
-        params.add(actualMaxPrice);
+        if (capacity > 0) {
+            sqlBuilder.append("AND c.Capacity = ? ");
+            params.add(capacity);
+        }
 
-        // Complete the query
-        sqlBuilder.append("GROUP BY \n")
-                .append("    c.CategoryId, c.CategoryName, c.Capacity, c.PricePerNight, c.Image\n")
-                .append("ORDER BY \n")
-                .append("    c.CategoryName");
+        // Thêm điều kiện lọc theo minPrice và maxPrice
+        sqlBuilder.append("AND c.PricePerNight >= ? AND c.PricePerNight <= ? ");
+        params.add(effectiveMinPrice);
+        params.add(effectiveMaxPrice);
+
+        // Hoàn tất câu truy vấn
+        sqlBuilder.append("GROUP BY c.CategoryId, c.CategoryName, c.Capacity,c.Size, c.Bed, c.PricePerNight, c.Image ")
+                .append("ORDER BY c.CategoryName");
 
         try {
+            // Chuẩn bị câu lệnh SQL
             PreparedStatement ps = connection.prepareStatement(sqlBuilder.toString());
 
-            // Set parameters for the prepared statement
+            // Gán tham số vào PreparedStatement
             for (int i = 0; i < params.size(); i++) {
                 ps.setObject(i + 1, params.get(i));
             }
 
+            // Thực thi truy vấn
             ResultSet rs = ps.executeQuery();
 
+            // Xử lý kết quả trả về
             while (rs.next()) {
                 Category category = new Category();
                 category.setCategoryId(rs.getInt("CategoryId"));
                 category.setCategoryName(rs.getString("CategoryName"));
                 category.setCapacity(rs.getInt("Capacity"));
+                category.setSize(rs.getDouble("Size"));
+                category.setBed(rs.getInt("Bed"));
                 category.setPricePerNight(rs.getDouble("PricePerNight"));
                 category.setNumberOfRooms(rs.getInt("NumberOfRooms"));
                 category.setImage(rs.getString("Image"));
@@ -320,14 +362,14 @@ public class RoomDAO extends DBContext {
         return list;
     }
 
-// Helper method to get the maximum price from the database
+// Hàm lấy giá trị giá tối đa từ cơ sở dữ liệu
     private double getMaxPriceFromDatabase() {
-        double maxPrice = Double.MAX_VALUE; // Default fallback value
+        double maxPrice = 0.0; // Giá trị mặc định nếu không tìm thấy
 
         String sql = "SELECT MAX(PricePerNight) AS MaxPrice FROM Category";
 
         try {
-            PreparedStatement ps = connection.prepareCall(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -372,17 +414,15 @@ public class RoomDAO extends DBContext {
         topCategory = r.getTop3Category();
         double min = 0;
         double max = 0;
-        ArrayList<Category> cap = r.filterRoomCategory(min, max, "Single Room", "2024-09-05", "2025-09-10");
-        for (Category category : cap) {
-            System.out.println(category.getCategoryName());
+        int cate = r.RoomCountByCategoryId(5, "2026-02-03", "2024-01-01");
+        System.out.println(cate);
+        ArrayList<Category> results = r.filterRoomCategory(min, max, "Standard Room", 0, 0,
+                "",
+                "");
+        for (Category category : results) {
+            System.out.println(category.getCategoryName() + " " + category.getNumberOfRooms());
         }
 
-        for (Category ca : r.getAllCapacities()) {
-            System.out.println(ca.getCapacity());
-        }
-
-        DecimalFormat df = new DecimalFormat();
-
-        //System.err.println(r.getTotalRoom());
     }
+
 }

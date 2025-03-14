@@ -30,7 +30,7 @@ public class ListRoomCategoriesController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-            RoomDAO r = new RoomDAO();
+        RoomDAO r = new RoomDAO();
  
     ArrayList<Category> capacities = r.getAllCapacities();
     ArrayList<Category> list = r.ListCategory();
@@ -43,6 +43,7 @@ public class ListRoomCategoriesController extends HttpServlet {
     request.setAttribute("list", list);
         request.getRequestDispatcher("rooms.jsp").forward(request, response);
     } 
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

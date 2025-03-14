@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
 
-        <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
 
         <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -41,6 +41,7 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
+
         <%@include file="includes/navbar.jsp" %>
 
 
@@ -78,13 +79,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form action="#" class="booking-form">
+                        <form action="filter" class="booking-form">
                             <div class="row">
                                 <div class="col-md-3 d-flex">
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
                                             <label for="#">Check-in Date</label>
-                                            <input type="text" class="form-control checkin_date" placeholder="Check-in date">
+                                            <input type="text" name="checkin" id="checkin_date" class="form-control checkin_date" 
+                                               placeholder="Check In Date" value="${sessionScope.checkin}">
                                         </div>
                                     </div>
                                 </div>
@@ -92,45 +94,43 @@
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
                                             <label for="#">Check-out Date</label>
-                                            <input type="text" class="form-control checkout_date" placeholder="Check-out date">
+                                            <input type="text" name="checkout" id="checkout_date" class="form-control checkout_date" 
+                                               placeholder="Check Out Date" value="${sessionScope.checkout}">
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md d-flex">
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
-                                            <label for="#">Room</label>
+                                            <label for="#">Capacity</label>
                                             <div class="form-field">
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">Suite</option>
-                                                        <option value="">Family Room</option>
-                                                        <option value="">Deluxe Room</option>
-                                                        <option value="">Classic Room</option>
-                                                        <option value="">Superior Room</option>
-                                                        <option value="">Luxury Room</option>
-                                                    </select>
+                                                    <select name="capacity" id="" class="form-control">
+                                                <option value="">Capacity</option>
+                                                <c:forEach var="c" items="${capacities}">
+                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
+                                                </c:forEach>
+                                            </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md d-flex">
+                                        <div class="col-md d-flex">
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
-                                            <label for="#">Customer</label>
+                                            <label for="#">Bed</label>
                                             <div class="form-field">
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">1 Adult</option>
-                                                        <option value="">2 Adult</option>
-                                                        <option value="">3 Adult</option>
-                                                        <option value="">4 Adult</option>
-                                                        <option value="">5 Adult</option>
-                                                        <option value="">6 Adult</option>
-                                                    </select>
+                                                    <select name="bed" id="" class="form-control">
+                                                <option value="">Bed</option>
+                                                <c:forEach var="c" items="${capacities}">
+                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
+                                                </c:forEach>
+                                            </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -237,10 +237,9 @@
                 </div>
             </div>
         </section>
-
         <!-- recommended rooms -->
-        <section class="ftco-section bg-light">
-            <form action="home">
+            <section class="ftco-section bg-light">
+                <form action="home">
                 <div class="container">
                     <div class="row justify-content-center mb-5 pb-3">
                         <div class="col-md-7 heading-section text-center ftco-animate">
@@ -267,9 +266,9 @@
                         </c:forEach>		
                     </div>
                 </div>
-            </form>
-        </section>
-
+                    </form>
+            </section>
+        
         <!-- information of hotel -->
         <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);">
             <div class="container">
