@@ -79,6 +79,17 @@
                 padding: 10px;
             }
 
+            .status-done {
+        color: #8BC34A;
+    }
+    .status-on-going {
+        color: #FF9800;
+    }
+    .status-cancel {
+        color: #FF5722;
+    }
+    
+            
         </style>
     </head>
     <body>
@@ -96,7 +107,7 @@
                 <a href="#"><i class="icon-money"></i> View Salary</a>
             </div>
             <div class="div3">
-                <h2>Check In</h2>
+                <h2>Booking History</h2>
                 
                 <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
@@ -116,7 +127,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="item" items="${checkInList}" varStatus="status">
+                        <c:forEach var="item" items="${booking}" varStatus="status">
                             <tr>
                                 <td>${status.index + 1}</td>
                                 <td>${item.bookingId}</td>
@@ -128,8 +139,21 @@
                                 <td>${item.note}</td>
                                 <td>${item.customerName}</td>
                                 <td>${item.accoutID}</td>
-                                <td>${item.status}</td>
-                                <td><a href="GetDetailInfomation?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}">Details</a></td>
+                                <td><c:choose>
+                    <c:when test="${item.status == 'Done'}">
+                        <span class="status-done">${item.status}</span>
+                    </c:when>
+                    <c:when test="${item.status == 'On going'}">
+                        <span class="status-on-going">${item.status}</span>
+                    </c:when>
+                    <c:when test="${item.status == 'Cancel'}">
+                        <span class="status-cancel">${item.status}</span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="status-not-yet">${item.status}</span>
+                    </c:otherwise>
+                </c:choose></td>
+                                <td><a href="bookingdetail.jsp?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&status=${item.status}">Details</a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

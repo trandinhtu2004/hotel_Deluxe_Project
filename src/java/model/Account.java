@@ -18,7 +18,44 @@ public class Account {
     private String phone;
     private String OTP;
 
+    private int roleId;
+    private String Address;
+    private String CreateDate;
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String CreateDate) {
+        this.CreateDate = CreateDate;
+    }
+
     public Account() {
+    }
+    
+    public Account(int roleId, String fullname, String Email, String Phone, String Address, String CreateDate) {
+        this.roleId = roleId;
+        this.fullName = fullname;
+        this.email = Email;
+        this.phone = Phone;
+        this.Address = Address;
+        this.CreateDate = CreateDate;
     }
 
     public Account(int accountId, Role role, String fullName, String email, String password, String phone, String OTP) {
@@ -93,5 +130,5 @@ public class Account {
     public void setOTP(String OTP) {
         this.OTP = OTP;
     }
-    
+
 }

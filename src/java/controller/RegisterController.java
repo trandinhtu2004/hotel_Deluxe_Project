@@ -5,6 +5,7 @@ import emailSender.EmailUtil;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Random;
+import java.util.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,14 +23,13 @@ public class RegisterController extends HttpServlet {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-
-        // Kiểm tra mật khẩu có khớp không
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("message", "Passwords do not match!");
+        
+        if(fullName.length()<6){
+            request.setAttribute("message", "Username must have atleast 6 digits!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
-
+        
         // Kiểm tra email đã tồn tại chưa (giả sử AccountDAO có phương thức này)
         AccountDAO dao = new AccountDAO();
         if (dao.emailExists(email)) {
@@ -37,6 +37,35 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
+        
+        try{
+            int phoneint = Integer.parseInt(phone);
+        }catch(NumberFormatException e){
+            request.setAttribute("message", "Phone must be number!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+        
+        if(phone.length()!=10){
+            request.setAttribute("message", "Phone must have 10 numbers!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+        
+        if(password.length()<6){
+            request.setAttribute("message", "Password must have atleast 6 digits!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+        
+        // Kiểm tra mật khẩu có khớp không
+        if (!password.equals(confirmPassword)) {
+            request.setAttribute("message", "Passwords do not match!");
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+            return;
+        }
+
+        
 
         // Tạo OTP
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);

@@ -11,6 +11,7 @@ package model;
 public class Room {
     private int id;
     private String roomNumber;
+    private String RoomType;
     private Category category;
     private boolean status;
 
@@ -24,6 +25,25 @@ public class Room {
         this.status = status;
     }
 
+    public Room(int id, String roomNumber, String RoomType, Category category, boolean status) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.RoomType = RoomType;
+        this.category = category;
+        this.status = status;
+    }
+
+    public String getRoomType() {
+        return RoomType;
+    }
+
+    public void setRoomType(String RoomType) {
+        this.RoomType = RoomType;
+    }
+    
+
+    
+    
     public int getId() {
         return id;
     }

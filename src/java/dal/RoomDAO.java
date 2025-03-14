@@ -26,6 +26,37 @@ import model.Room;
  */
 public class RoomDAO extends DBContext {
     
+    
+    
+    public Room getRoomByID(String id) {
+        String sql = "SELECT [RoomId], [RoomNumber], [CategoryId], [Status], [Image],[RoomType] "
+                   + "FROM [Room] WHERE [RoomId] = ?";
+        try (
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Room room = new Room();
+                room.setId(rs.getInt("RoomId"));
+                room.setRoomNumber(rs.getString("RoomNumber"));
+                room.setRoomType(rs.getString("RoomType"));
+                return room;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        RoomDAO rd = new RoomDAO();
+        Room room = rd.getRoomByID("1");
+        System.out.println(room.getRoomType()+" "+room.getRoomNumber());
+    }
+    
     public Category getRoomCategoryById(int categoryId) {
         Category category = null;
         try {
@@ -365,24 +396,8 @@ public class RoomDAO extends DBContext {
 
         return list.size();
     }
+    
+    
 
-    public static void main(String[] args) {
-        RoomDAO r = new RoomDAO();
-        ArrayList<Category> topCategory = new ArrayList<>();
-        topCategory = r.getTop3Category();
-        double min = 0;
-        double max = 0;
-        ArrayList<Category> cap = r.filterRoomCategory(min, max, "Single Room", "2024-09-05", "2025-09-10");
-        for (Category category : cap) {
-            System.out.println(category.getCategoryName());
-        }
-
-        for (Category ca : r.getAllCapacities()) {
-            System.out.println(ca.getCapacity());
-        }
-
-        DecimalFormat df = new DecimalFormat();
-
-        //System.err.println(r.getTotalRoom());
-    }
+    
 }

@@ -67,6 +67,8 @@ public int getTotalStaffs() {
         return list.size();
     }
 
+
+
 public int getTotalCustumers() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
@@ -100,24 +102,60 @@ public int getTotalCustumers() {
         return list.size();
     }
 
-    public static void main(String[] args) {
-        AccountDAO a = new AccountDAO();
-        //test if everything go 
-//       a.login("minhhieufvc@gmail.com", "12");
-//        Account a1= new Account();
-//        a1.setAccountId(5);
-//        a1.setEmail("hieu1@gmail.com");
-//        a1.setFullName("Nguyen Minh Hieu");
-//        a1.setPassword("123");
-//        a1.setPhone("0921971999");
-//        a1.setRole(1);
-//        a.insert(a1);
+
+public Account getAccountNameById(int accid){
+    Account acc = null;
+    String sql = "SELECT * FROM Account WHERE AccountID = ?";
+    try{
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, accid);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            acc = new Account();
+            acc.setFullName(rs.getString("FullName"));
+        }
+    }catch(Exception e){
         
-        List<Account> acc = a.getAllAccount();
-        for (Account account : acc) {
-            System.out.println(account.getEmail()+" "+account.getPassword());
+    }
+    return acc;
+}
+
+public Account getAccountInfoById(String accountId) {
+        String sql = "SELECT [RoleId], [FullName], [Email], [Phone], [Address], [CreatedDate] "
+                   + "FROM [HotelManagement].[dbo].[Account] "
+                   + "WHERE [AccountId] = ?";
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, accountId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int roleId = rs.getInt("RoleId");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String phone = rs.getString("Phone");
+                    String address = rs.getString("Address");
+                    String createDate = rs.getString("CreatedDate");
+                    return new Account(roleId, fullName, email, phone, address, createDate);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         
+        return null;
+    }
+
+    public static void main(String[] args) {
+        AccountDAO a = new AccountDAO();
+//        List<Account> acc = a.getAllAccount();
+//        for (Account account : acc) {
+//            System.out.println(account.getEmail()+" "+account.getPassword());
+//        }
+//        Account ac = a.getAccountNameById(1);
+//        System.out.println(ac.getFullName());
+        Account ac = a.getAccountInfoById("3");
+        System.out.println(ac.getAccountId()+" "+ac.getEmail());
     }
 
     public int getTotalAccount() {

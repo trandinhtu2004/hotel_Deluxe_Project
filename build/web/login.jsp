@@ -98,7 +98,7 @@
                 <input type="password" id="password" name="password" placeholder="············">
             </div>
 
-            <button class="login" type="submit">Login</button>
+            <button class="login" name="button" id="button" type="submit">Login</button>
         </form>
 
         <div class="footer">

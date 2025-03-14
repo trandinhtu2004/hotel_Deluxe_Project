@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <meta charset="UTF-8">
-        <title>Grid Layout with Sidebar</title>
+        <title>Staff Page</title>
         <style>
             .parent {
                 display: grid;
@@ -89,10 +89,10 @@
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
                 <a href="#"><i class="icon-person"></i> Information</a>
                 <a href="staff.jsp"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
-                <a href="staff-checkin.jsp"><i class="ion-arrow-right-b"></i> Check In</a>
+                <a href="CheckInLoader"><i class="ion-arrow-right-b"></i> Check In</a>
                 <a href="#"><i class="icon-timer"></i> On Going</a>
-                <a href="staff-checkout.jsp"><i class="ion-arrow-left-b"></i> Check Out</a>
-                <a href="#"><i class="ion-ios-paper"></i> Booking History</a>
+                <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
+                <a href="LoadAllBookingInfo"><i class="ion-ios-paper"></i> Booking History</a>
                 <a href="#"><i class="icon-money"></i> View Salary</a>
             </div>
             <div class="div3">

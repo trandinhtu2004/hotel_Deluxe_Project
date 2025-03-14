@@ -4,7 +4,10 @@
     Author     : DELL
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Booking"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +35,7 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <meta charset="UTF-8">
-        <title>Grid Layout with Sidebar</title>
+        <title>Staff Page</title>
         <style>
             .parent {
                 display: grid;
@@ -89,14 +92,14 @@
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
                 <a href="#"><i class="icon-person"></i> Information</a>
                 <a href="staff.jsp"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
-                <a href="staff-checkin.jsp"><i class="ion-arrow-right-b"></i> Check In</a>
+                <a href="CheckInLoader"><i class="ion-arrow-right-b"></i> Check In</a>
                 <a href="#"><i class="icon-timer"></i> On Going</a>
-                <a href="staff-checkout.jsp"><i class="ion-arrow-left-b"></i> Check Out</a>
-                <a href="#"><i class="ion-ios-paper"></i> Booking History</a>
+                <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
+                <a href="LoadAllBookingInfo"><i class="ion-ios-paper"></i> Booking History</a>
                 <a href="#"><i class="icon-money"></i> View Salary</a>
             </div>
             <div class="div3">
-                <h2>Check In</h2>
+                <h2>Check Out</h2>
                 <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
                         <tr>
@@ -109,11 +112,29 @@
                             <th>Check Out Date</th>
                             <th>Note</th>
                             <th>Name</th>
+                            <th>ID</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="item" items="${checkOutList}" varStatus="status">
+                            <tr>
+                                <td>${status.index + 1}</td>
+                                <td>${item.bookingId}</td>
+                                <td>${item.roomId}</td>
+                                <td>${item.roomType}</td>
+                                <td>${item.bookingDate}</td>
+                                <td>${item.checkInDate}</td>
+                                <td>${item.checkOutDate}</td>
+                                <td>${item.note}</td>
+                                <td>${item.customerName}</td>
+                                <td>${item.accoutID}</td>
+                                <td>${item.status}</td>
+                                <td><a href="DetailInformationOut?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}">Details</a></td>
+        
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

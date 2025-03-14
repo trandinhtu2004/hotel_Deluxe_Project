@@ -4,11 +4,7 @@
     Author     : DELL
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-<%@page import="model.Booking"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,6 +43,7 @@
                 height: 100vh;
             }
 
+
             .div2 {
                 grid-area: 2 / 1 / 6 / 2;
                 background-color: #222;
@@ -69,6 +66,8 @@
                 padding: 20px;
             }
 
+
+
             .div2 a:hover {
                 color: #555;
             }
@@ -79,11 +78,49 @@
                 padding: 10px;
             }
 
+            .bookingorder {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+                grid-column-gap: 0px;
+                grid-row-gap: 0px;
+            }
+            .b1 {
+                grid-area: 1 / 1 / 6 / 4;
+            }
+            .b2 {
+                grid-area: 1 / 4 / 6 / 7;
+            }
+            
+            .bookingorder {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        border: 1px solid #444; /* Thêm đường viền */
+        padding: 20px;
+    }
+    .buttons .confirm {
+        background-color: green;
+        color: white;
+    }
+
+    .buttons .cancel {
+        background-color: #E50046;
+        color: white;
+    }
+    
+    .buttons .confirm:hover, .buttons .cancel:hover {
+        opacity: 0.7;
+    }
+    
         </style>
     </head>
     <body>
         <%@include file="includes/navbar.jsp" %>
         <div class="parent">
+
             <div class="div2">
                 <h2>Menu</h2>
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
@@ -97,43 +134,46 @@
             </div>
             <div class="div3">
                 <h2>Check In</h2>
-                
-                <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Booking Id</th>
-                            <th>Room Id</th>
-                            <th>Room Type</th>
-                            <th>Booking Date</th>
-                            <th>Check In Date</th>
-                            <th>Check Out Date</th>
-                            <th>Note</th>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="item" items="${checkInList}" varStatus="status">
-                            <tr>
-                                <td>${status.index + 1}</td>
-                                <td>${item.bookingId}</td>
-                                <td>${item.roomId}</td>
-                                <td>${item.roomType}</td>
-                                <td>${item.bookingDate}</td>
-                                <td>${item.checkInDate}</td>
-                                <td>${item.checkOutDate}</td>
-                                <td>${item.note}</td>
-                                <td>${item.customerName}</td>
-                                <td>${item.accoutID}</td>
-                                <td>${item.status}</td>
-                                <td><a href="GetDetailInfomation?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}">Details</a></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                <a href="CheckInLoader"><i class="ion-ios-arrow-back"></i> Go Back</a>
+                <div class ="bookingorder">
+                     
+                    <div class="b1">
+                        <h4>Booking Detail</h4>
+                        <p>Booking ID: ${bookingId}</p>
+                        <h4>Customer</h4>
+                        <p>AccountID: ${accoutID}</p>
+                        <p>Name: ${customerName}</p>
+                        <p>Email: ${email}</p>
+                        <p>Role: ${role}</p>
+                        <p>Address: ${address}</p>
+                        <p>Phone: ${phone}</p>
+                        <p>Create Date: ${createdate}</p>
+                        <h4>Room</h4>
+                        <p>Room Type: ${roomType}</p>
+                        <p>Room Number: ${roomnum}</p>
+                        <p>Booking Date: ${bookingDate}</p>
+                        <p>Check in Date: ${checkInDate}</p>
+                        <p>Check out Date: ${checkOutDate}</p>
+                        <p>Status: ${status}</p>
+                        <p></p>
+                        <p>Note: ${note}</p>
+                        
+                        <div class="buttons">
+                        <form action="ChangeStateOnGoing" method="get" style="display:inline;">
+                    <input type="hidden" name="bookingId" value="${bookingId}">
+                    <button type="submit" class="confirm">Confirm</button>
+                </form>
+                <form action="ChangeStateCancel" method="get" style="display:inline;">
+                    <input type="hidden" name="bookingId" value="${bookingId}">
+                    <button type="submit" class="cancel">Cancel</button>
+                </form>
+                    </div>
+                    </div>
+                        
+
+                </div>
+
+
             </div>
         </div>
     </body>

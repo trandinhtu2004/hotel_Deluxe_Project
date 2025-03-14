@@ -4,11 +4,7 @@
     Author     : DELL
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List"%>
-<%@page import="model.Booking"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,6 +43,7 @@
                 height: 100vh;
             }
 
+
             .div2 {
                 grid-area: 2 / 1 / 6 / 2;
                 background-color: #222;
@@ -69,6 +66,8 @@
                 padding: 20px;
             }
 
+
+
             .div2 a:hover {
                 color: #555;
             }
@@ -84,6 +83,7 @@
     <body>
         <%@include file="includes/navbar.jsp" %>
         <div class="parent">
+
             <div class="div2">
                 <h2>Menu</h2>
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
@@ -96,44 +96,18 @@
                 <a href="#"><i class="icon-money"></i> View Salary</a>
             </div>
             <div class="div3">
-                <h2>Check In</h2>
-                
-                <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Booking Id</th>
-                            <th>Room Id</th>
-                            <th>Room Type</th>
-                            <th>Booking Date</th>
-                            <th>Check In Date</th>
-                            <th>Check Out Date</th>
-                            <th>Note</th>
-                            <th>Name</th>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="item" items="${checkInList}" varStatus="status">
-                            <tr>
-                                <td>${status.index + 1}</td>
-                                <td>${item.bookingId}</td>
-                                <td>${item.roomId}</td>
-                                <td>${item.roomType}</td>
-                                <td>${item.bookingDate}</td>
-                                <td>${item.checkInDate}</td>
-                                <td>${item.checkOutDate}</td>
-                                <td>${item.note}</td>
-                                <td>${item.customerName}</td>
-                                <td>${item.accoutID}</td>
-                                <td>${item.status}</td>
-                                <td><a href="GetDetailInfomation?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}">Details</a></td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                <h2>Booking Details</h2>
+                <a href="LoadAllBookingInfo">Back to Booking History</a>
+        <p>Booking Id: ${param.bookingId}</p>
+        <p>Room Id: ${param.roomId}</p>
+        <p>Room Type: ${param.roomType}</p>
+        <p>Booking Date: ${param.bookingDate}</p>
+        <p>Check In Date: ${param.checkInDate}</p>
+        <p>Check Out Date: ${param.checkOutDate}</p>
+        <p>Note: ${param.note}</p>
+        <p>Customer Name: ${param.customerName}</p>
+        <p>Status: ${param.status}</p>
+        
             </div>
         </div>
     </body>
