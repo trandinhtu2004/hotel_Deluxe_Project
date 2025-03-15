@@ -8,23 +8,28 @@ package model;
  *
  * @author Admin
  */
-public class Service {
-    private int serviceId;
+public class Service{
+    private CategoryService categoryService;
     private String serviceName;
     private String description;
     private double price;
+    private String status;
 
-    public Service() {
+    // Constructors
+    public Service() {}
+
+    public CategoryService getCategoryService() {
+        return categoryService;
     }
 
-    public int getServiceId() {
-        return serviceId;
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
-    }
+    
+    
 
+    // Getters and Setters
     public String getServiceName() {
         return serviceName;
     }
@@ -48,7 +53,13 @@ public class Service {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
 }

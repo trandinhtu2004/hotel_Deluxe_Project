@@ -30,7 +30,7 @@ public class ListRoomCategoriesController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-            RoomDAO r = new RoomDAO();
+        RoomDAO r = new RoomDAO();
  
     ArrayList<Category> capacities = r.getAllCapacities();
     ArrayList<Category> list = r.ListCategory();

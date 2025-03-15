@@ -5,8 +5,9 @@
 
 package controller;
 
-import dal.AccountDAO;
+import dal.FacilityDAO;
 import dal.RoomDAO;
+import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,13 +15,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 import model.Category;
+import model.Service;
 
 /**
  *
  * @author Admin
  */
-public class HomePageController extends HttpServlet {
+public class CheckRoomAvailabilityController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +40,10 @@ public class HomePageController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePageController</title>");  
+            out.println("<title>Servlet CheckRoomAvailabilityController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePageController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CheckRoomAvailabilityController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,25 +59,49 @@ public class HomePageController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        AccountDAO a = new AccountDAO();
-        RoomDAO r = new RoomDAO();
+            throws ServletException, IOException {
+        try {
 
-        ArrayList<Category> capacities = r.getAllCapacities();
-        ArrayList<Category> list = r.ListCategory();
+            int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            String checkInDate = request.getParameter("checkinDate");
+            String checkOutDate = request.getParameter("checkoutDate");
 
-        // Make sure roomList is not null
-        if (list == null) {
-            list = new ArrayList<>(); // Provide an empty list instead of null
+            String numberOfRoomsStr = request.getParameter("numberOfRooms");
+    int numberOfRooms = (numberOfRoomsStr == null || numberOfRoomsStr.isEmpty()) ? 1 : Integer.parseInt(numberOfRoomsStr);
+
+    // Kiểm tra số lượng phòng hợp lệ
+    if (numberOfRooms <= 0) {
+        throw new IllegalArgumentException("Number of rooms must be greater than 0.");
+    }
+            
+            
+            RoomDAO r = new RoomDAO();
+            int availableRooms = r.RoomCountByCategoryId(categoryId, checkOutDate, checkInDate);
+            ServiceDAO serviceDAO = new ServiceDAO();
+            FacilityDAO facilityDAO = new FacilityDAO();
+            Category category = r.getRoomCategoryById(categoryId);
+
+            ArrayList<Category> similarCategories = r.getSimilarRoomCategories(categoryId);
+            ArrayList<Category> allCategories = r.ListCategory();
+
+            ArrayList<String> facilities = facilityDAO.getFacilitiesById(categoryId);
+
+            // Get all services
+            List<Service> services = serviceDAO.getAllServices();
+            request.setAttribute("availableRooms", availableRooms);
+            request.setAttribute("categoryId", categoryId);
+            request.setAttribute("facilities", facilities);
+            request.setAttribute("category", category);
+            request.setAttribute("similarCategories", similarCategories);
+            request.setAttribute("allCategories", allCategories);
+            request.setAttribute("services", services);
+            // Forward to JSP
+            request.getRequestDispatcher("rooms-single.jsp").forward(request, response);
+        } catch (IllegalArgumentException e) {
+            // Gửi thông báo lỗi chi tiết đến client
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }
-        request.setAttribute("capacities", capacities);
-        request.setAttribute("list", list);
-        request.setAttribute("totalCustomers", a.getTotalCustumers());
-        request.setAttribute("totalStaffs", a.getTotalStaffs());
-        request.setAttribute("topRooms", r.getTop3Category());
-        request.setAttribute("totalRooms", r.getTotalRoom());
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
