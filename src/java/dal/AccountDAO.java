@@ -419,6 +419,10 @@ public Account getAccountInfoById(String accountId) {
         return false;
     }
 
+    public void createAccount(int roleid, String fullName, String email, String password, String phone, String address, String createdDate, String status) {
+        
+    }
+    
     public boolean updateAccount(String email, String fullName, String phone) {
         String sql = "UPDATE Account SET FullName = ?, Phone = ? WHERE Email = ?";
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -432,9 +436,4 @@ public Account getAccountInfoById(String accountId) {
         }
         return false;
     }
-
-    
-
-    
-
 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+
 $(document).ready(function () {
     // Website Views Chart
     new Chart(document.getElementById('websiteViewsChart').getContext('2d'), {

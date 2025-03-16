@@ -20,6 +20,22 @@ public class Category {
     private double size;
     private int bed; 
 
+    public Category() {
+    }
+
+    public Category(int categoryId, String categoryName, int capacity, double pricePerNight, String description, String image) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.capacity = capacity;
+        this.pricePerNight = pricePerNight;
+        this.description = description;
+        this.image = image;
+    }
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public String getFormattedPrice() {
         return formattedPrice;
     }
@@ -51,21 +67,6 @@ public class Category {
     public void setBed(int bed) {
         this.bed = bed;
     }
-    
-    public Category() {
-    }
-
-    public Category(int categoryId, String categoryName, int capacity, double pricePerNight, String description, String image) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.capacity = capacity;
-        this.pricePerNight = pricePerNight;
-        this.description = description;
-        this.image = image;
-    }
-    
-    
-
 
     public int getCategoryId() {
         return categoryId;
@@ -122,7 +123,5 @@ public class Category {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
     
 }

@@ -3,62 +3,71 @@
     Created on : Feb 13, 2025, 2:46:22 PM
     Author     : Overlordil
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
+        <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+        <link rel="stylesheet" href="css/aos.css">
+        <link rel="stylesheet" href="css/ionicons.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/jquery.timepicker.css">
+        <link rel="stylesheet" href="css/flaticon.css">
+        <link rel="stylesheet" href="css/icomoon.css">
+        <link rel="stylesheet" href="css/style.css">
+        <meta charset="UTF-8">
+        <%
+            String currentUri = request.getRequestURI();
+            String activePage = currentUri.substring(currentUri.lastIndexOf("/") + 1);
+            String role = (String) session.getAttribute("role");
+        %>
         <link href="${pageContext.request.contextPath}/css/StyleSidebar.css" rel="stylesheet">
     </head>
     <body>
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="container bootstrap snippets bootdey">
-            <div class="row profile">
-                <div class="col-md-3" id="profileCol">
-                    <div class="profile-sidebar">
-                        <div class="profile-userpic">
-                            <img src="https://bootdey.com/img/Content/User_for_snippets.png" class="img-responsive" alt="">
-                        </div>
-                        <c:set var="user" value="${sessionScope.account}"/>
-                        <div class="profile-usertitle">
-                            <div class="profile-usertitle-name">
-                                ${user.fullName}
-                            </div>
-                        </div>
-                        <%
-                            String currentUrl = request.getRequestURI();
-                        %>
-                        <div class="profile-usermenu">
-                            <ul class="nav">
-                                <li class="<%= currentUrl.contains("/index.jsp") ? "active" : "" %>">
-                                    <a href="index.jsp"><i class="glyphicon glyphicon-home"></i>Home</a>
-                                </li>
-                                <li class="<%= currentUrl.contains("/dashboard") ? "active" : "" %>">
-                                    <a href="dashboard"><i class="glyphicon glyphicon-dashboard"></i>Dashboard</a>
-                                </li>
-                                <li class="<%= currentUrl.contains("/manageUser") ? "active" : "" %>">
-                                    <a href="manageUser"><i class="glyphicon glyphicon-user"></i>Manage User</a>
-                                </li>
-                                <li class="<%= currentUrl.contains("/manageRoom") ? "active" : "" %>">
-                                    <a href="manageRoom"><i class="glyphicon glyphicon-list-alt"></i>Manage Room</a>
-                                </li>
-                                <li class="<%= currentUrl.contains("/setting") ? "active" : "" %>">
-                                    <a href="#" target="_blank"><i class="glyphicon glyphicon-cog"></i>Setting</a>
-                                </li>
-                                <li class="<%= currentUrl.contains("/help") ? "active" : "" %>">
-                                    <a href="#"><i class="glyphicon glyphicon-flag"></i>Help</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>                                
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/sidebarScript.js"></script>
+        <div class="sidebar">
+            <h2>Menu</h2>
+            <a href="index.jsp" class="<%= "index.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-home"></i> Home
+            </a>
+            <% if(role != null && role.equals("Owner")) { %>
+            <a href="dashboard.jsp" class="<%= "dashboard.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-dashboard"></i> Dashboard
+            </a>
+            <% } %>
+            <a href="information.jsp" class="<%= "information.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-person"></i> Information
+            </a>
+            <% if(role != null && role.equals("Owner")) { %>
+            <a href="manageBooking" class="<%= "manageBooking.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="ion-ios-bookmarks"></i> Booking Request
+            </a>
+            <a href="manageSalary.jsp" class="<%= "manageSalary.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-money"></i> Manage Salary
+            </a>
+            <a href="manageUser" class="<%= "manageUser.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-list-ul"></i> Manage User
+            </a>
+            <a href="manageRoom.jsp" class="<%= "manageRoom.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-room"></i> Manage Room
+            </a>
+            <% } %>
+            <a href="staff-checkin.jsp" class="<%= "staff-checkin.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="ion-arrow-right-b"></i> Check In
+            </a>
+            <a href="ongoing.jsp" class="<%= "ongoing.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="icon-timer"></i> On Going
+            </a>
+            <a href="staff-checkout.jsp" class="<%= "staff-checkout.jsp".equals(activePage) ? "active" : "" %>">
+                <i class="ion-arrow-left-b"></i> Check Out
+            </a>
+        </div>
     </body>
 </html>

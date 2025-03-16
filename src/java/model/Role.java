@@ -9,6 +9,7 @@ package model;
  * @author Admin
  */
 public class Role {
+
     private int roleId;
     private String roleName;
 
@@ -35,6 +36,5 @@ public class Role {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
-    
-    
+
 }

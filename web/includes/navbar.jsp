@@ -9,20 +9,22 @@
         <a class="navbar-brand" href="index.jsp">Deluxe</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="staff.jsp" class="nav-link">StaffPage</a></li>
-             <% if (account != null && ("Admin".equals(role) || "Owner".equals(role))) { %>
-                    <li class="nav-item"><a href="dashboard" class="nav-link">Dashboard</a></li>
-             <% } %>
+                <% if (account != null && ("Staff".equals(role))) { %>
+                <li class="nav-item"><a href="manageBooking" class="nav-link">StaffPage</a></li>
+                    <% } %>
+                    <% if (account != null && ("Admin".equals(role) || "Owner".equals(role))) { %>
+                <li class="nav-item"><a href="dashboard" class="nav-link">Dashboard</a></li>
+                    <% } %>
                 <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="rooms" class="nav-link">Rooms</a></li>
                 <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
 
                 <% if (account != null) { %>
-                    <li class="nav-item"><a href="profile.jsp" class="nav-link">Welcome, <%= account.getFullName() %></a></li>
-                    <li class="nav-item"><a href="LogoutController" class="nav-link">Logout</a></li>
-                <% } else { %>
-                    <li class="nav-item"><a href="login.jsp" name="login" class="nav-link">Login</a></li>
-                <% } %>
+                <li class="nav-item"><a href="profile.jsp" class="nav-link">Welcome, <%= account.getFullName() %></a></li>
+                <li class="nav-item"><a href="LogoutController" class="nav-link">Logout</a></li>
+                    <% } else { %>
+                <li class="nav-item"><a href="login.jsp" name="login" class="nav-link">Login</a></li>
+                    <% } %>
             </ul>
         </div>
     </div>
