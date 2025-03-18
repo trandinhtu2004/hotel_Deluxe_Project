@@ -85,93 +85,121 @@
                             <h3 class="heading mb-4">Advanced Search</h3>
                             <form action="filter">
                                 <div class="fields">
+                                    <!-- Check In Date -->
                                     <div class="form-group">
-                                        <input type="text" name="checkin" id="checkin_date" class="form-control checkin_date" 
-                                               placeholder="Check In Date" value="${sessionScope.checkin}">         
+                                        <input type="date" name="checkin" id="checkin_date" class="form-control" 
+                                               placeholder="Check In Date" value="<%= request.getParameter("checkin") != null ? request.getParameter("checkin") : "" %>">
                                     </div>
+
+                                    <!-- Check Out Date -->
                                     <div class="form-group">
-                                        <input type="text" name="checkout" id="checkout_date" class="form-control checkout_date" 
-                                               placeholder="Check Out Date" value="${sessionScope.checkout}">
+                                        <input type="date" name="checkout" id="checkout_date" class="form-control" 
+                                               placeholder="Check Out Date" value="<%= request.getParameter("checkout") != null ? request.getParameter("checkout") : "" %>">
                                     </div>
+
+                                    <% if (request.getAttribute("errorMessage") != null) { %>
+                                    <div style="color: red;">
+                                        <%= request.getAttribute("errorMessage") %>
+                                    </div>
+                                    <% } %>
+                                    <!-- Room Type Dropdown -->
                                     <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="roomType" id="" class="form-control">
-                                                <option value="">Room Type</option>
+                                        <select name="roomType" id="" class="form-control">
+                                            <option value="">Room Type</option>
+                                            <c:if test="${not empty list}">
                                                 <c:forEach var="c" items="${list}">
-                                                    <option value="${c.getCategoryName()}">${c.getCategoryName()}</option>
+                                                    <option value="${c.getCategoryName()}" ${param.roomType == c.getCategoryName() ? "selected" : ""}>
+                                                        ${c.getCategoryName()}
+                                                    </option>
                                                 </c:forEach>
-                                            </select>
-                                        </div>
+                                            </c:if>
+                                        </select>
                                     </div>
 
+                                    <!-- Capacity Dropdown -->
                                     <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="capacity" id="" class="form-control">
-                                                <option value="">Capacity</option>
-                                                <c:forEach var="c" items="${capacities}">
-                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
+                                        <select name="capacity" id="" class="form-control">
+                                            <option value="">Capacity</option>
+                                            <c:forEach var="c" items="${capacities}">
+                                                <option value="${c.getCapacity()}" ${param.capacity == c.getCapacity() ? "selected" : ""}>
+                                                    ${c.getCapacity()}
+                                                </option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
 
+                                    <!-- Bed Dropdown -->
                                     <div class="form-group">
-                                        <div class="select-wrap one-third">
-                                            <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                            <select name="bed" id="" class="form-control">
-                                                <option value="">Bed</option>
-                                                <c:forEach var="c" items="${capacities}">
-                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
+                                        <select name="bed" id="" class="form-control">
+                                            <option value="">Bed</option>
+                                            <c:forEach var="b" items="${beds}">
+                                                <option value="${b.getBed()}" ${param.bed == (b.getBed() + '') ? "selected" : ""}>
+                                                    ${b.getBed()}
+                                                </option>
+                                            </c:forEach>
+                                            <c:if test="${empty beds}">
+                                                <option value="">No beds available</option>
+                                            </c:if>
+                                        </select>
                                     </div>
 
+                                    <!-- Filter by Price Checkboxes -->
                                     <div class="form-group">
-                                        <div class="form-group">
-                                            <div class="filter-price">
-
-                                                <h3>Filter by Price</h3>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="0-100000" id="price1">
-                                                    <label class="form-check-label" for="price1">0 - 100,000</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="100000-200000" id="price2">
-                                                    <label class="form-check-label" for="price1">100,000 - 200,000</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="200000-300000" id="price3">
-                                                    <label class="form-check-label" for="price2">200,000 - 300,000</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="300000-400000" id="price4">
-                                                    <label class="form-check-label" for="price3">300,000 - 400,000</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="400000-500000" id="price5">
-                                                    <label class="form-check-label" for="price4">400,000 - 500,000</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input" name="priceRange" value="500000-4000000" id="price4">
-                                                    <label class="form-check-label" for="price4">500,000 - 4,000,000</label>
-                                                </div>
-
-
+                                        <div class="filter-price">
+                                            <h3>Filter by Price</h3>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="0-100000" id="price1"
+                                                       <%= "0-100000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price1">0 - 100,000</label>
                                             </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="100000-200000" id="price2"
+                                                       <%= "100000-200000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price2">100,000 - 200,000</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="200000-300000" id="price3"
+                                                       <%= "200000-300000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price3">200,000 - 300,000</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="300000-400000" id="price4"
+                                                       <%= "300000-400000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price4">300,000 - 400,000</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="400000-500000" id="price5"
+                                                       <%= "400000-500000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price5">400,000 - 500,000</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" name="priceRange" value="500000-4000000" id="price6"
+                                                       <%= "500000-4000000".equals(request.getParameter("priceRange")) ? "checked" : "" %>>
+                                                <label class="form-check-label" for="price6">500,000 - 4,000,000</label>
+                                            </div>
+
+
                                         </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
                                     </div>
                                 </div>
+
+
+                                <div class="form-group">
+                                    <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="button" class="btn btn-secondary py-3 px-5" value="Reset" onclick="resetFilters()">
+                                </div>
+
+                                <script>
+                                    function resetFilters() {
+                                        window.location.href = 'http://localhost:9999/hotel_Deluxe_cloneIfBroken1/rooms'; // ???ng d?n c?n reset
+                                    }
+                                </script>
                             </form>
                         </div>
-                        <div class="sidebar-wrap bg-light ftco-animate">
+<!--                        <div class="sidebar-wrap bg-light ftco-animate">
                             <h3 class="heading mb-4">Star Rating</h3>
                             <form method="post" class="star-rating">
                                 <div class="form-check">
@@ -205,7 +233,7 @@
                                     </label>
                                 </div>
                             </form>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

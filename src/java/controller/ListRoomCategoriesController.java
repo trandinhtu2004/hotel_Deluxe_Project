@@ -34,11 +34,12 @@ public class ListRoomCategoriesController extends HttpServlet {
  
     ArrayList<Category> capacities = r.getAllCapacities();
     ArrayList<Category> list = r.ListCategory();
-    
+    ArrayList<Category> beds = r.getAllBeds();
     // Make sure roomList is not null
     if (list == null) {
         list = new ArrayList<>(); // Provide an empty list instead of null
     }
+    request.setAttribute("beds", beds);
         request.setAttribute("capacities", capacities);
     request.setAttribute("list", list);
         request.getRequestDispatcher("rooms.jsp").forward(request, response);

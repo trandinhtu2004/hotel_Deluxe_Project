@@ -12,7 +12,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import model.Category;
 
 /**
@@ -29,31 +35,46 @@ public class FilterController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-          
-      String categoryName = request.getParameter("roomType");
-      String capacityParam = request.getParameter("capacity");
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+
+        String categoryName = request.getParameter("roomType");
+        String capacityParam = request.getParameter("capacity");
         String bedParam = request.getParameter("bed");
         String checkinDate = request.getParameter("checkin");
         String checkoutDate = request.getParameter("checkout");
         String[] priceRanges = request.getParameterValues("priceRange");
-        
-        int capacity; 
-        if(capacityParam != null && !capacityParam.isEmpty()){
+
+        int capacity = 0;
+        if (capacityParam != null && !capacityParam.isEmpty()) {
             capacity = Integer.parseInt(capacityParam);
-        }else{
-            capacity = 0;
         }
-        int bed; 
-        if(bedParam != null && !bedParam.isEmpty()){
+        int bed = 0;
+
+        if (bedParam != null && !bedParam.isEmpty()) {
             bed = Integer.parseInt(bedParam);
-        }else{
-            bed = 0;
         }
-        RoomDAO roomDAO = new RoomDAO();
-        
+        RoomDAO r = new RoomDAO();
+
         ArrayList<Category> filteredCategories = new ArrayList<>();
-        
+        // Xử lý giá trị mặc định cho checkInDate và checkOutDate
+        LocalDate currentDate = LocalDate.now();
+        String defaultCheckInDate = currentDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        String defaultCheckOutDate = LocalDate.of(currentDate.getYear(), 12, 31)
+                .format(DateTimeFormatter.ISO_LOCAL_DATE);
+
+        checkinDate = (checkinDate != null && !checkinDate.trim().isEmpty()) ? checkinDate : defaultCheckInDate;
+        checkoutDate = (checkoutDate != null && !checkoutDate.trim().isEmpty()) ? checkoutDate : defaultCheckOutDate;
+        // Kiểm tra điều kiện ngày check-in và check-out
+    if (!isValidDateRange(checkinDate, checkoutDate)) {
+    // Đặt thông báo lỗi
+    request.setAttribute("errorMessage", "Check-in date must be before check-out date and within valid range.");
+    
+    // Chuyển tiếp đến trang rooms.jsp
+    request.getRequestDispatcher("rooms.jsp").forward(request, response);
+    return;
+}
         // Handle price ranges if selected
         if (priceRanges != null && priceRanges.length > 0) {
             // Process each selected price range
@@ -62,57 +83,75 @@ public class FilterController extends HttpServlet {
                 String[] prices = range.split("-");
                 double minPrice = Double.parseDouble(prices[0]);
                 double maxPrice = Double.parseDouble(prices[1]);
-                
+
                 // Use the filterRoomCategory method with appropriate parameters
-                ArrayList<Category> categoriesInPriceRange = roomDAO.filterRoomCategory(
-                    minPrice, 
-                    maxPrice, 
-                    categoryName,
-                    capacity,
-                    bed,
-                    checkoutDate, 
-                    checkinDate
+                ArrayList<Category> categories = r.filterRoomCategory(
+                        minPrice,
+                        maxPrice,
+                        categoryName,
+                        capacity,
+                        bed,
+                        checkoutDate,
+                        checkinDate
                 );
-                
+
                 // Add unique categories to the filtered list
-                for (Category category : categoriesInPriceRange) {
+                for (Category category : categories) {
                     if (!containsCategory(filteredCategories, category)) {
                         filteredCategories.add(category);
                     }
                 }
             }
         } else {
-            filteredCategories = roomDAO.filterRoomCategory(
-                null,  // min price (will use default 0)
-                null,  // max price (will use max from database)
-                categoryName,
-                0,0,
-                checkoutDate,
-                checkinDate
+            filteredCategories = r.filterRoomCategory(
+                    null, // min price (will use default 0)
+                    null, // max price (will use max from database)
+                    categoryName,
+                    capacity > 0 ? capacity : 0, // Use capacity if provided
+                    bed > 0 ? bed : 0,
+                    checkoutDate,
+                    checkinDate
             );
         }
-        
+
         // Get all capacities for the dropdown
-        ArrayList<Category> capacities = roomDAO.getAllCapacities();
-        
+        ArrayList<Category> capacities = r.getAllCapacities();
+        ArrayList<Category> beds = r.getAllBeds();
         // Get all categories for the room type dropdown
-        ArrayList<Category> allCategories = roomDAO.ListCategory();
-        
+        ArrayList<Category> allCategories = r.ListCategory();
+
         // Set attributes for the JSP
         request.setAttribute("list", filteredCategories);
         request.setAttribute("capacities", capacities);
         request.setAttribute("allCategories", allCategories);
-        
+        request.setAttribute("beds", beds);
         // Add selected filter parameters to maintain state
-        request.setAttribute("selectedCategory", categoryName);
-        request.setAttribute("selectedCapacity", capacity);
-        request.setAttribute("selectedCheckin", checkinDate);
-        request.setAttribute("selectedCheckout", checkoutDate);
-        request.setAttribute("selectedPriceRanges", priceRanges);
-        
+        session.setAttribute("selectedCategory", categoryName);
+        session.setAttribute("selectedCapacity", capacity);
+        session.setAttribute("selectedCheckin", checkinDate);
+        session.setAttribute("selectedCheckout", checkoutDate);
+        session.setAttribute("selectedPriceRanges", priceRanges);
+
         // Forward to rooms.jsp
         request.getRequestDispatcher("rooms.jsp").forward(request, response);
     }
+    
+    private boolean isValidDateRange(String checkinDate, String checkoutDate) {
+    try {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+
+        // Parse ngày check-in và check-out
+        Date checkin = sdf.parse(checkinDate);
+        Date checkout = sdf.parse(checkoutDate);
+
+        // Kiểm tra điều kiện: ngày check-in phải nhỏ hơn ngày check-out
+        return checkin.before(checkout);
+    } catch (ParseException e) {
+        // Nếu có lỗi parse ngày, trả về false
+        return false;
+    }
+}
     
     private boolean containsCategory(ArrayList<Category> categories, Category category) {
         for (Category c : categories) {

@@ -247,7 +247,28 @@ public class RoomDAO extends DBContext {
         }
         return list;
     }
-
+    
+    public ArrayList<Category> getAllBeds(){
+        ArrayList<Category> list = new ArrayList<>();
+        String sql = "SELECT DISTINCT [Bed]\n"
+                + "  FROM [Category]\n"
+                + "  ORDER BY [Bed] ASC";
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Category c = new Category();
+                c.setBed(rs.getInt("Bed"));
+                list.add(c);
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    
     public ArrayList<Category> getAllCapacities() {
         ArrayList<Category> list = new ArrayList<>();
         //lấy số lượng người trong một phòng 

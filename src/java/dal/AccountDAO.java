@@ -309,7 +309,7 @@ public class AccountDAO extends DBContext {
 
     public Account login(String email, String password) {
         Account account = null;
-        String sql = "SELECT a.[RoleId],r.[RoleName],[FullName],[Email],[Password]\n"
+        String sql = "SELECT a.AccountId,a.[RoleId],r.[RoleName],[FullName],[Email],[Password],a.Phone\n"
                 + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]\n"
                 + "WHERE Email = ? AND Password = ?";
 
