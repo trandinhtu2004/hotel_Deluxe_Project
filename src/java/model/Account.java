@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Admin
@@ -16,56 +18,34 @@ public class Account {
     private String email;
     private String password;
     private String phone;
+    private String image;
+    private String address;
+    private Date createDate;
     private String OTP;
-
-    private int roleId;
-    private String Address;
-    private String CreateDate;
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
-    }
-
-    public String getCreateDate() {
-        return CreateDate;
-    }
-
-    public void setCreateDate(String CreateDate) {
-        this.CreateDate = CreateDate;
-    }
 
     public Account() {
     }
-    
-    public Account(int roleId, String fullname, String Email, String Phone, String Address, String CreateDate) {
-        this.roleId = roleId;
-        this.fullName = fullname;
-        this.email = Email;
-        this.phone = Phone;
-        this.Address = Address;
-        this.CreateDate = CreateDate;
-    }
 
-    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String OTP) {
+    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String image, String address, Date createDate, String OTP) {
         this.accountId = accountId;
         this.role = role;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.image = image;
+        this.address = address;
+        this.createDate = createDate;
         this.OTP = OTP;
+    }
+
+    public Account(Role role, String fullName, String email, String phone, String address, Date createDate) {
+        this.role = role;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.createDate = createDate;
     }
 
     public Account(String fullName, String email, String password, String phone) {
@@ -121,6 +101,30 @@ public class Account {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String Address) {
+        this.address = Address;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date CreateDate) {
+        this.createDate = CreateDate;
     }
 
     public String getOTP() {

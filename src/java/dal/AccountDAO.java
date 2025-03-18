@@ -15,11 +15,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Account;
 import model.Role;
-
 
 /**
  *
@@ -35,7 +37,7 @@ public class AccountDAO extends DBContext {
 
     }
 
-public int getTotalStaffs() {
+    public int getTotalStaffs() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
                 + "join [Role] r on r.RoleId = Account.RoleId\n"
@@ -52,7 +54,7 @@ public int getTotalStaffs() {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                
+
                 p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
@@ -67,9 +69,7 @@ public int getTotalStaffs() {
         return list.size();
     }
 
-
-
-public int getTotalCustumers() {
+    public int getTotalCustumers() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
                 + "join [Role] r on r.RoleId = Account.RoleId\n"
@@ -86,7 +86,7 @@ public int getTotalCustumers() {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                
+
                 p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
@@ -102,47 +102,47 @@ public int getTotalCustumers() {
         return list.size();
     }
 
+    public Account getAccountNameById(int accid) {
+        Account acc = null;
+        String sql = "SELECT * FROM Account WHERE AccountID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, accid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                acc = new Account();
+                acc.setFullName(rs.getString("FullName"));
+            }
+        } catch (Exception e) {
 
-public Account getAccountNameById(int accid){
-    Account acc = null;
-    String sql = "SELECT * FROM Account WHERE AccountID = ?";
-    try{
-        PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setInt(1, accid);
-        ResultSet rs = ps.executeQuery();
-        if(rs.next()){
-            acc = new Account();
-            acc.setFullName(rs.getString("FullName"));
         }
-    }catch(Exception e){
-        
+        return acc;
     }
-    return acc;
-}
 
-public Account getAccountInfoById(String accountId) {
+    public Account getAccountInfoById(String accountId) {
         String sql = "SELECT [RoleId], [FullName], [Email], [Phone], [Address], [CreatedDate] "
-                   + "FROM [HotelManagement].[dbo].[Account] "
-                   + "WHERE [AccountId] = ?";
-        
+                + "FROM [HotelManagement].[dbo].[Account] "
+                + "WHERE [AccountId] = ?";
+
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, accountId);
-            
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int roleId = rs.getInt("RoleId");
+                    Role role = new Role(roleId);
                     String fullName = rs.getString("FullName");
                     String email = rs.getString("Email");
                     String phone = rs.getString("Phone");
                     String address = rs.getString("Address");
-                    String createDate = rs.getString("CreatedDate");
-                    return new Account(roleId, fullName, email, phone, address, createDate);
+                    Date createDate = rs.getDate("CreatedDate");
+                    return new Account(role, fullName, email, phone, address, createDate);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -155,7 +155,7 @@ public Account getAccountInfoById(String accountId) {
 //        Account ac = a.getAccountNameById(1);
 //        System.out.println(ac.getFullName());
         Account ac = a.getAccountInfoById("3");
-        System.out.println(ac.getAccountId()+" "+ac.getEmail());
+        System.out.println(ac.getAccountId() + " " + ac.getEmail());
     }
 
     public int getTotalAccount() {
@@ -189,7 +189,7 @@ public Account getAccountInfoById(String accountId) {
                 Role r = new Role();
                 r.setRoleId(rs.getInt("RoleId"));
                 r.setRoleName(rs.getString("RoleName"));
-                
+
                 p.setRole(r);
 
                 p.setFullName(rs.getString("Fullname"));
@@ -205,8 +205,6 @@ public Account getAccountInfoById(String accountId) {
         return list;
     }
 
-    
-    
 //    public User getUserByEmail(String email) {
 //        String sql = "select * from users where email like ?";
 //        User user = null;
@@ -228,7 +226,6 @@ public Account getAccountInfoById(String accountId) {
 //        }
 //        return user;
 //    }
-    
     public void changePassword(String email, String newPassword) {
         //Em nghĩ ở đây xài accountID để xác định tài khoản cần đổi mật khẩu sẽ tốt hơn
         //Kiểu xài email hay phone lấy ra từ account nghe nó đần ý
@@ -329,7 +326,7 @@ public Account getAccountInfoById(String accountId) {
                 account.setPassword(rs.getString("Password"));
                 account.setFullName(rs.getString("FullName"));
                 account.setPhone(rs.getString("Phone"));
-                
+
                 Role role = new Role();
                 role.setRoleId(rs.getInt("RoleId"));
                 role.setRoleName(rs.getString("RoleName"));
@@ -360,7 +357,7 @@ public Account getAccountInfoById(String accountId) {
             ps.setString(2, account.getEmail());
             ps.setString(3, account.getPassword());
             ps.setString(4, account.getPhone());
-            ps.setInt(5,1);
+            ps.setInt(5, 1);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -419,10 +416,34 @@ public Account getAccountInfoById(String accountId) {
         return false;
     }
 
-    public void createAccount(int roleid, String fullName, String email, String password, String phone, String address, String createdDate, String status) {
-        
+    public void createAccount(int roleid, String fullName, String email, String password, String phone, String address, Date createdDate, String status) {
+        String sql = "INSERT INTO [dbo].[Account]([RoleId],[FullName],[Email],[Password],[Phone],[Address],[CreatedDate],[Status])\n"
+                + "VALUES (?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, roleid);
+            ps.setString(2, fullName);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            ps.setString(5, phone);
+            ps.setString(6, address);
+            ps.setDate(7, new java.sql.Date(createdDate.getTime()));
+            ps.setString(8, status);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
+    public void updateUser(int roleid, String fullName, String email, String phone, String address, Date createdDate, String status, int accountId) {
+        String sql ="";
+    }
+    
+    public void updateStatusUser(int accountId, String status) {
+        String sql ="";
+    }
+
     public boolean updateAccount(String email, String fullName, String phone) {
         String sql = "UPDATE Account SET FullName = ?, Phone = ? WHERE Email = ?";
         try (PreparedStatement st = connection.prepareStatement(sql)) {

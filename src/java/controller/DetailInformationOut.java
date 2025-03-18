@@ -17,6 +17,7 @@ import dal.BookingDAO;
 import model.Account;
 import dal.AccountDAO;
 import dal.RoomDAO;
+import java.time.LocalDateTime;
 import model.Room;
 
 /**
@@ -93,7 +94,7 @@ public class DetailInformationOut extends HttpServlet {
         }else{
             role="Customer";
         }
-        String createDate = acc.getCreateDate();
+        Date createDate = acc.getCreateDate();
         String address = acc.getAddress();
         String phone = acc.getPhone();
         
