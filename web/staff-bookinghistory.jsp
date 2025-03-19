@@ -13,7 +13,8 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
 
@@ -80,16 +81,16 @@
             }
 
             .status-done {
-        color: #8BC34A;
-    }
-    .status-on-going {
-        color: #FF9800;
-    }
-    .status-cancel {
-        color: #FF5722;
-    }
-    
-            
+                color: #8BC34A;
+            }
+            .status-on-going {
+                color: #FF9800;
+            }
+            .status-cancel {
+                color: #FF5722;
+            }
+
+
         </style>
     </head>
     <body>
@@ -99,7 +100,7 @@
                 <h2>Menu</h2>
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
                 <a href="#"><i class="icon-person"></i> Information</a>
-                <a href="staff.jsp"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
+                <a href="BookingRequest"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
                 <a href="CheckInLoader"><i class="ion-arrow-right-b"></i> Check In</a>
                 <a href="#"><i class="icon-timer"></i> On Going</a>
                 <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
@@ -108,7 +109,7 @@
             </div>
             <div class="div3">
                 <h2>Booking History</h2>
-                
+
                 <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
                         <tr>
@@ -140,21 +141,21 @@
                                 <td>${item.customerName}</td>
                                 <td>${item.accoutID}</td>
                                 <td><c:choose>
-                    <c:when test="${item.status == 'Done'}">
-                        <span class="status-done">${item.status}</span>
-                    </c:when>
-                    <c:when test="${item.status == 'On going'}">
-                        <span class="status-on-going">${item.status}</span>
-                    </c:when>
-                    <c:when test="${item.status == 'Cancel'}">
-                        <span class="status-cancel">${item.status}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="status-not-yet">${item.status}</span>
-                    </c:otherwise>
-                </c:choose></td>
-                                <td><a href="bookingdetail.jsp?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&status=${item.status}">Details</a></td>
-                            </tr>
+                                        <c:when test="${item.status == 'Done'}">
+                                            <span class="status-done">${item.status}</span>
+                                        </c:when>
+                                        <c:when test="${item.status == 'On Going'}">
+                                            <span class="status-on-going">${item.status}</span>
+                                        </c:when>
+                                        <c:when test="${item.status == 'Cancel'}">
+                                            <span class="status-cancel">${item.status}</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="status-not-yet">${item.status}</span>
+                                        </c:otherwise>
+                                    </c:choose></td>
+                                <td><a href="DetailInformationOut?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></a></td>
+        </tr>
                         </c:forEach>
                     </tbody>
                 </table>

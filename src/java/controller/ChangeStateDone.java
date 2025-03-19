@@ -62,8 +62,9 @@ public class ChangeStateDone extends HttpServlet {
             throws ServletException, IOException {
         BookingDAO dao = new BookingDAO();
         String bookingid = request.getParameter("bookingId");
+        String price = request.getParameter("price");
         int id = Integer.parseInt(bookingid);
-        dao.changeStatusDone(id);
+        dao.changeStatusDone(id,Long.parseLong(price));
         response.sendRedirect("LoadAllBookingInfo");
     }
 

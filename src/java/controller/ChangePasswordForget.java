@@ -87,6 +87,7 @@ public class ChangePasswordForget extends HttpServlet {
         }else{
             AccountDAO accountDAO = new AccountDAO();
             accountDAO.changePassword(email, firstPassword);
+            session.invalidate();
             response.sendRedirect("login.jsp");
         }
         

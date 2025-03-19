@@ -14,9 +14,25 @@ public class Service{
     private String description;
     private double price;
     private String status;
+    private int quantity;
 
     // Constructors
     public Service() {}
+    
+    public Service(String serviceName, double price,int quantity){
+        this.serviceName = serviceName;
+        this.price=price;
+        this.quantity=quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    
 
     public CategoryService getCategoryService() {
         return categoryService;

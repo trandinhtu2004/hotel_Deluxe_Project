@@ -62,7 +62,7 @@ public class CheckInLoader extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BookingDAO bk = new BookingDAO();
-        List<Booking> checkInList  = bk.getAllNotYetBooking();
+        List<Booking> checkInList  = bk.getAllNotYetBookingBeforeToday();
         request.setAttribute("checkInList", checkInList);
         request.getRequestDispatcher("staff-checkin.jsp").forward(request, response);
     }

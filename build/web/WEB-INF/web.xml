@@ -52,6 +52,10 @@
         <servlet-name>OwnerListingServiceController</servlet-name>
         <servlet-class>controller.OwnerServiceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookingRequest</servlet-name>
+        <servlet-class>controller.BookingRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>OwnerListingServiceController</servlet-name>
         <url-pattern>/list-service</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookingRequest</servlet-name>
+        <url-pattern>/BookingRequest</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

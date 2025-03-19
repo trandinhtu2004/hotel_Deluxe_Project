@@ -69,7 +69,6 @@ public class RegisterController extends HttpServlet {
 
         // Tạo OTP
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);
-
         // Lưu OTP vào session để xác nhận sau
         HttpSession session = request.getSession();
         session.setAttribute("otp", otp);

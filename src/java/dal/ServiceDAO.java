@@ -115,6 +115,38 @@ public class ServiceDAO extends DBContext{
         }
     }
     
+    public List<Service> getServiceUsageByBookingId(int bookingId) {
+    List<Service> serviceUsages = new ArrayList<>();
+    String sql = "SELECT s.ServiceName, su.Quantity, s.Price " +
+                 "FROM ServiceUsage su " +
+                 "JOIN Service s ON su.ServiceId = s.ServiceId " +
+                 "WHERE su.BookingId = ?";
+
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        st.setInt(1, bookingId);
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            Service serviceUsage = new Service();
+            serviceUsage.setServiceName(rs.getString("ServiceName"));
+            serviceUsage.setQuantity(rs.getInt("Quantity"));
+            serviceUsage.setPrice(rs.getDouble("Price"));
+            serviceUsages.add(serviceUsage);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return serviceUsages;
+}
+    
+    public static void main(String[] args) {
+        ServiceDAO sv = new ServiceDAO();
+        List<Service> usg = sv.getServiceUsageByBookingId(15);
+        for (Service service : usg) {
+            System.out.println(service.getServiceName()+" "+service.getQuantity() +" "+service.getPrice());
+        }
+    }
     
     public ArrayList<Service> getServiceByCategory(){
         ArrayList<Service> services = new ArrayList<>();

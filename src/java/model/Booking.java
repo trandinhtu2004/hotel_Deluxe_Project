@@ -23,15 +23,40 @@ public class Booking {
     private Date bookingDate;
     private String note;
     private String status;
-
+    private BigDecimal pricefernight;
     private int no;
     private String roomType;
+
+    public BigDecimal getPricefernight() {
+        return pricefernight;
+    }
+
+    public void setPricefernight(BigDecimal pricefernight) {
+        this.pricefernight = pricefernight;
+    }
     private String customerName;
     private int accoutID;
 
+  
     public Booking() {
     }
 
+    public Booking(int no, int bookingId, int roomId, String roomType, Date bookingDate, 
+               Date checkInDate, Date checkOutDate, String note, String customerName, 
+               int accoutID, String status, BigDecimal price) {
+    this.no = no;
+    this.bookingId = bookingId;
+    this.roomId = roomId;
+    this.roomType = roomType;
+    this.bookingDate = bookingDate;
+    this.checkInDate = checkInDate;
+    this.checkOutDate = checkOutDate;
+    this.note = note;
+    this.customerName = customerName;
+    this.accoutID = accoutID;
+    this.status = status;
+    this.pricefernight = price;
+}
     
 
     public Booking(int no, int bookingId, int roomId, String roomType, Date bookingDate, Date checkInDate, Date checkOutDate, String note, String customerName, int accoutID, String status) {

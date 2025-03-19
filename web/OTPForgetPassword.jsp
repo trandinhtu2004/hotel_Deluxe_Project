@@ -61,13 +61,12 @@
 <body>
   <div class="registration-form">
     <div class="form-header">
-        <h2>Forgot Password?</h2>
-        <p>Enter your email to reset your password.</p>
+        <h2>Enter Your OTP</h2>
+        <p>We have sent OTP to your email! Check your email to get OTP!</p>
     </div>
-    <form action="ForgetPassword" method="post">
+    <form action="OTPForgetPassword" method="post">
         <div class="mb-3">
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            <input type="otp" class="form-control" id="otp" name="otp" placeholder="Enter OTP" required>
         </div>
         <div class="bottoms">
             <button type="submit" class="btn btn-custom w-100">Change Password</button>

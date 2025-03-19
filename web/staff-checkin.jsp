@@ -16,7 +16,8 @@
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -88,7 +89,7 @@
                 <h2>Menu</h2>
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
                 <a href="#"><i class="icon-person"></i> Information</a>
-                <a href="staff.jsp"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
+                <a href="BookingRequest"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
                 <a href="CheckInLoader"><i class="ion-arrow-right-b"></i> Check In</a>
                 <a href="#"><i class="icon-timer"></i> On Going</a>
                 <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
@@ -97,7 +98,7 @@
             </div>
             <div class="div3">
                 <h2>Check In</h2>
-                
+
                 <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
                         <tr>
@@ -129,8 +130,12 @@
                                 <td>${item.customerName}</td>
                                 <td>${item.accoutID}</td>
                                 <td>${item.status}</td>
-                                <td><a href="GetDetailInfomation?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}">Details</a></td>
-                            </tr>
+                                <td>
+                                    <a href="DetailInformationOut?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}" 
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                </td></tr>
                         </c:forEach>
                     </tbody>
                 </table>

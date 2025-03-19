@@ -4,17 +4,15 @@
  */
 package controller;
 
-import emailSender.EmailForgotPass;
-import dal.AccountDAO;
+import dal.BookingDAO;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
+import java.util.List;
+import model.Booking;
 
 
 
@@ -22,8 +20,7 @@ import java.util.Random;
  *
  * @author DELL
  */
-@WebServlet(name = "ForgetPassword", urlPatterns = {"/ForgetPassword"})
-public class ForgetPassword extends HttpServlet {
+public class BookingRequest extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +39,10 @@ public class ForgetPassword extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgetPassword</title>");
+            out.println("<title>Servlet BookingRequest</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ForgetPassword at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BookingRequest at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +60,10 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("forgetpassword.jsp");
+        BookingDAO bk = new BookingDAO();
+        List<Booking> bookingList  = bk.getAllNotYetBooking();
+        request.setAttribute("BookingList", bookingList);
+        request.getRequestDispatcher("staff.jsp").forward(request, response);
     }
 
     /**
@@ -77,33 +77,9 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        AccountDAO accountDAO = new AccountDAO();
-
-        
-        
-        if (accountDAO.emailExists(email)) {
-            
-            String otp = generateOTP();
-            HttpSession session = request.getSession();
-            session.setAttribute("otp", otp);
-            session.setAttribute("email", email);
-            
-            EmailForgotPass.sendVerificationEmail(email, otp);
-            response.sendRedirect("OTPForgetPassword.jsp?email=" + email);
-           
-        } else {
-            request.setAttribute("err", "Email does not exist.");
-            request.getRequestDispatcher("forgetpassword.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
-    private String generateOTP() {
-        Random random = new Random();
-        int otp = 100000 + random.nextInt(900000); // 6 chữ số
-        return String.valueOf(otp);
-    }
-    
     /**
      * Returns a short description of the servlet.
      *

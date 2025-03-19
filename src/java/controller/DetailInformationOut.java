@@ -17,7 +17,12 @@ import dal.BookingDAO;
 import model.Account;
 import dal.AccountDAO;
 import dal.RoomDAO;
+import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 import model.Room;
+import model.Service;
+import dal.ServiceDAO;
+
 
 /**
  *
@@ -78,13 +83,20 @@ public class DetailInformationOut extends HttpServlet {
         Account acc = ac.getAccountInfoById(accoutID);
         String email = acc.getEmail();
         
+       ServiceDAO sd = new  ServiceDAO();
+       List<Service> listSV = sd.getServiceUsageByBookingId(Integer.parseInt(bookingId));long total=0;
+        for (Service service : listSV) {
+            total+=service.getPrice()*service.getQuantity();
+        }
+        
+        System.out.println("Hello");
         RoomDAO rd = new RoomDAO();
         Room room = rd.getRoomByID(roomId);
         
         String roomnumber = room.getRoomNumber();
-        
+        int roleid=acc.getRoleId();
         String role;
-        int temp =Integer.parseInt(roomId);
+        int temp =roleid;
         if(temp==1){
             role="Owner";
         }
@@ -97,6 +109,26 @@ public class DetailInformationOut extends HttpServlet {
         String address = acc.getAddress();
         String phone = acc.getPhone();
         
+        BookingDAO bk = new BookingDAO();
+        Booking bking = bk.getBookingById(Integer.parseInt(bookingId));
+        
+        Date checkin = bking.getCheckInDate();
+        Date checkout = bking.getCheckOutDate();
+        long diffInMillies = Math.abs(checkout.getTime() - checkin.getTime());
+    long daysBetween = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+    int discont = bk.countBookingByAccountID(accoutID);
+    if(role.equals("Owner")){
+        discont=20;
+    }else if(role.equals("Staff")){
+        discont=10;
+    }
+    
+    BigDecimal discountrate = BigDecimal.valueOf(100-discont*5).divide(BigDecimal.valueOf(100));     
+        
+        BigDecimal price;
+        price = bking.getPricefernight().multiply(BigDecimal.valueOf(daysBetween));
+        BigDecimal totalPrice = price.multiply(discountrate);
         
         request.setAttribute("roomnum", roomnumber);
         request.setAttribute("phone", phone);
@@ -105,15 +137,20 @@ public class DetailInformationOut extends HttpServlet {
         request.setAttribute("role", role);
         request.setAttribute("bookingId", bookingId);
         request.setAttribute("email", email);
-        request.setAttribute("roomType", roomType);
-        request.setAttribute("bookingDate", bookingDate);
-        request.setAttribute("checkInDate", checkInDate);
-        request.setAttribute("checkOutDate", checkOutDate);
-        request.setAttribute("note", note);
-        request.setAttribute("customerName", customerName);
+        request.setAttribute("roomType", bking.getRoomType());
+        request.setAttribute("bookingDate", bking.getBookingDate());
+        request.setAttribute("checkInDate", bking.getCheckInDate());
+        request.setAttribute("checkOutDate", bking.getCheckOutDate());
+        request.setAttribute("note", bking.getNote());
+        request.setAttribute("customerName", bking.getCustomerName());
         request.setAttribute("accoutID", accoutID);
-        request.setAttribute("status", status);
-        
+        request.setAttribute("status", bking.getStatus());
+        request.setAttribute("pernight", bking.getPricefernight().longValue());
+        request.setAttribute("nightstay", daysBetween);
+        request.setAttribute("dc", discont*5);
+        request.setAttribute("price", totalPrice.longValue());
+        request.setAttribute("serviceList", listSV);
+        request.setAttribute("totalservice", total);
         
         request.getRequestDispatcher("bookingdetailcheckout.jsp").forward(request, response);
     }

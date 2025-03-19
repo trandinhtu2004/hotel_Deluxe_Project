@@ -4,12 +4,14 @@
     Author     : DELL
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
 
@@ -88,7 +90,7 @@
                 <h2>Menu</h2>
                 <a href="index.jsp"><i class="icon-home"></i> Home</a>
                 <a href="#"><i class="icon-person"></i> Information</a>
-                <a href="staff.jsp"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
+                <a href="BookingRequest"><i class="ion-ios-bookmarks"></i> View All Booking Request</a>
                 <a href="CheckInLoader"><i class="ion-arrow-right-b"></i> Check In</a>
                 <a href="#"><i class="icon-timer"></i> On Going</a>
                 <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
@@ -109,13 +111,34 @@
                             <th>Check Out Date</th>
                             <th>Note</th>
                             <th>Name</th>
+                            <th>ID</th>
                             <th>Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
+                        <c:forEach var="item" items="${BookingList}" varStatus="status">
+                            <tr>
+                                <td>${status.index + 1}</td>
+                                <td>${item.bookingId}</td>
+                                <td>${item.roomId}</td>
+                                <td>${item.roomType}</td>
+                                <td>${item.bookingDate}</td>
+                                <td>${item.checkInDate}</td>
+                                <td>${item.checkOutDate}</td>
+                                <td>${item.note}</td>
+                                <td>${item.customerName}</td>
+                                <td>${item.accoutID}</td>
+                                <td>${item.status}</td>
+                                <td><a href="DetailInformationOut?bookingId=${item.bookingId}&roomId=${item.roomId}&roomType=${item.roomType}&bookingDate=${item.bookingDate}&checkInDate=${item.checkInDate}&checkOutDate=${item.checkOutDate}&note=${item.note}&customerName=${item.customerName}&accoutID=${item.accoutID}&status=${item.status}" class="btn btn-primary btn-sm"><i class="fas fa-search"></i></a></td>
+        </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
+
+
+
     </body>
 </html>

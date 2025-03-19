@@ -4,6 +4,7 @@
     Author     : DELL
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -78,6 +79,147 @@
                 padding: 10px;
             }
 
+            .bookingorder {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+                grid-column-gap: 0px;
+                grid-row-gap: 0px;
+            }
+            .b1 {
+                grid-area: 1 / 1 / 6 / 4;
+            }
+            .b2 {
+                grid-area: 1 / 4 / 6 / 7;
+            }
+
+            .bookingorder {
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* 2 cột */
+                grid-template-rows: auto auto; /* 2 hàng */
+                gap: 20px;
+                padding: 20px;
+                background: #f8f9fa;
+                border-radius: 10px;
+                box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Booking Detail bên trái */
+            .b1 {
+                grid-column: 1 / 2;
+                grid-row: 1 / 3; /* Chiếm cả 2 hàng */
+            }
+
+            /* Service bên phải (trên) */
+            .b2 {
+                grid-column: 2 / 3;
+                grid-row: 1 / 2;
+            }
+
+            /* Payment bên phải (dưới) */
+            .payment {
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+
+            /* Nút Confirm nằm dưới Payment */
+            .buttons {
+                grid-column: 2 / 3;
+                grid-row: 3 / 4;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            /* Thiết lập chung cho bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header của bảng */
+table thead {
+    background: #007bff; /* Màu xanh dương */
+    color: white;
+}
+
+table thead th {
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Dòng dữ liệu */
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Hover hiệu ứng */
+table tbody tr:hover {
+    background: #f1f1f1;
+}
+
+/* Ô dữ liệu */
+table td {
+    padding: 10px;
+    color: #333;
+}
+
+/* Căn giữa nội dung số */
+table td:nth-child(2),
+table td:nth-child(3),
+table td:nth-child(4) {
+    text-align: center;
+}
+
+/* Bo tròn góc bảng */
+table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+/* Style cho nút Confirm */
+.confirm {
+    background: #28a745; /* Màu xanh lá cây */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover hiệu ứng */
+.confirm:hover {
+    background: #218838;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Khi bấm vào */
+.confirm:active {
+    background: #1e7e34;
+    transform: scale(0.98);
+}
         </style>
     </head>
     <body>
@@ -96,18 +238,79 @@
                 <a href="#"><i class="icon-money"></i> View Salary</a>
             </div>
             <div class="div3">
-                <h2>Booking Details</h2>
-                <a href="LoadAllBookingInfo">Back to Booking History</a>
-        <p>Booking Id: ${param.bookingId}</p>
-        <p>Room Id: ${param.roomId}</p>
-        <p>Room Type: ${param.roomType}</p>
-        <p>Booking Date: ${param.bookingDate}</p>
-        <p>Check In Date: ${param.checkInDate}</p>
-        <p>Check Out Date: ${param.checkOutDate}</p>
-        <p>Note: ${param.note}</p>
-        <p>Customer Name: ${param.customerName}</p>
-        <p>Status: ${param.status}</p>
-        
+                <h2>Check Out</h2>
+                <a href="CheckOutLoader"><i class="ion-ios-arrow-back"></i> Go Back</a>
+                <div class="bookingorder">
+                    <!-- Booking Detail (BÊN TRÁI) -->
+                    <div class="b1">
+                        <h4>Booking Detail</h4>
+                        <div class="booking-detail-grid">
+                            <p><strong>Booking ID:</strong> ${bookingId}</p>
+                            <p><strong>Account ID:</strong> ${accoutID}</p>
+                            <p><strong>Name:</strong> ${customerName}</p>
+                            <p><strong>Email:</strong> ${email}</p>
+                            <p><strong>Role:</strong> ${role}</p>
+                            <p><strong>Address:</strong> ${address}</p>
+                            <p><strong>Phone:</strong> ${phone}</p>
+                            <p><strong>Create Date:</strong> ${createdate}</p>
+                            <h4>Room:</h4>
+                            <p><strong>Room Type:</strong> ${roomType}</p>
+                            <p><strong>Room Number:</strong> ${roomnum}</p>
+                            <p><strong>Booking Date:</strong> ${bookingDate}</p>
+                            <p><strong>Check-in Date:</strong> ${checkInDate}</p>
+                            <p><strong>Check-out Date:</strong> ${checkOutDate}</p>
+                            <p><strong>Status:</strong> ${status}</p>
+                            <p><strong>Note:</strong> ${note}</p>
+                        </div>
+                    </div>
+
+                    <!-- Service (BÊN PHẢI, TRÊN) -->
+                    <div class="b2">
+                        <h4>Service</h4>
+                        <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="item" items="${serviceList}">
+                                    <tr>
+                                        <td>${item.serviceName}</td>
+                                        <td>${item.price}</td>
+                                        <td>${item.quantity}</td>
+                                        <td>${item.price * item.quantity}</td>  
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <p><strong>Total: </strong>${totalservice}$</p>
+                    </div>
+
+                    <!-- Payment (BÊN PHẢI, DƯỚI Service) -->
+                    <div class="payment">
+                        <h4>Payment</h4>
+                        <div class="booking-detail-grid">
+                            <p><strong>Price per night:</strong> ${pernight}$</p>
+                            <p><strong>Night Stay:</strong> ${nightstay}</p>
+                            <p><strong>Discount:</strong> ${dc}%</p>
+                            <p><strong>Total Price:</strong> ${price}$</p>
+                        </div>
+                    </div>
+
+                    <!-- Nút Confirm (BÊN DƯỚI Payment) -->
+                    <div class="buttons">
+                        <form action="ChangeStateDone" method="get">
+                            <input type="hidden" name="bookingId" value="${bookingId}">
+                            <button type="submit" class="confirm">Check Out</button>
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </body>

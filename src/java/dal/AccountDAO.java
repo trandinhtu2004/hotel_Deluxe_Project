@@ -29,7 +29,7 @@ public class AccountDAO extends DBContext {
 
     private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
     private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123";
+    private static final String DB_PASSWORD = "123456";
 
     public void addAccount() {
 
@@ -148,14 +148,14 @@ public Account getAccountInfoById(String accountId) {
 
     public static void main(String[] args) {
         AccountDAO a = new AccountDAO();
-//        List<Account> acc = a.getAllAccount();
-//        for (Account account : acc) {
-//            System.out.println(account.getEmail()+" "+account.getPassword());
-//        }
+        List<Account> acc = a.getAllAccount();
+        for (Account account : acc) {
+            System.out.println(account.getEmail()+" "+account.getPassword());
+        }
 //        Account ac = a.getAccountNameById(1);
 //        System.out.println(ac.getFullName());
-        Account ac = a.getAccountInfoById("3");
-        System.out.println(ac.getAccountId()+" "+ac.getEmail());
+//        Account ac = a.getAccountInfoById("3");
+//        System.out.println(ac.getAccountId()+" "+ac.getEmail());
     }
 
     public int getTotalAccount() {
@@ -312,7 +312,7 @@ public Account getAccountInfoById(String accountId) {
 
     public Account login(String email, String password) {
         Account account = null;
-        String sql = "SELECT a.[RoleId],r.[RoleName],[FullName],[Email],[Password]\n"
+        String sql = "SELECT a.AccountId,a.[RoleId],r.[RoleName],[FullName],[Email],[Password],a.Phone\n"
                 + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]\n"
                 + "WHERE Email = ? AND Password = ?";
 
@@ -329,7 +329,7 @@ public Account getAccountInfoById(String accountId) {
                 account.setPassword(rs.getString("Password"));
                 account.setFullName(rs.getString("FullName"));
                 account.setPhone(rs.getString("Phone"));
-                
+
                 Role role = new Role();
                 role.setRoleId(rs.getInt("RoleId"));
                 role.setRoleName(rs.getString("RoleName"));
@@ -360,7 +360,7 @@ public Account getAccountInfoById(String accountId) {
             ps.setString(2, account.getEmail());
             ps.setString(3, account.getPassword());
             ps.setString(4, account.getPhone());
-            ps.setInt(5,1);
+            ps.setInt(5,3);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
