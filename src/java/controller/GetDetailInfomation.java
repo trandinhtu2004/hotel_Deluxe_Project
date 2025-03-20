@@ -95,7 +95,7 @@ public class GetDetailInfomation extends HttpServlet {
         }else{
             role="Customer";
         }
-        Date createDate = acc.getCreateDate();
+        Date createDate = acc.getCreatedDate();
         String address = acc.getAddress();
         String phone = acc.getPhone();
         

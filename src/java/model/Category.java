@@ -32,6 +32,11 @@ public class Category {
         this.image = image;
     }
 
+    public Category(String categoryName, double pricePerNight) {
+        this.categoryName = categoryName;
+        this.pricePerNight = pricePerNight;
+    }
+    
     public Category(String categoryName) {
         this.categoryName = categoryName;
     }

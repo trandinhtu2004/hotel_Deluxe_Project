@@ -18,6 +18,8 @@ import model.Role;
 import model.Booking;
 import java.math.*;
 import java.util.concurrent.TimeUnit;
+import model.Category;
+import model.Room;
 
 public class BookingDAO extends DBContext {
 
@@ -223,23 +225,44 @@ public class BookingDAO extends DBContext {
 
     public List<Booking> getBookingList() {
         List<Booking> list = new ArrayList<>();
-        String sql = "SELECT * FROM Booking";
+        String sql = "SELECT [BookingId],b.[AccountId],a.[FullName],b.[RoomId],r.[RoomNumber],c.[CategoryName],[CheckInDate],[CheckOutDate],COALESCE([TotalPrice], 0) AS [TotalPrice],[BookingStatus],[BookingDate],[Note],f.[FacilityName],s.[ServiceName],s.[Price],c.[PricePerNight]\n"
+                + "FROM [dbo].[Booking] b JOIN [dbo].[Account] a ON b.AccountId = a.AccountId\n"
+                + "			  JOIN [dbo].[Room] r ON b.RoomId = r.RoomId\n"
+                + "			  JOIN [dbo].[Category] c ON r.CategoryId = c.CategoryId\n"
+                + "		     LEFT JOIN [dbo].[Categories_Facilities] cf ON c.CategoryId = cf.CategoryId\n"
+                + "		     LEFT JOIN [dbo].[Facilities] f ON f.FacilityId = cf.FacilityId\n"
+                + "		     LEFT JOIN [dbo].[Category_Service] cs ON c.CategoryId = cs.CategoryId\n"
+                + "		     LEFT JOIN [dbo].[Service] s ON s.ServiceId = cs.ServiceId;";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Booking booking = new Booking(
-                        rs.getInt("BookingId"),
-                        rs.getInt("AccountId"),
-                        rs.getInt("RoomId"),
-                        rs.getDate("CheckInDate"),
-                        rs.getDate("CheckOutDate"),
-                        rs.getBigDecimal("TotalPrice"),
-                        rs.getString("BookingStatus"),
-                        rs.getDate("BookingDate"),
-                        rs.getString("Note"),
-                        rs.getString("Status")
-                );
+                Booking booking = new Booking();
+                booking.setBookingId(rs.getInt("BookingId"));
+                
+                Account account = new Account();
+                account.setAccountId(rs.getInt("AccountId"));
+                account.setFullName("FullName");
+                booking.setAccount(account);
+                
+                Room room = new  Room();
+                room.setId(rs.getInt("RoomId"));
+                room.setRoomNumber(rs.getString("RoomNumber"));
+                
+                Category category = new  Category();
+                category.setCategoryName(rs.getString("CategoryName"));
+                category.setPricePerNight(rs.getDouble("PricePerNight"));
+                room.setCategory(category);
+                
+                booking.setRoom(room);
+                
+                booking.setCheckInDate(rs.getDate("CheckInDate"));
+                booking.setCheckOutDate(rs.getDate("CheckOutDate"));
+                booking.setBookingDate(rs.getDate("BookingDate"));
+                booking.setTotalPrice(rs.getBigDecimal("TotalPrice"));
+                booking.setBookingStatus(rs.getString("BookingStatus"));
+                booking.setNote(rs.getString("Note"));
+                
                 list.add(booking);
             }
         } catch (Exception e) {

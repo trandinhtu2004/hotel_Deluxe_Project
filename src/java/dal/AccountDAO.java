@@ -436,12 +436,37 @@ public class AccountDAO extends DBContext {
         }
     }
     
-    public void updateUser(int roleid, String fullName, String email, String phone, String address, Date createdDate, String status, int accountId) {
-        String sql ="";
+    public void updateUser(String fullName, String phone, String address, String status, int accountId) {
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "SET [FullName] = ?,[Phone] = ?,[Address] = ?,[Status] = ?\n"
+                + "WHERE [AccountId] = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, fullName);
+            ps.setString(2, phone);
+            ps.setString(3, address);
+            ps.setString(4, status);
+            ps.setInt(5, accountId);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     public void updateStatusUser(int accountId, String status) {
-        String sql ="";
+        String sql = "UPDATE [dbo].[Account]\n"
+                + "SET [Status] = ?\n"
+                + "WHERE [AccountId] = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setInt(2, accountId);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean updateAccount(String email, String fullName, String phone) {

@@ -106,15 +106,11 @@ public class ManageUser extends HttpServlet {
                 case "update": {
                     int accountId = Integer.parseInt(request.getParameter("accountId"));
                     String fullName = request.getParameter("fullName");
-                    String email = request.getParameter("email");
                     String phone = request.getParameter("phone");
                     String address = request.getParameter("address");
-                    int roleid = Integer.parseInt(request.getParameter("roleid"));
-                    SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-                    Date createdDate = date.parse(request.getParameter("createdDate"));
                     String statusUser = request.getParameter("status");
 
-                    user.updateUser(roleid, fullName, email, phone, address, createdDate, statusUser, accountId);
+                    user.updateUser(fullName, phone, address, statusUser, accountId);
                     request.setAttribute("alert", "Update successfully!");
                     break;
                 }

@@ -20,13 +20,14 @@ public class Account {
     private String phone;
     private String image;
     private String address;
-    private Date createDate;
+    private Date createdDate;
+    private String status;
     private String OTP;
 
     public Account() {
     }
 
-    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String image, String address, Date createDate, String OTP) {
+    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String image, String address, Date createdDate, String status, String OTP) {
         this.accountId = accountId;
         this.role = role;
         this.fullName = fullName;
@@ -35,17 +36,18 @@ public class Account {
         this.phone = phone;
         this.image = image;
         this.address = address;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
+        this.status = status;
         this.OTP = OTP;
     }
 
-    public Account(Role role, String fullName, String email, String phone, String address, Date createDate) {
+    public Account(Role role, String fullName, String email, String phone, String address, Date createdDate) {
         this.role = role;
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
     }
 
     public Account(String fullName, String email, String password, String phone) {
@@ -53,6 +55,11 @@ public class Account {
         this.email = email;
         this.password = password;
         this.phone = phone;
+    }
+
+    public Account(int accountId, String fullName) {
+        this.accountId = accountId;
+        this.fullName = fullName;
     }
 
     public int getAccountId() {
@@ -115,16 +122,24 @@ public class Account {
         return address;
     }
 
-    public void setAddress(String Address) {
-        this.address = Address;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date CreateDate) {
-        this.createDate = CreateDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getOTP() {

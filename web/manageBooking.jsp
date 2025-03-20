@@ -55,6 +55,7 @@
                             <th>Note</th>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Total Price</th>
                             <th>Detail</th>
                             <th>Action</th>
                         </tr>
@@ -86,6 +87,7 @@
                                 <td>${booking.note}</td>
                                 <td>${booking.account.fullName}</td>
                                 <td>${booking.bookingStatus}</td>
+                                <td>${booking.totalPrice}</td>
                                 <td><button type="button" class="btn btn-detail" data-toggle="modal" data-target="#modal-detail-booking"
                                             data-bookingid="${booking.bookingId}"
                                             data-roomnumber="${booking.room.roomNumber}"
