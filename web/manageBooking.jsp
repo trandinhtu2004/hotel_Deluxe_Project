@@ -42,6 +42,14 @@
                 <%@ include file="includes/sidebar.jsp" %>
             </div>
             <div class="div3">
+                <div class="status-filter" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-default" onclick="filterBooking('all', this)">All</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Not Yet', this)">Not Yet</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Late', this)">Late</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('On Going', this)">On Going</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Cancel', this)">Cancel</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Done', this)">Done</button>
+                </div>
                 <h2>All Booking</h2>
                 <table id="bookingTable" border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>

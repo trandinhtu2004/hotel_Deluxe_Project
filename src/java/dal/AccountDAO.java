@@ -175,8 +175,8 @@ public class AccountDAO extends DBContext {
 
     public List<Account> getAllAccount() {
         List<Account> list = new ArrayList<>();
-        String sql = "select * from Account\n"
-                + "join [Role] r on r.RoleId = Account.RoleId";
+        String sql = "SELECT [AccountId],a.[RoleId],r.[RoleName],[FullName],[Email],[Phone],[Address],[CreatedDate],[Status],[Image]\n"
+                + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -194,9 +194,12 @@ public class AccountDAO extends DBContext {
 
                 p.setFullName(rs.getString("Fullname"));
                 p.setEmail(rs.getString("Email"));
-                p.setPassword(rs.getString("Password"));
-
                 p.setPhone(rs.getString("Phone"));
+                p.setAddress(rs.getString("Address"));
+                p.setCreatedDate(rs.getDate("CreatedDate"));
+                p.setStatus(rs.getString("Status"));
+                p.setImage(rs.getString("Image"));
+
                 list.add(p);
             }
         } catch (SQLException e) {

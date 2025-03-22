@@ -29,6 +29,10 @@
         <servlet-class>controller.ManageRoom</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ManageBooking</servlet-name>
+        <servlet-class>controller.ManageBooking</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>HomePageController</servlet-name>
         <servlet-class>controller.HomePageController</servlet-class>
     </servlet>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>ManageRoom</servlet-name>
         <url-pattern>/manageRoom</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageBooking</servlet-name>
+        <url-pattern>/manageBooking</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HomePageController</servlet-name>

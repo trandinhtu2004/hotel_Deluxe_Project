@@ -242,7 +242,7 @@ public class BookingDAO extends DBContext {
                 
                 Account account = new Account();
                 account.setAccountId(rs.getInt("AccountId"));
-                account.setFullName("FullName");
+                account.setFullName(rs.getString("FullName"));
                 booking.setAccount(account);
                 
                 Room room = new  Room();
