@@ -33,10 +33,6 @@ public class AccountDAO extends DBContext {
     private static final String DB_USER = "sa";
     private static final String DB_PASSWORD = "123456";
 
-    public void addAccount() {
-
-    }
-
     public int getTotalStaffs() {
         List<Account> list = new ArrayList<>();
         String sql = "select * from Account\n"
