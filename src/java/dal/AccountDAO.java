@@ -146,7 +146,7 @@ public class AccountDAO extends DBContext {
         AccountDAO a = new AccountDAO();
         List<Account> acc = a.getAllAccount();
         for (Account account : acc) {
-            System.out.println(account.getEmail()+" "+account.getPassword());
+            System.out.println(account.getEmail() + " " + account.getPassword());
         }
 //        Account ac = a.getAccountNameById(1);
 //        System.out.println(ac.getFullName());
@@ -172,7 +172,8 @@ public class AccountDAO extends DBContext {
     public List<Account> getAllAccount() {
         List<Account> list = new ArrayList<>();
         String sql = "SELECT [AccountId],a.[RoleId],r.[RoleName],[FullName],[Email],[Phone],[Address],[CreatedDate],[Status],[Image]\n"
-                + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]";
+                + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]"
+                + "ORDER BY [CreatedDate] DESC";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -356,7 +357,7 @@ public class AccountDAO extends DBContext {
             ps.setString(2, account.getEmail());
             ps.setString(3, account.getPassword());
             ps.setString(4, account.getPhone());
-            ps.setInt(5,3);
+            ps.setInt(5, 3);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -415,6 +416,25 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
+    public List<String> getCreatedDate() {
+        List<String> listCreatedDate = new ArrayList<>();
+        String sql = "SELECT DISTINCT [CreatedDate]\n"
+                + "FROM [dbo].[Account]\n"
+                + "ORDER BY [CreatedDate]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                listCreatedDate.add(rs.getString("CreatedDate"));
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listCreatedDate;
+    }
+
     public void createAccount(int roleid, String fullName, String email, String password, String phone, String address, Date createdDate, String status) {
         String sql = "INSERT INTO [dbo].[Account]([RoleId],[FullName],[Email],[Password],[Phone],[Address],[CreatedDate],[Status])\n"
                 + "VALUES (?,?,?,?,?,?,?,?)";
@@ -434,7 +454,7 @@ public class AccountDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
+
     public void updateUser(String fullName, String phone, String address, String status, int accountId) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + "SET [FullName] = ?,[Phone] = ?,[Address] = ?,[Status] = ?\n"
@@ -452,7 +472,7 @@ public class AccountDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
+
     public void updateStatusUser(int accountId, String status) {
         String sql = "UPDATE [dbo].[Account]\n"
                 + "SET [Status] = ?\n"

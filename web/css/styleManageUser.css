@@ -13,6 +13,23 @@ table.user-list tbody td:nth-child(6) {
   display: none !important;
 }
 
+/* Mặc định: nền trắng, chữ màu cam */
+.btn-add-user {
+    background-color: #fff !important;
+    border: 1px solid #f0ad4e !important;
+    color: #f0ad4e !important;
+    border-radius: 20px;
+    padding: 6px 12px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Khi hover: nền cam, chữ trắng */
+.btn-add-user:hover {
+    background-color: #f0ad4e !important;
+    border-color: #f0ad4e !important;
+    color: #fff !important;
+}
+
 /* Giới hạn chiều ngang của danh sách */
 .nav-contacts {
     list-style: none;

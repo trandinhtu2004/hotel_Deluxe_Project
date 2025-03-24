@@ -15,14 +15,13 @@
         <title>Manage User</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
         <link href="${pageContext.request.contextPath}/css/styleManageUser.css" rel="stylesheet">
         <script>
             function showAlert(message) {
                 alert(message);
             }
-
             <% String alert = (String) request.getAttribute("alert");
             if (alert != null && !alert.isEmpty()) { %>
             showAlert('<%= alert %>');
@@ -53,11 +52,7 @@
                                             <th>Role</th>
                                             <th>
                                                 <button type="button" class="btn btn-warning btn-add-user" data-toggle="modal" data-target="#modal-add-user">
-                                                    <span class="fa-stack">
-                                                        <i class="fa fa-square fa-stack-2x"></i>
-                                                        <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-                                                    </span>
-                                                    <span style="margin-left: 5px;">Add New User</span>
+                                                    <span>Add New User</span>
                                                 </button>
                                             </th>
                                         </tr>
@@ -78,10 +73,10 @@
                                                 <td class="text-center">
                                                     <c:choose>
                                                         <c:when test="${user.status.trim() == 'Active'}">
-                                                            <span class="label label-success">${user.status}</span>
+                                                            <span class="label label-success">${user.status.trim()}</span>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <span class="label label-danger">${user.status}</span>
+                                                            <span class="label label-danger">${user.status.trim()}</span>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
@@ -90,44 +85,64 @@
                                                 </td>
                                                 <td>${fn:toLowerCase(user.role.roleName)}</td>
                                                 <td style="width: 20%;">
-                                                    <button type="button" class="table-link text-info btn-edit" data-toggle="modal" data-target="#modal-edit-user" data-tooltip="Edit"
-                                                            data-accountId="${user.accountId}"
-                                                            data-fullname="${user.fullName}" 
-                                                            data-email="${user.email}"
-                                                            data-phone="${user.phone}" 
-                                                            data-address="${user.address}" 
-                                                            data-createdDate="${user.createdDate}"
-                                                            data-status="${user.status}"
-                                                            data-role-id="${user.role.roleId}"
-                                                            data-role-name="${user.role.roleName}">
-                                                        <span class="fa-stack">
-                                                            <i class="fas fa-square fa-stack-2x"></i>
-                                                            <i class="fas fa-pencil-alt fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                    </button>
-
                                                     <c:choose>
-                                                        <c:when test="${user.status.trim() == 'Active'}">
-                                                            <form action="manageUser" method="post" style="display:inline;">
-                                                                <input type="hidden" name="accountId" value="${user.accountId}" />
-                                                                <input type="hidden" name="status" value="Inactive" />
-                                                                <button type="submit" class="table-link btn btn-danger" data-tooltip="Ban" name="submit" value="ban" onclick="return confirm('Are you sure you want to ban this user?');">
-                                                                    <span class="fa-stack">
-                                                                        <i class="fas fa-trash-alt"></i>
-                                                                    </span>
-                                                                </button>
-                                                            </form>
+                                                        <c:when test="${user.role.roleName eq 'Owner'}">
+                                                            <button type="button" class="table-link text-info btn-view" data-toggle="modal" data-target="#modal-edit-user" data-tooltip="View"
+                                                                    data-accountId="${user.accountId}"
+                                                                    data-fullname="${user.fullName}" 
+                                                                    data-email="${user.email}"
+                                                                    data-phone="${user.phone}" 
+                                                                    data-address="${user.address}" 
+                                                                    data-createdDate="${user.createdDate}"
+                                                                    data-status="${user.status}"
+                                                                    data-role-id="${user.role.roleId}"
+                                                                    data-role-name="${user.role.roleName}"
+                                                                    data-readonly="true">
+                                                                <span class="fa-stack">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </span>
+                                                            </button>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <form action="manageUser" method="post" style="display:inline;">
-                                                                <input type="hidden" name="accountId" value="${user.accountId}" />
-                                                                <input type="hidden" name="status" value="Active" />
-                                                                <button type="submit" class="table-link btn btn-success" data-tooltip="Active" name="submit" value="ban" onclick="return confirm('Are you sure you want to activate this user?');">
-                                                                    <span class="fa-stack">
-                                                                        <i class="fas fa-check-circle"></i>
-                                                                    </span>
-                                                                </button>
-                                                            </form>
+                                                            <button type="button" class="table-link text-info btn-edit" data-toggle="modal" data-target="#modal-edit-user" data-tooltip="Edit"
+                                                                    data-accountId="${user.accountId}"
+                                                                    data-fullname="${user.fullName}" 
+                                                                    data-email="${user.email}"
+                                                                    data-phone="${user.phone}" 
+                                                                    data-address="${user.address}" 
+                                                                    data-createdDate="${user.createdDate}"
+                                                                    data-status="${user.status}"
+                                                                    data-role-id="${user.role.roleId}"
+                                                                    data-role-name="${user.role.roleName}">
+                                                                <span class="fa-stack">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </span>
+                                                            </button>
+
+                                                            <c:choose>
+                                                                <c:when test="${user.status.trim() == 'Active'}">
+                                                                    <form action="manageUser" method="post" style="display:inline;">
+                                                                        <input type="hidden" name="accountId" value="${user.accountId}" />
+                                                                        <input type="hidden" name="status" value="Inactive" />
+                                                                        <button type="submit" class="table-link btn btn-danger" data-tooltip="Ban" name="submit" value="ban" onclick="return confirm('Are you sure you want to ban this user?');">
+                                                                            <span class="fa-stack">
+                                                                                <i class="fas fa-trash-alt"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </form>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <form action="manageUser" method="post" style="display:inline;">
+                                                                        <input type="hidden" name="accountId" value="${user.accountId}" />
+                                                                        <input type="hidden" name="status" value="Active" />
+                                                                        <button type="submit" class="table-link btn btn-success" data-tooltip="Active" name="submit" value="ban" onclick="return confirm('Are you sure you want to activate this user?');">
+                                                                            <span class="fa-stack">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </span>
+                                                                        </button>
+                                                                    </form>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </td>
@@ -141,13 +156,25 @@
                 </div>
 
                 <div class="col-md-3">
-                    <h5 class="page-title"><b>Role</b></h5>
-                    <ul class="nav nav-pills nav-stacked nav-contacts">
+                    <!--Lọc role-->
+                    <h5 class="page-title"><b>Choose Role</b></h5>
+                    <ul class="nav nav-pills nav-stacked nav-contacts role">
                         <li class="active" data-filter="all"><a>All</a></li>
                         <li data-filter="owner"><a>Owner</a></li>
                         <li data-filter="staff"><a>Staff</a></li>
                         <li data-filter="customer"><a>Customer</a></li>
                     </ul>
+                    <!-- Lọc Created Date -->
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="filterCreatedDate">Created Date</label>
+                        <select id="filterCreatedDate" class="form-control">
+                            <option value="">All</option>
+                            <c:forEach var="created" items="${createdList}">
+                                <option value="${created}">${created}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -159,7 +186,7 @@
                     <div class="modal-body">
                         <div class="row modal-close">
                             <div class="col-md-12 padding-bottom-8 padding-top-8 bg-silver">
-                                <h4 class="pull-left"><b>Edit User</b></h4>
+                                <h4 class="pull-left" id="modalTitle"><b>Edit User</b></h4>
                                 <ul class="list-unstyled list-inline text-right">
                                     <li class="close-right-modal"><span class="fa fa-times fa-2x" data-dismiss="modal"></span></li>
                                 </ul>
@@ -218,7 +245,7 @@
                                         <div class="form-actions" style="display: flex; align-items: center;">
                                             <div style="display: flex; gap: 10px;">
                                                 <button type="button" class="btn btn-ban-edit" id="editBanButton"></button>
-                                                <button type="submit" class="btn btn-green btn-flat" style="background-color: blue; color: white;" name="submit" value="update">Save Changes</button>
+                                                <button type="submit" class="btn btn-green btn-flat" id="editSaveButton" style="background-color: blue; color: white;" name="submit" value="update">Save Changes</button>
                                             </div>
                                             <div style="flex: 1;"></div>
                                             <div>
@@ -325,16 +352,7 @@
             </div>
         </div>
     </body>
-    <script>
-        // Mảng customRoles chứa role (đã chuyển về chữ thường) của từng user theo thứ tự
-        const customRoles = [
-            <c:forEach var="user" items="${userList}" varStatus="status">
-                '${fn:toLowerCase(user.role.roleName)}'<c:if test="${!status.last}">,</c:if>
-            </c:forEach>
-        ];
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>

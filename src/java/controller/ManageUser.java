@@ -61,8 +61,9 @@ public class ManageUser extends HttpServlet {
             throws ServletException, IOException {
         AccountDAO user = new AccountDAO();
         RoleDAO role = new RoleDAO();
-
+        
         request.setAttribute("roleList", role.getAllRole());
+        request.setAttribute("createdList", user.getCreatedDate());
         request.setAttribute("userList", user.getAllAccount());
         request.getRequestDispatcher("manageUser.jsp").forward(request, response);
     }
@@ -81,19 +82,18 @@ public class ManageUser extends HttpServlet {
         try {
             String submit = request.getParameter("submit");
             AccountDAO user = new AccountDAO();
-            RoleDAO role = new RoleDAO();
-
+            
             switch (submit) {
                 case "add": {
-                    String fullName = request.getParameter("fullName");
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    String phone = request.getParameter("phone");
-                    String address = request.getParameter("address");
+                    String fullName = request.getParameter("fullName").trim();
+                    String email = request.getParameter("email").trim();
+                    String password = request.getParameter("password").trim();
+                    String phone = request.getParameter("phone").trim();
+                    String address = request.getParameter("address").trim();
                     int roleid = Integer.parseInt(request.getParameter("roleid"));
                     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
                     Date createdDate = date.parse(request.getParameter("createdDate"));
-
+                    
                     if (user.emailExists(email)) {
                         request.setAttribute("alert", "Email already exists!");
                     } else {
@@ -105,11 +105,11 @@ public class ManageUser extends HttpServlet {
                 }
                 case "update": {
                     int accountId = Integer.parseInt(request.getParameter("accountId"));
-                    String fullName = request.getParameter("fullName");
-                    String phone = request.getParameter("phone");
-                    String address = request.getParameter("address");
+                    String fullName = request.getParameter("fullName").trim();
+                    String phone = request.getParameter("phone").trim();
+                    String address = request.getParameter("address").trim();
                     String statusUser = request.getParameter("status");
-
+                    
                     user.updateUser(fullName, phone, address, statusUser, accountId);
                     request.setAttribute("alert", "Update successfully!");
                     break;
@@ -117,7 +117,7 @@ public class ManageUser extends HttpServlet {
                 case "ban": {
                     int accountId = Integer.parseInt(request.getParameter("accountId"));
                     String statusUser = request.getParameter("status");
-
+                    
                     user.updateStatusUser(accountId, statusUser);
                     request.setAttribute("alert", "Update status successfully!");
                     break;
@@ -125,11 +125,8 @@ public class ManageUser extends HttpServlet {
                 default:
                     throw new AssertionError("Action submit không hợp lệ: " + submit);
             }
-
-            // Sau khi xử lý, cập nhật lại danh sách và chuyển về trang quản lý.
-            request.setAttribute("roleList", role.getAllRole());
-            request.setAttribute("userList", user.getAllAccount());
-            request.getRequestDispatcher("manageUser.jsp").forward(request, response);
+            
+            doGet(request, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
