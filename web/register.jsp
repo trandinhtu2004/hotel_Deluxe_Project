@@ -66,18 +66,18 @@
             let errorMessages = [];
 
             if (!fullName)
-                errorMessages.push("Tên không ???c ?? tr?ng!");
+                errorMessages.push("T n kh ng ???c ?? tr?ng!");
             if (!email)
-                errorMessages.push("Email không ???c ?? tr?ng!");
+                errorMessages.push("Email kh ng ???c ?? tr?ng!");
             if (!phone) {
-                errorMessages.push("S? ?i?n tho?i không ???c ?? tr?ng!");
+                errorMessages.push("S? ?i?n tho?i kh ng ???c ?? tr?ng!");
             } else if (!/^0\d{9}$/.test(phone)) {
-                errorMessages.push("S? ?i?n tho?i ph?i b?t ??u là 0 và có ?úng 10 ch? s?!");
+                errorMessages.push("S? ?i?n tho?i ph?i b?t ??u l  0 v  c  ? ng 10 ch? s?!");
             }
             if (!password)
-                errorMessages.push("M?t kh?u không ???c ?? tr?ng!");
+                errorMessages.push("M?t kh?u kh ng ???c ?? tr?ng!");
             if (password !== confirmPassword)
-                errorMessages.push("M?t kh?u không kh?p v?i m?t kh?u ?ã nh?p!");
+                errorMessages.push("M?t kh?u kh ng kh?p v?i m?t kh?u ?  nh?p!");
 
             if (errorMessages.length > 0) {
                 alert(errorMessages.join("\n")); // Hi?n th? t?t c? l?i
@@ -124,10 +124,10 @@
                 <input type="hidden" name="otpSent" id="otpSent">
                 <% String message = (String) request.getAttribute("message"); %>
                 <% if (message != null) { %>
-                <div class="alert alert-danger"><%= message %></div>
+                <div class="alert alert-danger" name="alert"><%= message %></div>
                 <% } %>
 
-                <button type="submit" class="btn btn-custom w-100">Register</button>
+                <button type="submit" name="register" class="btn btn-custom w-100">Register</button>
             </form>
             <div class="text-muted">
                 Already have an account? <a href="login.jsp" class="text-primary">Sign In</a>

@@ -4,22 +4,26 @@
  */
 package controller;
 
-import dal.BookingDAO;
+import dal.AccountDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import dal.PostDAO;
+import java.util.Collections;
 import java.util.List;
-import model.Booking;
-
+import model.Account;
+import model.Post;
 
 /**
  *
  * @author DELL
  */
-public class BookingRequest extends HttpServlet {
+@WebServlet(name = "PostDisplay", urlPatterns = {"/PostDisplay"})
+public class PostDisplay extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +42,10 @@ public class BookingRequest extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BookingRequest</title>");            
+            out.println("<title>Servlet PostDisplay</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BookingRequest at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostDisplay at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +63,18 @@ public class BookingRequest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BookingDAO bk = new BookingDAO();
-        List<Booking> bookingList  = bk.getAllNotYetBooking();
-        request.setAttribute("BookingList", bookingList);
-        request.getRequestDispatcher("staff.jsp").forward(request, response);
+        PostDAO pd = new PostDAO();
+        List<Post> postlist = pd.getAllPosts();
+        AccountDAO ad = new AccountDAO();
+        for (Post post : postlist) {
+            Account ac = ad.getAccountNameById(post.getAccountId());
+            
+            post.setAccountName(ac.getFullName());
+        }
+        Collections.reverse(postlist);
+        request.setAttribute("postList", postlist);
+        request.getRequestDispatcher("post.jsp").forward(request, response);
+        
     }
 
     /**

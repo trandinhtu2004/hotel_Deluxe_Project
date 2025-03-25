@@ -9,7 +9,8 @@
         <a class="navbar-brand" href="index.jsp">Deluxe</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                
+                <li class="nav-item"><a href="BookingRequest" class="nav-link">Staff Page</a></li>
+                <li class="nav-item"><a href="PostDisplay" class="nav-link">Post</a></li>
                 <% if (account != null && ("Staff".equals(role))) { %>
                 <li class="nav-item"><a href="BookingRequest" class="nav-link">Staff Page</a></li>
                     <% } %>

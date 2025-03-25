@@ -3,30 +3,40 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangeStateOnGoing.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/GetDetailInfomation.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangePasswordForget.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ForgetPassword.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/includes/navbar.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/CheckInLoader.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/QuantityIndexController.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff-checkin.jsp</file>
             <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/DetailInformationOut.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/OTPForgetPassword.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/BookingRequest.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/verifyOTP.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangePassword.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/FacilityDAO.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/profile.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/PostDAO.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/PostDisplay.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff-bookinghistory.jsp</file>
             <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/BookingDAO.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/includes/navbarCopy.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/emailSender/EmailUtil.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/emailSender/EmailForgotPass.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff-checkout.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/bookingdetailcheckout.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/HomePageController.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/model/Account.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/OwnerServiceController.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/contact.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/LoginController.java</file>
             <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/DBContext.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/forgetpassword.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/PostCreateControl.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangePasswordForget.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/includes/navbar.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/model/Post.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/DetailInformationOut.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/CheckOutLoader.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/model/Role.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/register.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/BookingRequest.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/post.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff-checkout.jsp</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/model/Comment.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/index.jsp</file>
             <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/OTPForgetPassword.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/bookingdetail.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangeStateDone.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/VerifyOTPServlet.java</file>
+            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ProfileControl.java</file>
         </group>
     </open-files>
 </project-private>

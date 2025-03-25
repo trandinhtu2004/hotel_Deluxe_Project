@@ -17,7 +17,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -105,12 +107,14 @@
                 <a href="#"><i class="icon-timer"></i> On Going</a>
                 <a href="CheckOutLoader"><i class="ion-arrow-left-b"></i> Check Out</a>
                 <a href="LoadAllBookingInfo"><i class="ion-ios-paper"></i> Booking History</a>
-                <a href="#"><i class="icon-money"></i> View Salary</a>
+                <a href="#"><i class="icon-money"></i> Contact</a>
             </div>
             <div class="div3">
                 <h2>Booking History</h2>
 
-                <table border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
+<table id="bookingHistoryTable" border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
+
+                
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -161,5 +165,14 @@
                 </table>
             </div>
         </div>
+        <script>
+    $(document).ready(function () {
+        $('#bookingHistoryTable').DataTable({
+            "order": [[0, "asc"]],
+            "paging": true,
+            "searching": true
+        });
+    });
+</script>
     </body>
 </html>

@@ -4,22 +4,26 @@
  */
 package controller;
 
-import dal.BookingDAO;
+import dal.PostDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import model.Booking;
+import model.Account;
+import model.Post;
+
 
 
 /**
  *
  * @author DELL
  */
-public class BookingRequest extends HttpServlet {
+@WebServlet(name = "PostCreateControl", urlPatterns = {"/PostCreateControl"})
+public class PostCreateControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +42,10 @@ public class BookingRequest extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BookingRequest</title>");            
+            out.println("<title>Servlet PostCreateControl</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BookingRequest at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet PostCreateControl at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,10 +63,14 @@ public class BookingRequest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BookingDAO bk = new BookingDAO();
-        List<Booking> bookingList  = bk.getAllNotYetBooking();
-        request.setAttribute("BookingList", bookingList);
-        request.getRequestDispatcher("staff.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("account");
+        int accountId=a.getAccountId();
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        PostDAO pd = new PostDAO();
+        pd.createPost(accountId, title, content);
+        request.getRequestDispatcher("PostDisplay").forward(request, response);
     }
 
     /**

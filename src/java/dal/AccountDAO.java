@@ -154,8 +154,8 @@ public class AccountDAO extends DBContext {
         }
 //        Account ac = a.getAccountNameById(1);
 //        System.out.println(ac.getFullName());
-        Account ac = a.getAccountInfoById("3");
-        System.out.println(ac.getAccountId() + " " + ac.getEmail());
+//        Account ac = a.getAccountInfoById("3");
+//        System.out.println(ac.getAccountId() + " " + ac.getEmail());
     }
 
     public int getTotalAccount() {
