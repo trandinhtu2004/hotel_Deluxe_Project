@@ -8,6 +8,35 @@ document.addEventListener("DOMContentLoaded", function () {
     new simpleDatatables.DataTable(table);
 });
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Khởi tạo DataTable trên bảng có id="bookingTable"
+    const dataTable = new simpleDatatables.DataTable("#bookingTable");
+
+    // Lưu dữ liệu gốc (mảng các hàng) để có thể khôi phục lại khi filter 'all'
+    const originalData = dataTable.data;
+
+    // Hàm filter, được gắn vào global để gọi từ HTML
+    window.filterBooking = function(status, btn) {
+        // Cập nhật active state cho các nút filter
+        document.querySelectorAll('.status-filter .btn').forEach(function(button) {
+            button.classList.remove('active');
+        });
+        btn.classList.add('active');
+
+        // Nếu chọn 'all' thì khôi phục dữ liệu gốc
+        if (status === 'all') {
+            dataTable.rows().update(originalData);
+        } else {
+            // Lọc dữ liệu gốc: giả sử trạng thái booking nằm ở cột thứ 9 (index 8)
+            const filteredData = originalData.filter(function(row) {
+                return row[8].toString().trim() === status;
+            });
+            // Cập nhật bảng với dữ liệu đã lọc
+            dataTable.rows().update(filteredData);
+        }
+    }
+});
+
 function confirmAction(form) {
     let action = form.querySelector("button[name='submit']").value;
     let message = "";

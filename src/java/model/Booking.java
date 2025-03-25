@@ -14,77 +14,41 @@ import java.util.Date;
 public class Booking {
 
     private int bookingId;
-    private int accountId;
-    private int roomId;
+    private Account account;
+    private Room room;
     private Date checkInDate;
     private Date checkOutDate;
-    private BigDecimal totalPrice;
+    private Double totalPrice;
     private String bookingStatus;
     private Date bookingDate;
     private String note;
+    private Category category;
     private String status;
-    private BigDecimal pricefernight;
-    private int no;
-    private String roomType;
 
-    public BigDecimal getPricefernight() {
-        return pricefernight;
-    }
-
-    public void setPricefernight(BigDecimal pricefernight) {
-        this.pricefernight = pricefernight;
-    }
-    private String customerName;
-    private int accoutID;
-
-  
     public Booking() {
     }
 
-    public Booking(int no, int bookingId, int roomId, String roomType, Date bookingDate, 
-               Date checkInDate, Date checkOutDate, String note, String customerName, 
-               int accoutID, String status, BigDecimal price) {
-    this.no = no;
-    this.bookingId = bookingId;
-    this.roomId = roomId;
-    this.roomType = roomType;
-    this.bookingDate = bookingDate;
-    this.checkInDate = checkInDate;
-    this.checkOutDate = checkOutDate;
-    this.note = note;
-    this.customerName = customerName;
-    this.accoutID = accoutID;
-    this.status = status;
-    this.pricefernight = price;
-}
-    
-
-    public Booking(int no, int bookingId, int roomId, String roomType, Date bookingDate, Date checkInDate, Date checkOutDate, String note, String customerName, int accoutID, String status) {
-        this.no = no;
+    public Booking(int bookingId, Account account, Room room, Date checkInDate, Date checkOutDate, Double totalPrice, String bookingStatus, Date bookingDate, String note, Category category) {
         this.bookingId = bookingId;
-        this.roomId = roomId;
-        this.roomType = roomType;
-        this.bookingDate = bookingDate;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.note = note;
-        this.customerName = customerName;
-        this.accoutID = accoutID;
-        this.status = status;
-    }
-
-    public Booking(int bookingId, int accountId, int roomId, Date checkInDate, Date checkOutDate, BigDecimal totalPrice, String bookingStatus, Date bookingDate, String note, String status) {
-        this.bookingId = bookingId;
-        this.accountId = accountId;
-        this.roomId = roomId;
+        this.account = account;
+        this.room = room;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
         this.bookingStatus = bookingStatus;
         this.bookingDate = bookingDate;
         this.note = note;
-        this.status = status;
+        this.category = category;
     }
+
+    public Booking(int aInt, int aInt0, int aInt1, String string, java.sql.Date date, java.sql.Date date0, java.sql.Date date1, String string0, String string1, int aInt2, String string2, BigDecimal bigDecimal) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Booking(int aInt, int aInt0, int aInt1, String string, java.sql.Date date, java.sql.Date date0, java.sql.Date date1, String string0, String string1, int aInt2, String string2) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
 
     public int getBookingId() {
         return bookingId;
@@ -94,20 +58,20 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public int getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public Date getCheckInDate() {
@@ -126,11 +90,11 @@ public class Booking {
         this.checkOutDate = checkOutDate;
     }
 
-    public BigDecimal getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -158,43 +122,16 @@ public class Booking {
         this.note = note;
     }
 
-    public String getStatus() {
-        return status;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
-    public int getNo() {
-        return no;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public void setNo(int no) {
-        this.no = no;
+    public void setStatus(String active) {
+        this.status=active;
     }
 
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public int getAccoutID() {
-        return accoutID;
-    }
-
-    public void setAccoutID(int accoutID) {
-        this.accoutID = accoutID;
-    }
 }

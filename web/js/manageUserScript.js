@@ -5,41 +5,83 @@
 
 // Table script
 document.addEventListener("DOMContentLoaded", function () {
-    // Khởi tạo DataTable
-    const dataTable = new simpleDatatables.DataTable(".user-list");
+    const dt = new simpleDatatables.DataTable(".user-list");
 
-    // Tạo tiêu đề hiển thị nếu chưa có
-    let title = document.getElementById("tittle");
-    if (!title) {
-        title = document.createElement("h2");
-        title.id = "tittle";
-        title.textContent = "All Users";
-        document.querySelector(".main-box-body").insertBefore(title, document.querySelector(".main-box-body").firstChild);
+    let roleFilter = "all";
+    let dateFilter = "";
+
+    function updateRowNumbers() {
+        const rows = document.querySelectorAll(".user-list tbody tr");
+        let count = 1;
+        rows.forEach(row => {
+            const firstCell = row.cells[0];
+            if (firstCell && firstCell.hasAttribute("colspan")) {
+                return;
+            }
+            if (row.offsetParent !== null) {
+                row.cells[0].textContent = count;
+                count++;
+            }
+        });
     }
 
-    // Lấy danh sách các mục filter
-    const filters = document.querySelectorAll(".nav-contacts li");
+    function applyFilters() {
+        const queries = [];
 
-    filters.forEach(filter => {
-        filter.addEventListener("click", function () {
-            // Lấy giá trị filter và chuyển thành chữ thường
-            const role = this.getAttribute("data-filter").toLowerCase();
+        if (roleFilter !== "all") {
+            queries.push({
+                terms: [roleFilter],
+                columns: [5]
+            });
+        }
+        if (dateFilter !== "") {
+            queries.push({
+                terms: [dateFilter],
+                columns: [2]
+            });
+        }
 
-            // Cập nhật tiêu đề hiển thị
-            if (role === "all") {
-                title.textContent = "All Users";
-                dataTable.search('');  // Xóa bộ lọc
-            } else {
-                title.textContent = "All " + role.charAt(0).toUpperCase() + role.slice(1);
-                // Tìm kiếm trên cột ẩn chứa role (index 5)
-                dataTable.search(role, [5]);
+        dt.multiSearch(queries);
+        updateRowNumbers();
+
+        if (roleFilter !== "all" && dateFilter !== "") {
+            const rows = document.querySelectorAll(".user-list tbody tr");
+            let validCount = 0;
+            rows.forEach(row => {
+                if (row.offsetParent !== null) {
+                    const rowRole = row.cells[5].textContent.trim();
+                    const rowDate = row.cells[2].textContent.trim();
+                    if (rowRole === roleFilter && rowDate === dateFilter) {
+                        validCount++;
+                    }
+                }
+            });
+            if (validCount === 0) {
+                dt.search("nonexistentvalue");
+                updateRowNumbers();
             }
+        }
+    }
 
-            // Cập nhật active class cho bộ lọc
-            filters.forEach(f => f.classList.remove("active"));
+    const roleFilters = document.querySelectorAll(".nav-contacts li");
+    roleFilters.forEach(li => {
+        li.addEventListener("click", function () {
+            roleFilter = this.getAttribute("data-filter").toLowerCase();
+            roleFilters.forEach(item => item.classList.remove("active"));
             this.classList.add("active");
+            applyFilters();
         });
     });
+
+    const dateDropdown = document.getElementById("filterCreatedDate");
+    if (dateDropdown) {
+        dateDropdown.addEventListener("change", function () {
+            dateFilter = this.value.trim();
+            applyFilters();
+        });
+    }
+
+    applyFilters();
 });
 
 function updateStatusColors() {
@@ -59,10 +101,23 @@ document.addEventListener('datatable:updated', updateStatusColors);
 
 //Modal Edit User Script
 document.addEventListener("DOMContentLoaded", function () {
-    var editButtons = document.querySelectorAll('.btn-edit');
-    editButtons.forEach(function (btn) {
+    // Gắn sự kiện cho các nút .btn-edit và .btn-view
+    var modalButtons = document.querySelectorAll('.btn-edit, .btn-view');
+    modalButtons.forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var accountId = btn.getAttribute('data-accountId')
+            var editBanButton = document.getElementById("editBanButton");
+            var editSaveButton = document.getElementById("editSaveButton");
+            var modalTitle = document.getElementById("modalTitle");
+
+            // Reset mặc định: cho phép chỉnh sửa và hiển thị nút Ban, Save
+            document.getElementById('editFullName').readOnly = false;
+            document.getElementById('editPhone').readOnly = false;
+            document.getElementById('editAddress').readOnly = false;
+            editBanButton.style.display = "inline-block";
+            editSaveButton.style.display = "inline-block";
+
+            // Lấy dữ liệu từ thuộc tính data của nút được nhấn
+            var accountId = btn.getAttribute('data-accountId');
             var fullName = btn.getAttribute('data-fullname');
             var email = btn.getAttribute('data-email');
             var phone = btn.getAttribute('data-phone');
@@ -72,8 +127,10 @@ document.addEventListener("DOMContentLoaded", function () {
             var createdDate = btn.getAttribute('data-createdDate');
             var status = btn.getAttribute('data-status');
 
+            // Xử lý trạng thái: nếu status là Active (không phân biệt chữ hoa thường) thì gán "Active", ngược lại "Inactive"
             status = (status && status.trim().toLowerCase() === "active") ? "Active" : "Inactive";
 
+            // Gán giá trị vào các trường trong modal
             document.getElementById('editAccountId').value = accountId;
             document.getElementById('editFullName').value = fullName;
             document.getElementById('editEmail').value = email;
@@ -92,39 +149,61 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             statusSpan.innerHTML = status + " <span class='status-dot'></span>";
 
-            var editBanButton = document.getElementById("editBanButton");
-            if (status === "Active") {
-                editBanButton.textContent = "Ban";
-                editBanButton.className = "btn btn-danger btn-ban-edit";
+            // Kiểm tra chế độ hiển thị: nếu nút có thuộc tính data-readonly="true" => chế độ View
+            if (btn.getAttribute('data-readonly') === "true") {
+                // Chế độ View: đặt các trường thành read-only, ẩn nút Ban và Save, đổi tiêu đề modal
+                document.getElementById('editFullName').readOnly = true;
+                document.getElementById('editPhone').readOnly = true;
+                document.getElementById('editAddress').readOnly = true;
+                editBanButton.style.display = "none";
+                editSaveButton.style.display = "none";
+                if (modalTitle) {
+                    modalTitle.textContent = "View User";
+                }
             } else {
-                editBanButton.textContent = "Active";
-                editBanButton.className = "btn btn-success btn-ban-edit";
+                // Chế độ Edit: hiển thị nút Ban và Save, đổi tiêu đề modal
+                editBanButton.style.display = "inline-block";
+                editSaveButton.style.display = "inline-block";
+                // Nếu trạng thái hiện tại là Active, hiển thị "Ban", nếu là Inactive, hiển thị "Activate"
+                if (status === "Active") {
+                    editBanButton.textContent = "Ban";
+                    editBanButton.className = "btn btn-danger btn-ban-edit";
+                } else {
+                    editBanButton.textContent = "Activate";
+                    editBanButton.className = "btn btn-success btn-ban-edit";
+                }
+                if (modalTitle) {
+                    modalTitle.textContent = "Edit User";
+                }
             }
-            document.querySelector("#modal-edit-user input[name='action']").value = "edit";
+            // Đặt hidden input action để phân biệt giữa view và edit
+            document.querySelector("#modal-edit-user input[name='action']").value =
+                (btn.getAttribute('data-readonly') === "true") ? "view" : "edit";
         });
     });
 
+    // Gắn sự kiện cho nút Ban trong modal để chuyển đổi trạng thái
     var editBanButton = document.getElementById("editBanButton");
-    editBanButton.addEventListener("click", function () {
-        var currentStatus = document.getElementById("editStatus").value;
-        var newStatus = (currentStatus === "Active") ? "Inactive" : "Active";
-        document.getElementById("editStatus").value = newStatus;
-
-        var statusSpan = document.getElementById('editStatusDisplay');
-        if (newStatus === "Active") {
-            statusSpan.className = "status status-active";
-            editBanButton.textContent = "Ban";
-            editBanButton.className = "btn btn-danger btn-ban-edit";
-        } else {
-            statusSpan.className = "status status-inactive";
-            editBanButton.textContent = "Active";
-            editBanButton.className = "btn btn-success btn-ban-edit";
-        }
-        statusSpan.innerHTML = newStatus + " <span class='status-dot'></span>";
-
-        document.querySelector("#modal-edit-user input[name='action']").value = "ban";
-
-    });
+    if (editBanButton) {
+        editBanButton.addEventListener("click", function() {
+            // Lấy trạng thái hiện tại từ hidden input
+            var currentStatus = document.getElementById("editStatus").value;
+            // Chuyển đổi trạng thái
+            var newStatus = (currentStatus === "Active") ? "Inactive" : "Active";
+            document.getElementById("editStatus").value = newStatus;
+            var statusSpan = document.getElementById("editStatusDisplay");
+            if (newStatus === "Active") {
+                statusSpan.className = "status status-active";
+                this.textContent = "Ban";
+                this.className = "btn btn-danger btn-ban-edit";
+            } else {
+                statusSpan.className = "status status-inactive";
+                this.textContent = "Activate";
+                this.className = "btn btn-success btn-ban-edit";
+            }
+            statusSpan.innerHTML = newStatus + " <span class='status-dot'></span>";
+        });
+    }
 });
 
 function validateEditFullName() {
@@ -166,6 +245,17 @@ function validateEditAddress() {
 document.getElementById("editFullName").addEventListener("input", validateEditFullName);
 document.getElementById("editPhone").addEventListener("input", validateEditPhoneNumber);
 document.getElementById("editAddress").addEventListener("input", validateEditAddress);
+
+$('#modal-edit-user').on('hidden.bs.modal', function () {
+    var form = $(this).find('form')[0];
+    if (form) {
+        form.reset(); // reset toàn bộ giá trị trong form
+    }
+    // Reset các thông báo lỗi nếu có
+    $(this).find('label[style="color: red"]').text('');
+    // Reset trạng thái hiển thị (status display)
+    $('#editStatusDisplay').html('');
+});
 
 //Modal Add User Script
 document.addEventListener("DOMContentLoaded", function () {
@@ -251,3 +341,12 @@ document.getElementById("phone").addEventListener("input", validatePhoneNumber);
 document.getElementById("address").addEventListener("input", validateAddress);
 document.getElementById("password").addEventListener("input", validatePassword);
 document.getElementById("confirmPassword").addEventListener("input", validateConfirmPass);
+
+$('#modal-add-user').on('hidden.bs.modal', function () {
+    var form = $(this).find('form')[0];
+    if (form) {
+        form.reset();
+    }
+    // Reset thông báo lỗi nếu có
+    $(this).find('label[style="color: red"]').text('');
+});

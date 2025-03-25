@@ -42,6 +42,14 @@
                 <%@ include file="includes/sidebar.jsp" %>
             </div>
             <div class="div3">
+                <div class="status-filter" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-default" onclick="filterBooking('all', this)">All</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Not Yet', this)">Not Yet</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Late', this)">Late</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('On Going', this)">On Going</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Cancel', this)">Cancel</button>
+                    <button type="button" class="btn btn-default" onclick="filterBooking('Done', this)">Done</button>
+                </div>
                 <h2>All Booking</h2>
                 <table id="bookingTable" border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
@@ -55,6 +63,7 @@
                             <th>Note</th>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Total Price</th>
                             <th>Detail</th>
                             <th>Action</th>
                         </tr>
@@ -86,6 +95,7 @@
                                 <td>${booking.note}</td>
                                 <td>${booking.account.fullName}</td>
                                 <td>${booking.bookingStatus}</td>
+                                <td>${booking.totalPrice}</td>
                                 <td><button type="button" class="btn btn-detail" data-toggle="modal" data-target="#modal-detail-booking"
                                             data-bookingid="${booking.bookingId}"
                                             data-roomnumber="${booking.room.roomNumber}"

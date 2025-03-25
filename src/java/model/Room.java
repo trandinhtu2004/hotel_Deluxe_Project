@@ -25,6 +25,12 @@ public class Room {
         this.status = status;
     }
 
+    public Room(int id, String roomNumber, Category category) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.category = category;
+    }
+
     public Room(int id, String roomNumber, String RoomType, Category category, boolean status) {
         this.id = id;
         this.roomNumber = roomNumber;
@@ -40,9 +46,6 @@ public class Room {
     public void setRoomType(String RoomType) {
         this.RoomType = RoomType;
     }
-    
-
-    
     
     public int getId() {
         return id;

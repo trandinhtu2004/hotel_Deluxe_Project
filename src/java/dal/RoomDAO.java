@@ -28,13 +28,13 @@ public class RoomDAO extends DBContext {
     
     
     
-    public Room getRoomByID(String id) {
+    public Room getRoomByID(int id) {
         String sql = "SELECT [RoomId], [RoomNumber], [CategoryId], [Status], [Image],[RoomType] "
                    + "FROM [Room] WHERE [RoomId] = ?";
         try (
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setString(1, id);
+            
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
