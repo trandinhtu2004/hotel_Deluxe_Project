@@ -1,0 +1,39 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 25, 2025, 2:01:09 PM
+    Author     : Overlordil
+*/
+
+
+.dashboard-content {
+    margin-left: 200px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Custom legend: hiển thị mỗi mục legend trên 1 hàng */
+.custom-legend {
+    list-style: none;
+    padding: 0;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.custom-legend .legend-item {
+    display: block;  /* Mỗi mục hiển thị trên một hàng */
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.custom-legend .legend-color-box {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    vertical-align: middle;
+}

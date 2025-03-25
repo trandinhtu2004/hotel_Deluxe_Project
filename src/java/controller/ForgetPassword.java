@@ -79,8 +79,6 @@ public class ForgetPassword extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         AccountDAO accountDAO = new AccountDAO();
-
-        
         
         if (accountDAO.emailExists(email)) {
             

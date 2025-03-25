@@ -5,64 +5,107 @@
 
 
 $(document).ready(function () {
-    // Website Views Chart
-    new Chart(document.getElementById('websiteViewsChart').getContext('2d'), {
-        type: 'bar',
+    
+    //Accounts Chart
+    var canvas = document.getElementById('accountChart');
+    var data1 = parseInt(canvas.getAttribute('data-totalCustomer'), 10);
+    var data2 = parseInt(canvas.getAttribute('data-totalStaff'), 10);
+    var data3 = parseInt(canvas.getAttribute('data-totalOwner'), 10);
+    
+    new Chart(document.getElementById('accountChart').getContext('2d'), {
+        type: 'radar',
         data: {
-            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+            labels: ['Customer', 'Staff', 'Owner'],
             datasets: [{
-                label: 'Views',
-                data: [50, 55, 40, 45, 60, 70, 65],
-                backgroundColor: 'rgba(60, 186, 84, 0.8)'
-            }]
+                    data: [data1, data2, data3],
+                    backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+                    borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                    borderWidth: 3
+                }]
         },
         options: {
-            responsive: true,
+            responsive: false,
             plugins: {
-                legend: { display: false }
+                legend: {
+                    position: 'left',
+                    labels: {
+                        boxWidth: 35,
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Accounts Chart'
+                },
+                datalabels: {
+                    color: '#000',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    anchor: 'center',
+                    align: 'center',
+                    formatter: function (value, context) {
+                        var dataArr = context.chart.data.datasets[0].data;
+                        var total = dataArr.reduce(function (sum, val) {
+                            return sum + val;
+                        }, 0);
+                        var percentage = (value / total * 100).toFixed(1);
+                        return percentage + '%';
+                    }
+                }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 
-    // Daily Sales Chart
-    new Chart(document.getElementById('dailySalesChart').getContext('2d'), {
-        type: 'line',
+    //Rooms Chart
+    new Chart(document.getElementById('roomChart').getContext('2d'), {
+        type: 'doughnut',
         data: {
-            labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+            labels: ['Customer', 'Staff', 'Owner'],
             datasets: [{
-                label: 'Sales',
-                data: [200, 150, 300, 250, 400, 350, 300, 450, 500, 400, 450, 500],
-                borderColor: 'rgba(60, 186, 84, 1)',
-                backgroundColor: 'rgba(60, 186, 84, 0.1)',
-                fill: true
-            }]
+                    data: [10, 30, 60],
+                    backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+                    borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                    borderWidth: 3
+                }]
         },
         options: {
-            responsive: true,
+            responsive: false,
             plugins: {
-                legend: { display: false }
+                legend: {
+                    position: 'left',
+                    labels: {
+                        boxWidth: 35,
+                        usePointStyle: true,
+                        padding: 20
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Accounts Chart'
+                },
+                datalabels: {
+                    color: '#000',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    anchor: 'center',
+                    align: 'center',
+                    formatter: function (value, context) {
+                        var dataArr = context.chart.data.datasets[0].data;
+                        var total = dataArr.reduce(function (sum, val) {
+                            return sum + val;
+                        }, 0);
+                        var percentage = (value / total * 100).toFixed(1);
+                        return percentage + '%';
+                    }
+                }
             }
-        }
-    });
-
-    // Completed Tasks Chart
-    new Chart(document.getElementById('completedTasksChart').getContext('2d'), {
-        type: 'line',
-        data: {
-            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: 'Tasks',
-                data: [100, 120, 150, 200, 250, 300, 320, 350, 400],
-                borderColor: 'rgba(60, 186, 84, 1)',
-                backgroundColor: 'rgba(60, 186, 84, 0.1)',
-                fill: true
-            }]
         },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            }
-        }
+        plugins: [ChartDataLabels]
     });
 });

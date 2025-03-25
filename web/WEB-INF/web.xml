@@ -68,6 +68,11 @@
         <servlet-name>PaymentController</servlet-name>
         <servlet-class>controller.PaymentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.LogoutController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -159,9 +164,9 @@
         <url-pattern>
             /payment
         </url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
         
-       <servlet>
+    <servlet>
         <servlet-name>vnpayReturn</servlet-name>
         <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
     </servlet>

@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import dal.BookingDAO;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
@@ -54,7 +55,7 @@ public class ajaxServlet extends HttpServlet {
             throw new IllegalArgumentException("Invalid date format. Expected format: YYYY-MM-DD");
         }
         String note = req.getParameter("note");
-        double totalPrice = Double.parseDouble(req.getParameter("totalPrice"));
+        BigDecimal totalPrice = BigDecimal.valueOf(Double.parseDouble(req.getParameter("totalPrice")));
 
         // Lấy tài khoản từ session
         HttpSession session = (HttpSession) req.getSession();

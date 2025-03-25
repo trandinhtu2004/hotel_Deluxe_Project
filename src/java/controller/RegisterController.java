@@ -2,10 +2,8 @@ package controller;
 
 import dal.AccountDAO;
 import emailSender.EmailUtil;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Random;
-import java.util.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

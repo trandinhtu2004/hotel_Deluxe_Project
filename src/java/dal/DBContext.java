@@ -14,7 +14,6 @@ import java.sql.SQLException;
  * @author Admin
  */
 public class DBContext {
-
     
     protected Connection connection;
     public DBContext()

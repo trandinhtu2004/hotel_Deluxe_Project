@@ -85,7 +85,6 @@ public class ChangePassword extends HttpServlet {
     String newPassword = request.getParameter("newp");
     String reNewPassword = request.getParameter("renewp");
     
-    
     HttpSession session = request.getSession();
     Account account = (Account) session.getAttribute("account");
     String email = account.getEmail();

@@ -99,7 +99,6 @@ public class GetDetailInfomation extends HttpServlet {
         String address = acc.getAddress();
         String phone = acc.getPhone();
         
-        
         request.setAttribute("roomnum", roomnumber);
         request.setAttribute("phone", phone);
         request.setAttribute("address", address);

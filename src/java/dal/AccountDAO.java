@@ -155,15 +155,34 @@ public class AccountDAO extends DBContext {
     }
 
     public int getTotalAccount() {
-        String sql = "select * from Account\n"
-                + "join [Role] r on r.RoleId = Account.RoleId";
+        String sql = "SELECT COUNT(AccountId) AS TotalAccount\n"
+                + " FROM [dbo].[Account]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return rs.getInt(1);
+            if (rs.next()) {
+                return rs.getInt("TotalAccount");
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getTotalAccountByStatus(String role) {
+        String sql = "SELECT COUNT(a.AccountId) AS TotalAccount,\n"
+                + "	     COUNT(CASE WHEN a.Status = 'Active' THEN 1 END) AS ActiveAccount,\n"
+                + "          COUNT(CASE WHEN a.Status = 'Inactive' THEN 1 END) AS InactiveAccount\n"
+                + "   FROM [dbo].[Account] a JOIN [Role] r ON r.RoleId = a.RoleId\n"
+                + "   WHERE r.RoleName = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, role);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("");
+            }
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return 0;
@@ -424,7 +443,7 @@ public class AccountDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 listCreatedDate.add(rs.getString("CreatedDate"));
             }
             rs.close();

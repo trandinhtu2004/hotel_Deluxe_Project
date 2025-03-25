@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 import java.io.PrintWriter;
 import model.Booking;
@@ -20,6 +21,7 @@ import dal.RoomDAO;
 import model.Room;
 import model.Service;
 import dal.ServiceDAO;
+import java.math.BigDecimal;
 
 
 /**
@@ -92,7 +94,7 @@ public class DetailInformationOut extends HttpServlet {
         Room room = rd.getRoomByID(roomId);
         
         String roomnumber = room.getRoomNumber();
-        int roleid=acc.getRoleId();
+        int roleid=acc.getRole().getRoleId();
         String role;
         int temp =roleid;
         if(temp==1){
@@ -103,7 +105,7 @@ public class DetailInformationOut extends HttpServlet {
         }else{
             role="Customer";
         }
-        Date createDate = acc.getCreateDate();
+        Date createDate = acc.getCreatedDate();
         String address = acc.getAddress();
         String phone = acc.getPhone();
         
@@ -125,7 +127,8 @@ public class DetailInformationOut extends HttpServlet {
     BigDecimal discountrate = BigDecimal.valueOf(100-discont*5).divide(BigDecimal.valueOf(100));     
         
         BigDecimal price;
-        price = bking.getPricefernight().multiply(BigDecimal.valueOf(daysBetween));
+        price = BigDecimal.valueOf(bking.getCategory().getPricePerNight()).multiply(BigDecimal.valueOf(daysBetween));
+
         BigDecimal totalPrice = price.multiply(discountrate);
         
         request.setAttribute("roomnum", roomnumber);
@@ -135,15 +138,15 @@ public class DetailInformationOut extends HttpServlet {
         request.setAttribute("role", role);
         request.setAttribute("bookingId", bookingId);
         request.setAttribute("email", email);
-        request.setAttribute("roomType", bking.getRoomType());
+        request.setAttribute("roomType", bking.getCategory().getCategoryName());
         request.setAttribute("bookingDate", bking.getBookingDate());
         request.setAttribute("checkInDate", bking.getCheckInDate());
         request.setAttribute("checkOutDate", bking.getCheckOutDate());
         request.setAttribute("note", bking.getNote());
-        request.setAttribute("customerName", bking.getCustomerName());
+        request.setAttribute("customerName", bking.getAccount().getFullName());
         request.setAttribute("accoutID", accoutID);
-        request.setAttribute("status", bking.getStatus());
-        request.setAttribute("pernight", bking.getPricefernight().longValue());
+        request.setAttribute("status", bking.getBookingStatus());
+        request.setAttribute("pernight", bking.getCategory().getPricePerNight());
         request.setAttribute("nightstay", daysBetween);
         request.setAttribute("dc", discont*5);
         request.setAttribute("price", totalPrice.longValue());

@@ -5,59 +5,39 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
-        <!--  All snippets are MIT license http://bootdey.com/license -->
-        <title>Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Dashboard</title>
+
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/styleDashboard.css" rel="stylesheet">
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <link href="${pageContext.request.contextPath}/css/StyleDashboard.css" rel="stylesheet">
-        <style>
-            .dashboard-content {
-                margin-left: 200px;
-                padding: 20px;
-                min-height: 100vh;
-            }
-        </style>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     </head>
     <body>
         <%@include file="includes/sidebar.jsp" %>
         <div class="dashboard-content">
             <div class="container mt-4">
                 <div class="row">
+                    <!--Account Chart-->
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Website Views</h5>
-                                <p class="card-text">Last Campaign Performance</p>
-                                <canvas id="websiteViewsChart"></canvas>
-                                <small class="text-muted"><i class="fas fa-clock"></i> campaign sent 2 days ago</small>
-                            </div>
-                        </div>
+                        <canvas id="accountChart" 
+                                data-totalCustomer="${totalCustomer}"
+                                data-totalOwner="${totalOwner}"
+                                data-totalStaff="${totalStaff}"></canvas>
+                        <div id="legend-container">Total Accounts: ${totalAccount}</div>
                     </div>
+                    
+                    <!--Room Chart-->
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Daily Sales</h5>
-                                <p class="card-text"><strong>+15%</strong> increase in today sales.</p>
-                                <canvas id="dailySalesChart"></canvas>
-                                <small class="text-muted"><i class="fas fa-clock"></i> updated 4 min ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Completed Tasks</h5>
-                                <p class="card-text">Last Campaign Performance</p>
-                                <canvas id="completedTasksChart"></canvas>
-                                <small class="text-muted"><i class="fas fa-clock"></i> just updated</small>
-                            </div>
-                        </div>
+                        <canvas id="roomChart"></canvas>
+                        <div id="legend-container">Total Rooms: </div>
                     </div>
                 </div>
             </div>
