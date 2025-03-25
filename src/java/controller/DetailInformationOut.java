@@ -20,9 +20,6 @@ import dal.RoomDAO;
 import model.Room;
 import model.Service;
 import dal.ServiceDAO;
-import java.math.BigDecimal;
-import java.util.concurrent.TimeUnit;
-import model.Role;
 
 
 /**
@@ -95,9 +92,7 @@ public class DetailInformationOut extends HttpServlet {
         Room room = rd.getRoomByID(roomId);
         
         String roomnumber = room.getRoomNumber();
-        Role roles = acc.getRole();
-        
-        int roleid=roles.getRoleId();
+        int roleid=acc.getRoleId();
         String role;
         int temp =roleid;
         if(temp==1){
