@@ -3,30 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangeStateOnGoing.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/GetDetailInfomation.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangePasswordForget.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ForgetPassword.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/includes/navbar.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/AccountDAO.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/DetailInformationOut.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/OTPForgetPassword.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/BookingRequest.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/verifyOTP.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangePassword.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/BookingDAO.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/includes/navbarCopy.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/RegisterController.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/emailSender/EmailUtil.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/emailSender/EmailForgotPass.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/staff-checkout.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/bookingdetailcheckout.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/HomePageController.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/dal/DBContext.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/OTPForgetPassword.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/web/bookingdetail.jsp</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/ChangeStateDone.java</file>
-            <file>file:/D:/Sus/FPTU/Y3/SWP/Project/hotel_Deluxe_Project/src/java/controller/VerifyOTPServlet.java</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/web/manageRoom.jsp</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/src/java/dal/BookingDAO.java</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/web/js/manageRoomScript.js</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/web/js/manageUserScript.js</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/src/java/dal/RoomDAO.java</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/web/manageUser.jsp</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/src/java/controller/ManageRoom.java</file>
+            <file>file:/D:/Study/Ky5/SWP/Code/hotel_Deluxe_Project/web/css/styleManageRoom.css</file>
         </group>
     </open-files>
 </project-private>

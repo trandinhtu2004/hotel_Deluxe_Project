@@ -218,14 +218,14 @@ public class BookingDAO extends DBContext {
 
     public List<Booking> getBookingList() {
         List<Booking> list = new ArrayList<>();
-        String sql = "SELECT [BookingId],b.[AccountId],a.[FullName],b.[RoomId],r.[RoomNumber],c.[CategoryName],[CheckInDate],[CheckOutDate],COALESCE([TotalPrice], 0) AS [TotalPrice],[BookingStatus],[BookingDate],[Note],f.[FacilityName],s.[ServiceName],s.[Price],c.[PricePerNight]\n"
+        String sql = "SELECT b.[BookingId],b.[AccountId],a.[FullName],b.[RoomId],r.[RoomNumber],c.[CategoryName],[CheckInDate],[CheckOutDate],COALESCE(b.[TotalPrice], 0) AS [TotalPrice],[BookingStatus],[BookingDate],[Note],f.[FacilityName],s.[ServiceName],s.[Price],su.[Quantity],c.[PricePerNight]\n"
                 + "FROM [dbo].[Booking] b JOIN [dbo].[Account] a ON b.AccountId = a.AccountId\n"
-                + "			  JOIN [dbo].[Room] r ON b.RoomId = r.RoomId\n"
-                + "			  JOIN [dbo].[Category] c ON r.CategoryId = c.CategoryId\n"
-                + "		     LEFT JOIN [dbo].[Categories_Facilities] cf ON c.CategoryId = cf.CategoryId\n"
-                + "		     LEFT JOIN [dbo].[Facilities] f ON f.FacilityId = cf.FacilityId\n"
-                + "		     LEFT JOIN [dbo].[Category_Service] cs ON c.CategoryId = cs.CategoryId\n"
-                + "		     LEFT JOIN [dbo].[Service] s ON s.ServiceId = cs.ServiceId;";
+                + "		 JOIN [dbo].[Room] r ON b.RoomId = r.RoomId\n"
+                + "		 JOIN [dbo].[Category] c ON r.CategoryId = c.CategoryId\n"
+                + "	    LEFT JOIN [dbo].[Categories_Facilities] cf ON c.CategoryId = cf.CategoryId\n"
+                + "	    LEFT JOIN [dbo].[Facilities] f ON f.FacilityId = cf.FacilityId\n"
+                + "	    LEFT JOIN [dbo].[ServiceUsage] su ON su.BookingId = b.BookingId\n"
+                + "	    LEFT JOIN [dbo].[Service] s ON s.ServiceId = su.ServiceId";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -566,16 +566,14 @@ public class BookingDAO extends DBContext {
                 booking.setBookingId(rs.getInt(1));
             }
         }
-        
-      
 
-    
-}
-      public void updateBookingStatus(int bookingId, String status) throws SQLException {
+    }
+
+    public void updateBookingStatus(int bookingId, String status) throws SQLException {
         String sql = "UPDATE bookings SET bookingStatus = ? WHERE bookingId = ?";
 
         try (
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, status);
             pstmt.setInt(2, bookingId);

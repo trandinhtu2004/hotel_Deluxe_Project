@@ -13,12 +13,12 @@ public class Room {
     private String roomNumber;
     private String RoomType;
     private Category category;
-    private boolean status;
+    private String status;
 
     public Room() {
     }
 
-    public Room(int id, String roomNumber, Category category, boolean status) {
+    public Room(int id, String roomNumber, Category category, String status) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.category = category;
@@ -31,7 +31,7 @@ public class Room {
         this.category = category;
     }
 
-    public Room(int id, String roomNumber, String RoomType, Category category, boolean status) {
+    public Room(int id, String roomNumber, String RoomType, Category category, String status) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.RoomType = RoomType;
@@ -71,11 +71,11 @@ public class Room {
         this.category = category;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

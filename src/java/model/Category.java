@@ -9,6 +9,7 @@ package model;
  * @author Admin
  */
 public class Category {
+
     private int categoryId;
     private String categoryName;
     private int capacity;
@@ -18,7 +19,7 @@ public class Category {
     private String formattedPrice;
     private int numberOfRooms;
     private double size;
-    private int bed; 
+    private int bed;
 
     public Category() {
     }
@@ -35,6 +36,11 @@ public class Category {
     public Category(String categoryName, double pricePerNight) {
         this.categoryName = categoryName;
         this.pricePerNight = pricePerNight;
+    }
+
+    public Category(int categoryId, String categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
     
     public Category(String categoryName) {
@@ -128,5 +134,5 @@ public class Category {
     public void setImage(String image) {
         this.image = image;
     }
-    
+
 }

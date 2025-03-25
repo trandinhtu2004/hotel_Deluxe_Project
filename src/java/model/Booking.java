@@ -18,17 +18,16 @@ public class Booking {
     private Room room;
     private Date checkInDate;
     private Date checkOutDate;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
     private String bookingStatus;
     private Date bookingDate;
     private String note;
     private Category category;
-    private String status;
 
     public Booking() {
     }
 
-    public Booking(int bookingId, Account account, Room room, Date checkInDate, Date checkOutDate, Double totalPrice, String bookingStatus, Date bookingDate, String note, Category category) {
+    public Booking(int bookingId, Account account, Room room, Date checkInDate, Date checkOutDate, BigDecimal totalPrice, String bookingStatus, Date bookingDate, String note, Category category) {
         this.bookingId = bookingId;
         this.account = account;
         this.room = room;
@@ -40,15 +39,6 @@ public class Booking {
         this.note = note;
         this.category = category;
     }
-
-    public Booking(int aInt, int aInt0, int aInt1, String string, java.sql.Date date, java.sql.Date date0, java.sql.Date date1, String string0, String string1, int aInt2, String string2, BigDecimal bigDecimal) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Booking(int aInt, int aInt0, int aInt1, String string, java.sql.Date date, java.sql.Date date0, java.sql.Date date1, String string0, String string1, int aInt2, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 
     public int getBookingId() {
         return bookingId;
@@ -90,11 +80,11 @@ public class Booking {
         this.checkOutDate = checkOutDate;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -128,10 +118,6 @@ public class Booking {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public void setStatus(String active) {
-        this.status=active;
     }
 
 }

@@ -99,9 +99,20 @@ function updateStatusColors() {
 }
 document.addEventListener('datatable:updated', updateStatusColors);
 
+function formatFullName(inputId) {
+    var inputElement = document.getElementById(inputId);
+    
+    var fullName = inputElement.value.trim();
+    
+    fullName = fullName.toLowerCase().replace(/\b\w/g, function(char) {
+        return char.toUpperCase();
+    });
+
+    inputElement.value = fullName;
+}
+
 //Modal Edit User Script
 document.addEventListener("DOMContentLoaded", function () {
-    // Gắn sự kiện cho các nút .btn-edit và .btn-view
     var modalButtons = document.querySelectorAll('.btn-edit, .btn-view');
     modalButtons.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -109,14 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
             var editSaveButton = document.getElementById("editSaveButton");
             var modalTitle = document.getElementById("modalTitle");
 
-            // Reset mặc định: cho phép chỉnh sửa và hiển thị nút Ban, Save
             document.getElementById('editFullName').readOnly = false;
             document.getElementById('editPhone').readOnly = false;
             document.getElementById('editAddress').readOnly = false;
             editBanButton.style.display = "inline-block";
             editSaveButton.style.display = "inline-block";
 
-            // Lấy dữ liệu từ thuộc tính data của nút được nhấn
             var accountId = btn.getAttribute('data-accountId');
             var fullName = btn.getAttribute('data-fullname');
             var email = btn.getAttribute('data-email');
@@ -127,10 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
             var createdDate = btn.getAttribute('data-createdDate');
             var status = btn.getAttribute('data-status');
 
-            // Xử lý trạng thái: nếu status là Active (không phân biệt chữ hoa thường) thì gán "Active", ngược lại "Inactive"
             status = (status && status.trim().toLowerCase() === "active") ? "Active" : "Inactive";
 
-            // Gán giá trị vào các trường trong modal
             document.getElementById('editAccountId').value = accountId;
             document.getElementById('editFullName').value = fullName;
             document.getElementById('editEmail').value = email;
@@ -149,9 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             statusSpan.innerHTML = status + " <span class='status-dot'></span>";
 
-            // Kiểm tra chế độ hiển thị: nếu nút có thuộc tính data-readonly="true" => chế độ View
             if (btn.getAttribute('data-readonly') === "true") {
-                // Chế độ View: đặt các trường thành read-only, ẩn nút Ban và Save, đổi tiêu đề modal
                 document.getElementById('editFullName').readOnly = true;
                 document.getElementById('editPhone').readOnly = true;
                 document.getElementById('editAddress').readOnly = true;
@@ -161,10 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     modalTitle.textContent = "View User";
                 }
             } else {
-                // Chế độ Edit: hiển thị nút Ban và Save, đổi tiêu đề modal
                 editBanButton.style.display = "inline-block";
                 editSaveButton.style.display = "inline-block";
-                // Nếu trạng thái hiện tại là Active, hiển thị "Ban", nếu là Inactive, hiển thị "Activate"
                 if (status === "Active") {
                     editBanButton.textContent = "Ban";
                     editBanButton.className = "btn btn-danger btn-ban-edit";
@@ -176,19 +179,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     modalTitle.textContent = "Edit User";
                 }
             }
-            // Đặt hidden input action để phân biệt giữa view và edit
             document.querySelector("#modal-edit-user input[name='action']").value =
                 (btn.getAttribute('data-readonly') === "true") ? "view" : "edit";
         });
     });
 
-    // Gắn sự kiện cho nút Ban trong modal để chuyển đổi trạng thái
     var editBanButton = document.getElementById("editBanButton");
     if (editBanButton) {
         editBanButton.addEventListener("click", function() {
-            // Lấy trạng thái hiện tại từ hidden input
             var currentStatus = document.getElementById("editStatus").value;
-            // Chuyển đổi trạng thái
             var newStatus = (currentStatus === "Active") ? "Inactive" : "Active";
             document.getElementById("editStatus").value = newStatus;
             var statusSpan = document.getElementById("editStatusDisplay");
@@ -206,17 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function validateEditFullName() {
-    var fullName = document.getElementById("editFullName").value.trim();
-
-    var fullNameRegex = /^[A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s[A-ZÀ-Ỹ][a-zà-ỹ]+)*$/;
-
-    if (!fullNameRegex.test(fullName)) {
-        document.getElementById("editFullName_error").innerText = "Capitalize the first letter of each word please!";
-    } else {
-        document.getElementById("editFullName_error").innerText = "";
-    }
-}
+document.getElementById("editFullName").addEventListener("input", function() {
+    formatFullName("editFullName");
+});
 
 function validateEditPhoneNumber() {
     var phoneNumber = document.getElementById("editPhone").value.trim();
@@ -249,11 +240,9 @@ document.getElementById("editAddress").addEventListener("input", validateEditAdd
 $('#modal-edit-user').on('hidden.bs.modal', function () {
     var form = $(this).find('form')[0];
     if (form) {
-        form.reset(); // reset toàn bộ giá trị trong form
+        form.reset();
     }
-    // Reset các thông báo lỗi nếu có
     $(this).find('label[style="color: red"]').text('');
-    // Reset trạng thái hiển thị (status display)
     $('#editStatusDisplay').html('');
 });
 
@@ -264,17 +253,9 @@ document.addEventListener("DOMContentLoaded", function () {
     createdDateInput.value = today;
 });
 
-function validateFullName() {
-    var fullName = document.getElementById("fullName").value.trim();
-
-    var fullNameRegex = /^[A-ZÀ-Ỹ][a-zà-ỹ]+(?:\s[A-ZÀ-Ỹ][a-zà-ỹ]+)*$/;
-
-    if (!fullNameRegex.test(fullName)) {
-        document.getElementById("fullName_error").innerText = "Capitalize the first letter of each word please!";
-    } else {
-        document.getElementById("fullName_error").innerText = "";
-    }
-}
+document.getElementById("fullName").addEventListener("input", function() {
+    formatFullName("fullName");
+});
 
 function validateEmail() {
     var email = document.getElementById("email").value.trim();
@@ -347,6 +328,5 @@ $('#modal-add-user').on('hidden.bs.modal', function () {
     if (form) {
         form.reset();
     }
-    // Reset thông báo lỗi nếu có
     $(this).find('label[style="color: red"]').text('');
 });

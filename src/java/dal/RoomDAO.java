@@ -3,21 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
- 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Account;
 import model.Category;
-import model.Role;
 import model.Room;
 
 /**
@@ -25,14 +22,55 @@ import model.Room;
  * @author Admin
  */
 public class RoomDAO extends DBContext {
-    
-    
-    
-    public Room getRoomByID(int id) {
+
+    public ArrayList<Room> getAllRooms() {
+        ArrayList<Room> listRooms = new ArrayList<>();
+        String sql = "SELECT [RoomId],[RoomNumber],r.[CategoryId],[CategoryName],[Status]\n"
+                + "FROM [dbo].[Room] r JOIN [dbo].[Category] c ON r.CategoryId = c.CategoryId";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Room room = new Room();
+                room.setId(rs.getInt("RoomId"));
+                room.setRoomNumber(rs.getString("RoomNumber"));
+
+                Category category = new Category(rs.getInt("CategoryId"), rs.getString("CategoryName"));
+                room.setCategory(category);
+                room.setStatus(rs.getString("Status"));
+                listRooms.add(room);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listRooms;
+    }
+
+    public List<Category> getAllRoomType() {
+        List<Category> listRoomType = new ArrayList<>();
+        String sql = "SELECT [CategoryId],[CategoryName]\n"
+                + "FROM [dbo].[Category]";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                listRoomType.add(new Category(rs.getInt("CategoryId"), rs.getString("CategoryName")));
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listRoomType;
+    }
+
+    public Room getRoomByID(String id) {
         String sql = "SELECT [RoomId], [RoomNumber], [CategoryId], [Status], [Image],[RoomType] "
-                   + "FROM [Room] WHERE [RoomId] = ?";
+                + "FROM [Room] WHERE [RoomId] = ?";
         try (
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+                PreparedStatement ps = connection.prepareStatement(sql)) {
 
             
             ResultSet rs = ps.executeQuery();
@@ -50,13 +88,13 @@ public class RoomDAO extends DBContext {
         }
         return null;
     }
-    
+
     public static void main(String[] args) {
         RoomDAO rd = new RoomDAO();
         Room room = rd.getRoomByID("1");
-        System.out.println(room.getRoomType()+" "+room.getRoomNumber());
+        System.out.println(room.getRoomType() + " " + room.getRoomNumber());
     }
-    
+
     public Category getRoomCategoryById(int categoryId) {
         Category category = null;
         try {
@@ -170,7 +208,7 @@ public class RoomDAO extends DBContext {
         }
         return list;
     }
-    
+
     public int RoomCountByCategoryId(int categoryId, String checkOutDate, String checkInDate) {
         int availableRooms = 0; // lưu trữ số lượng phòng trống
         LocalDate currentDate = LocalDate.now();
@@ -211,7 +249,7 @@ public class RoomDAO extends DBContext {
 
         return availableRooms; // Trả về số lượng phòng trống
     }
-    
+
     public ArrayList<Category> ListCategory() {
 
         ArrayList<Category> list = new ArrayList<>();
@@ -247,13 +285,13 @@ public class RoomDAO extends DBContext {
         }
         return list;
     }
-    
-    public ArrayList<Category> getAllBeds(){
+
+    public ArrayList<Category> getAllBeds() {
         ArrayList<Category> list = new ArrayList<>();
         String sql = "SELECT DISTINCT [Bed]\n"
                 + "  FROM [Category]\n"
                 + "  ORDER BY [Bed] ASC";
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -261,14 +299,14 @@ public class RoomDAO extends DBContext {
                 Category c = new Category();
                 c.setBed(rs.getInt("Bed"));
                 list.add(c);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-    
+
     public ArrayList<Category> getAllCapacities() {
         ArrayList<Category> list = new ArrayList<>();
         //lấy số lượng người trong một phòng 
@@ -468,7 +506,7 @@ public class RoomDAO extends DBContext {
                 Room r = new Room();
                 r.setId(rs.getInt("RoomId"));
                 r.setRoomNumber(rs.getString("RoomNumber"));
-                r.setStatus(rs.getBoolean("Status"));
+                r.setStatus(rs.getString("Status"));
                 list.add(r);
             }
         } catch (SQLException e) {
@@ -477,8 +515,5 @@ public class RoomDAO extends DBContext {
 
         return list.size();
     }
-    
-    
 
-    
 }
