@@ -4,19 +4,9 @@
  */
 package dal;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +18,6 @@ import model.Role;
  * @author Admin
  */
 public class AccountDAO extends DBContext {
-
-    private static final String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=HotelManagement;encrypt=true;trustServerCertificate=true;";
-    private static final String DB_USER = "sa";
-    private static final String DB_PASSWORD = "123456";
 
     public int getTotalStaffs() {
         List<Account> list = new ArrayList<>();
@@ -154,22 +140,27 @@ public class AccountDAO extends DBContext {
         System.out.println(ac.getAccountId() + " " + ac.getEmail());
     }
 
-    public int getTotalAccount() {
-        String sql = "SELECT COUNT(AccountId) AS TotalAccount\n"
+    public int[] getTotalAllAccountWithStatus() {
+        String sql = "SELECT  COUNT(AccountId) AS TotalAccount,\n"
+                + "	      COUNT(CASE WHEN [Status] = 'Active' THEN 1 END) AS ActiveAccount,\n"
+                + "	      COUNT(CASE WHEN [Status] = 'Inactive' THEN 1 END) AS InactiveAccount\n"
                 + " FROM [dbo].[Account]";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getInt("TotalAccount");
+                int totalAccount = rs.getInt("TotalAccount");
+                int activeAccount = rs.getInt("ActiveAccount");
+                int inactiveAccount = rs.getInt("InactiveAccount");
+                return new int[]{totalAccount, activeAccount, inactiveAccount};
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return 0;
+        return new int[]{0, 0, 0};
     }
 
-    public int getTotalAccountByStatus(String role) {
+    public int[] getTotalAccountWithStatus(String role) {
         String sql = "SELECT COUNT(a.AccountId) AS TotalAccount,\n"
                 + "	     COUNT(CASE WHEN a.Status = 'Active' THEN 1 END) AS ActiveAccount,\n"
                 + "          COUNT(CASE WHEN a.Status = 'Inactive' THEN 1 END) AS InactiveAccount\n"
@@ -180,12 +171,15 @@ public class AccountDAO extends DBContext {
             st.setString(1, role);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getInt("");
+                int totalAccount = rs.getInt("TotalAccount");
+                int activeAccount = rs.getInt("ActiveAccount");
+                int inactiveAccount = rs.getInt("InactiveAccount");
+                return new int[]{totalAccount, activeAccount, inactiveAccount};
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
+        return new int[]{0, 0, 0};
     }
 
     public List<Account> getAllAccount() {

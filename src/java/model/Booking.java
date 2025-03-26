@@ -5,7 +5,7 @@
 package model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -16,18 +16,33 @@ public class Booking {
     private int bookingId;
     private Account account;
     private Room room;
-    private Date checkInDate;
-    private Date checkOutDate;
+    private LocalDateTime checkInDate;
+    private LocalDateTime checkOutDate;
     private BigDecimal totalPrice;
     private String bookingStatus;
-    private Date bookingDate;
+    private LocalDateTime bookingDate;
     private String note;
+    private Service service;
     private Category category;
 
     public Booking() {
     }
 
-    public Booking(int bookingId, Account account, Room room, Date checkInDate, Date checkOutDate, BigDecimal totalPrice, String bookingStatus, Date bookingDate, String note, Category category) {
+    public Booking(int bookingId, Account account, Room room, LocalDateTime checkInDate, LocalDateTime checkOutDate, BigDecimal totalPrice, String bookingStatus, LocalDateTime bookingDate, String note, Service service, Category category) {
+        this.bookingId = bookingId;
+        this.account = account;
+        this.room = room;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalPrice = totalPrice;
+        this.bookingStatus = bookingStatus;
+        this.bookingDate = bookingDate;
+        this.note = note;
+        this.service = service;
+        this.category = category;
+    }
+    
+    public Booking(int bookingId, Account account, Room room, LocalDateTime checkInDate, LocalDateTime checkOutDate, BigDecimal totalPrice, String bookingStatus, LocalDateTime bookingDate, String note, Category category) {
         this.bookingId = bookingId;
         this.account = account;
         this.room = room;
@@ -64,19 +79,19 @@ public class Booking {
         this.room = room;
     }
 
-    public Date getCheckInDate() {
+    public LocalDateTime getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(LocalDateTime checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    public LocalDateTime getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
+    public void setCheckOutDate(LocalDateTime checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 
@@ -96,11 +111,11 @@ public class Booking {
         this.bookingStatus = bookingStatus;
     }
 
-    public Date getBookingDate() {
+    public LocalDateTime getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(LocalDateTime bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -110,6 +125,14 @@ public class Booking {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public Category getCategory() {

@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import model.Category;
 import model.Room;
 
+
 /**
  *
  * @author Admin
@@ -55,7 +56,7 @@ public class RoomDAO extends DBContext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 listRoomType.add(new Category(rs.getInt("CategoryId"), rs.getString("CategoryName")));
             }
             rs.close();
@@ -72,7 +73,6 @@ public class RoomDAO extends DBContext {
         try (
                 PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -516,4 +516,99 @@ public class RoomDAO extends DBContext {
         return list.size();
     }
 
+    public int[] getTotalRoomWithStatus() {
+        String sql = "SELECT COUNT(RoomId) AS TotalRooms,\n"
+                + "          COUNT(CASE WHEN Status = 'Available' THEN 1 END) AS AvailableRooms,\n"
+                + "          COUNT(CASE WHEN Status = 'Unavailable' THEN 1 END) AS UnavailableRooms,\n"
+                + "          COUNT(CASE WHEN Status = 'Maintenance' THEN 1 END) AS MaintenanceRooms\n"
+                + " FROM [dbo].[Room]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int totalRooms = rs.getInt("TotalRooms");
+                int availableRooms = rs.getInt("AvailableRooms");
+                int unavailableRooms = rs.getInt("UnavailableRooms");
+                int maintenanceRooms = rs.getInt("MaintenanceRooms");
+                return new int[]{totalRooms, availableRooms, unavailableRooms, maintenanceRooms};
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return new int[]{0, 0, 0, 0};
+    }
+
+    public boolean checkRoomNumberExist(String roomNumber) {
+        String sql = "SELECT [RoomNumber]\n"
+                + "FROM [dbo].[Room]\n"
+                + "WHERE [RoomNumber] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, roomNumber);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public void addRoom(String roomNumber, int categoryId, String status) {
+        String sql = "INSERT INTO [dbo].[Room]([RoomNumber],[CategoryId],[Status])\n"
+                + "VALUES (?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, roomNumber);
+            st.setInt(2, categoryId);
+            st.setString(3, status);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateRoom(int categoryId, String status, String roomNumber) {
+        String sql = "UPDATE [dbo].[Room]\n"
+                + "   SET [CategoryId] = ?,[Status] = ?\n"
+                + "   WHERE [RoomNumber] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, categoryId);
+            st.setString(2, status);
+            st.setString(3, roomNumber);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public int[] getTotalFeedbackWithRating() {
+        String sql = "SELECT COUNT(*) AS TotalFeedback,\n"
+                + "          SUM(CASE WHEN Rating = 1 THEN 1 ELSE 0 END) AS OneStar,\n"
+                + "          SUM(CASE WHEN Rating = 2 THEN 1 ELSE 0 END) AS TwoStar,\n"
+                + "          SUM(CASE WHEN Rating = 3 THEN 1 ELSE 0 END) AS ThreeStar,\n"
+                + "          SUM(CASE WHEN Rating = 4 THEN 1 ELSE 0 END) AS FourStar,\n"
+                + "          SUM(CASE WHEN Rating = 5 THEN 1 ELSE 0 END) AS FiveStar\n"
+                + "FROM [dbo].[Feedback];";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                int totalFeedback = rs.getInt("TotalFeedback");
+                int oneStar = rs.getInt("OneStar");
+                int twoStar = rs.getInt("TwoStar");
+                int threeStar = rs.getInt("ThreeStar");
+                int fourStar = rs.getInt("FourStar");
+                int fiveStar = rs.getInt("FiveStar");
+                return new int[]{totalFeedback, oneStar, twoStar, threeStar, fourStar, fiveStar};
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return new int[]{0, 0, 0, 0, 0, 0};
+    }
 }

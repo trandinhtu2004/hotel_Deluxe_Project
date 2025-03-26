@@ -14,26 +14,94 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     min-height: 100vh;
 }
 
-/* Custom legend: hiển thị mỗi mục legend trên 1 hàng */
-.custom-legend {
-    list-style: none;
-    padding: 0;
-    margin: 10px auto;
-    text-align: center;
+/*Account Chart*/
+.account-chart-container {
+    position: relative;
+    margin-left: -170px !important;
+    padding: 15px;
+    max-width: 100% !important;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.custom-legend .legend-item {
-    display: block;  /* Mỗi mục hiển thị trên một hàng */
+.account-chart-container canvas {
+    width: 100% !important;
+    height: 350px !important;
+    max-height: 400px;
+}
+
+.account-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.account-grid .column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.account-grid .column > div {
+    white-space: nowrap;
     margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
 }
 
-.custom-legend .legend-color-box {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    margin-right: 8px;
-    vertical-align: middle;
+.account-grid .active {
+    color: green;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.account-grid .inactive {
+    color: red;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.account-grid .total {
+    padding: 10px;
+}
+
+/*Room Chart*/
+.room-chart-container{
+    position: relative;
+    margin-left: 40px !important;
+    padding: 15px;
+    max-width: 100% !important;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.room-chart-container canvas {
+    width: 100% !important;
+    height: 350px !important;
+    max-height: 400px;
+}
+
+/*Feedback Chart*/
+.feedback-chart-container{
+    position: relative;
+    margin-left: 40px !important;
+    padding: 15px;
+    max-width: 100% !important;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.feedback-chart-container canvas {
+    width: 100% !important;
+    height: 200px !important;
+    max-height: 400px;
+}
+
+.glyphicon-star {
+    color: gold;
 }

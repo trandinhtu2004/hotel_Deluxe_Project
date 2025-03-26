@@ -55,7 +55,7 @@
             <a href="manageUser" class="<%= "manageUser.jsp".equals(activePage) ? "active" : "" %>">
                 <i class="icon-list-ul"></i> Manage User
             </a>
-            <a href="manageRoom.jsp" class="<%= "manageRoom.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="manageRoom" class="<%= "manageRoom.jsp".equals(activePage) ? "active" : "" %>">
                 <i class="icon-room"></i> Manage Room
             </a>
             <% } %>

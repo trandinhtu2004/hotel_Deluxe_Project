@@ -15,7 +15,7 @@
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -32,8 +32,6 @@
         <link rel="stylesheet" href="css/style.css">
         <link href="${pageContext.request.contextPath}/css/styleManageBooking.css" rel="stylesheet">
 
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-
         <title>Manage Booking</title>
     </head>
     <body>
@@ -42,14 +40,6 @@
                 <%@ include file="includes/sidebar.jsp" %>
             </div>
             <div class="div3">
-                <div class="status-filter" style="margin-bottom: 20px;">
-                    <button type="button" class="btn btn-default" onclick="filterBooking('all', this)">All</button>
-                    <button type="button" class="btn btn-default" onclick="filterBooking('Not Yet', this)">Not Yet</button>
-                    <button type="button" class="btn btn-default" onclick="filterBooking('Late', this)">Late</button>
-                    <button type="button" class="btn btn-default" onclick="filterBooking('On Going', this)">On Going</button>
-                    <button type="button" class="btn btn-default" onclick="filterBooking('Cancel', this)">Cancel</button>
-                    <button type="button" class="btn btn-default" onclick="filterBooking('Done', this)">Done</button>
-                </div>
                 <h2>All Booking</h2>
                 <table id="bookingTable" border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
@@ -76,20 +66,17 @@
                                 <td>${booking.room.category.categoryName}</td>
                                 <td>
                                     <span class="date-format">
-                                        ${fn:substring(booking.bookingDate, 0, 10)}<br>
-                                        ${fn:substring(booking.bookingDate, 11, 19)}
+                                        ${fn:replace(fn:substring(booking.bookingDate, 0, 10), '-', '/')}
                                     </span>
                                 </td>
                                 <td>
                                     <span class="date-format">
-                                        ${fn:substring(booking.checkInDate, 0, 10)}<br>
-                                        ${fn:substring(booking.checkInDate, 11, 19)}
+                                        ${fn:replace(fn:substring(booking.checkInDate, 0, 10), '-', '/')}
                                     </span>
                                 </td>
                                 <td>
                                     <span class="date-format">
-                                        ${fn:substring(booking.checkOutDate, 0, 10)}<br>
-                                        ${fn:substring(booking.checkOutDate, 11, 19)}
+                                        ${fn:replace(fn:substring(booking.checkOutDate, 0, 10), '-', '/')}
                                     </span>
                                 </td>
                                 <td>${booking.note}</td>
@@ -106,28 +93,17 @@
                                             data-totalprice="${booking.totalPrice}"
                                             data-bookingstatus="${booking.bookingStatus}"
                                             data-note="${booking.note}"
-                                            data-accountfullname="${booking.account.fullName}">Detail</button></td>
+                                            data-accountfullname="${booking.account.fullName}" 
+                                            data-service="${booking.service.serviceName}" 
+                                            data-servicePrice="${booking.service.price}" 
+                                            data-serviceQuantity="${booking.service.quantity}">Detail</button></td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${booking.bookingStatus == 'Not Yet'}">
-                                            <form action="manageBooking" method="post" onsubmit="return confirmAction(this);">
+                                            <form action="manageBooking" method="post" onsubmit="event.preventDefault(); confirmAction(this, event);">
                                                 <input type="hidden" name="bookingId" value="${booking.bookingId}" />
                                                 <button type="submit" name="submit" value="accept" class="btn btn-accept">Accept</button>
                                                 <button type="submit" name="submit" value="cancel" class="btn btn-cancel">Cancel</button>
-                                            </form>
-                                        </c:when>
-
-                                        <c:when test="${booking.bookingStatus == 'Late'}">
-                                            <form action="manageBooking" method="post" onsubmit="return confirmAction(this);">
-                                                <input type="hidden" name="bookingId" value="${booking.bookingId}" />
-                                                <button type="submit" name="submit" value="cancel" class="btn btn-cancel">Cancel</button>
-                                            </form>
-                                        </c:when>
-
-                                        <c:when test="${booking.bookingStatus == 'On Going'}">
-                                            <form action="manageBooking" method="post" onsubmit="return confirmAction(this);">
-                                                <input type="hidden" name="bookingId" value="${booking.bookingId}" />
-                                                <button type="submit" name="submit" value="late" class="btn btn-late">Paid</button>
                                             </form>
                                         </c:when>
                                     </c:choose>
@@ -135,11 +111,21 @@
                             </tr>
                         </c:forEach>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="1"></th>
+                            <th></th>
+                            <th></th>
+                            <th colspan="5"></th>
+                            <th></th>
+                            <th colspan="3"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
 
             <!--Modal detail booking-->
-            <div class="modal modal-pull-right" data-easein="fadeInRight" data-easeout="fadeOutRight" id="modal-detail-booking" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal modal-pull-right" data-easein="fadeInRight" data-easeout="fadeOutRight" id="modal-detail-booking" tabindex="-1" role="dialog" style="display: none;">
                 <div class="modal-dialog">
                     <div class="modal-content animated fadeInRight">
                         <div class="modal-body">
@@ -175,6 +161,12 @@
                                                 <label class="col-sm-4 control-label">Check Out Time</label>
                                                 <div class="col-sm-8 tabular-border">
                                                     <p class="form-control-static" id="checkOutDate"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Price Per Night</label>
+                                                <div class="col-sm-8 tabular-border">
+                                                    <p class="form-control-static" id="pricePerNight"></p>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -214,6 +206,24 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <label class="col-sm-4 control-label">Service</label>
+                                                <div class="col-sm-8 tabular-border">
+                                                    <p class="form-control-static" id="service"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Service Price</label>
+                                                <div class="col-sm-8 tabular-border">
+                                                    <p class="form-control-static" id="servicePrice"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Service Quantity</label>
+                                                <div class="col-sm-8 tabular-border">
+                                                    <p class="form-control-static" id="serviceQuantity"></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <div class="col-sm-12 text-right">
                                                     <button type="button" class="btn btn-silver btn-flat" data-dismiss="modal" style="background-color: #DC143C; color: white;">Close</button>
                                                 </div>
@@ -229,8 +239,8 @@
 
         </div>
     </body>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/manageBookingScript.js"></script>

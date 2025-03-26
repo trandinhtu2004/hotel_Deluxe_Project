@@ -5,23 +5,37 @@
 
 
 $(document).ready(function () {
-    
-    //Accounts Chart
+
+    //Account Chart
     var canvas = document.getElementById('accountChart');
-    var data1 = parseInt(canvas.getAttribute('data-totalCustomer'), 10);
-    var data2 = parseInt(canvas.getAttribute('data-totalStaff'), 10);
-    var data3 = parseInt(canvas.getAttribute('data-totalOwner'), 10);
-    
-    new Chart(document.getElementById('accountChart').getContext('2d'), {
+
+    var activeCustomer = parseInt(canvas.getAttribute('data-activeCustomer'), 10);
+    var inactiveCustomer = parseInt(canvas.getAttribute('data-inactiveCustomer'), 10);
+    var activeStaff = parseInt(canvas.getAttribute('data-activeStaff'), 10);
+    var inactiveStaff = parseInt(canvas.getAttribute('data-inactiveStaff'), 10);
+    var activeOwner = parseInt(canvas.getAttribute('data-activeOwner'), 10);
+    var inactiveOwner = parseInt(canvas.getAttribute('data-inactiveOwner'), 10);
+
+    new Chart(canvas.getContext('2d'), {
         type: 'radar',
         data: {
             labels: ['Customer', 'Staff', 'Owner'],
-            datasets: [{
-                    data: [data1, data2, data3],
-                    backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
-                    borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+            datasets: [
+                {
+                    label: 'Active',
+                    data: [activeCustomer, activeStaff, activeOwner],
+                    backgroundColor: 'rgba(0, 255, 0, 0.2)',
+                    borderColor: 'green',
                     borderWidth: 3
-                }]
+                },
+                {
+                    label: 'Inactive',
+                    data: [inactiveCustomer, inactiveStaff, inactiveOwner],
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    borderColor: 'red',
+                    borderWidth: 3
+                }
+            ]
         },
         options: {
             responsive: false,
@@ -34,10 +48,6 @@ $(document).ready(function () {
                         padding: 20
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Accounts Chart'
-                },
                 datalabels: {
                     color: '#000',
                     font: {
@@ -45,32 +55,40 @@ $(document).ready(function () {
                         size: 14
                     },
                     anchor: 'center',
-                    align: 'center',
-                    formatter: function (value, context) {
-                        var dataArr = context.chart.data.datasets[0].data;
-                        var total = dataArr.reduce(function (sum, val) {
-                            return sum + val;
-                        }, 0);
-                        var percentage = (value / total * 100).toFixed(1);
-                        return percentage + '%';
-                    }
+                    align: 'center'
                 }
             }
-        },
-        plugins: [ChartDataLabels]
+        }
     });
 
-    //Rooms Chart
-    new Chart(document.getElementById('roomChart').getContext('2d'), {
-        type: 'doughnut',
+    //Room Chart
+    var canvas = document.getElementById('roomChart');
+
+    var available = parseInt(canvas.getAttribute('data-availableRoom'), 10);
+    var unavailable = parseInt(canvas.getAttribute('data-unavailableRoom'), 10);
+    var maintenance = parseInt(canvas.getAttribute('data-maintenanceRoom'), 10);
+
+    new Chart(canvas.getContext('2d'), {
+        type: 'pie',
         data: {
-            labels: ['Customer', 'Staff', 'Owner'],
-            datasets: [{
-                    data: [10, 30, 60],
-                    backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
-                    borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+            labels: ['Available', 'In Use', 'Maintenance'],
+            datasets: [
+                {
+                    label: 'Number',
+                    data: [available, unavailable, maintenance],
+                    backgroundColor: [
+                        'rgba(54, 198, 0, 1)',
+                        'rgba(190, 0, 0, 1)',
+                        'rgba(200, 130, 70, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 198, 0, 1)',
+                        'rgba(190, 0, 0, 1)',
+                        'rgba(200, 130, 70, 1)'
+                    ],
                     borderWidth: 3
-                }]
+                }
+            ]
         },
         options: {
             responsive: false,
@@ -83,9 +101,84 @@ $(document).ready(function () {
                         padding: 20
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Accounts Chart'
+                datalabels: {
+                    color: '#000',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    anchor: 'center',
+                    align: 'center'
+                }
+            }
+        }
+    });
+
+    // Feedback Chart
+    var canvas = document.getElementById('feedbackChart');
+
+    var one = parseInt(canvas.getAttribute('data-one'), 10);
+    var two = parseInt(canvas.getAttribute('data-two'), 10);
+    var three = parseInt(canvas.getAttribute('data-three'), 10);
+    var four = parseInt(canvas.getAttribute('data-four'), 10);
+    var five = parseInt(canvas.getAttribute('data-five'), 10);
+
+    new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+            // Dùng labels để đặt tên cho từng cột
+            labels: ['One', 'Two', 'Three', 'Four', 'Five'],
+            datasets: [
+                {
+                    // Dataset label không ảnh hưởng tới legend khi dùng custom generateLabels
+                    label: 'Feedback',
+                    data: [one, two, three, four, five],
+                    backgroundColor: [
+                        'rgba(54, 198, 0, 1)',
+                        'rgba(190, 0, 0, 1)',
+                        'rgba(200, 130, 70, 1)',
+                        'rgba(0, 123, 255, 1)',
+                        'rgba(255, 193, 7, 1)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 198, 0, 1)',
+                        'rgba(190, 0, 0, 1)',
+                        'rgba(200, 130, 70, 1)',
+                        'rgba(0, 123, 255, 1)',
+                        'rgba(255, 193, 7, 1)'
+                    ],
+                    borderWidth: 3
+                }
+            ]
+        },
+        options: {
+            responsive: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 35,
+                        usePointStyle: true,
+                        padding: 20,
+                        // Tùy chỉnh generateLabels để tạo legend item cho từng cột dữ liệu
+                        generateLabels: function (chart) {
+                            var data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map(function (label, index) {
+                                    var dataset = data.datasets[0];
+                                    return {
+                                        text: label,
+                                        fillStyle: dataset.backgroundColor[index],
+                                        strokeStyle: dataset.borderColor[index],
+                                        lineWidth: dataset.borderWidth,
+                                        hidden: false,
+                                        index: index
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
                 },
                 datalabels: {
                     color: '#000',
@@ -94,18 +187,9 @@ $(document).ready(function () {
                         size: 14
                     },
                     anchor: 'center',
-                    align: 'center',
-                    formatter: function (value, context) {
-                        var dataArr = context.chart.data.datasets[0].data;
-                        var total = dataArr.reduce(function (sum, val) {
-                            return sum + val;
-                        }, 0);
-                        var percentage = (value / total * 100).toFixed(1);
-                        return percentage + '%';
-                    }
+                    align: 'center'
                 }
             }
-        },
-        plugins: [ChartDataLabels]
+        }
     });
 });

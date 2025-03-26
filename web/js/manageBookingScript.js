@@ -3,53 +3,55 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
-document.addEventListener("DOMContentLoaded", function () {
-    let table = document.querySelector("#bookingTable");
-    new simpleDatatables.DataTable(table);
-});
+$(document).ready(function () {
+    var table = $('#bookingTable').DataTable({
+        initComplete: function () {
+            this.api().columns().every(function () {
+                var column = this;
+                var colIdx = column.index();
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Khởi tạo DataTable trên bảng có id="bookingTable"
-    const dataTable = new simpleDatatables.DataTable("#bookingTable");
+                // Bỏ qua các cột: No (0), Detail (10), Action (11)
+                if ([0, 3, 4, 5, 6, 7, 9, 10, 11].includes(colIdx))
+                    return;
 
-    // Lưu dữ liệu gốc (mảng các hàng) để có thể khôi phục lại khi filter 'all'
-    const originalData = dataTable.data;
+                // Tạo dropdown
+                var select = $('<select class="form-control"><option value="">All</option></select>')
+                        .appendTo($(column.footer()))
+                        .on('change', function () {
+                            var val = $(this).val();
+                            column.search(val, {exact: true}).draw();
 
-    // Hàm filter, được gắn vào global để gọi từ HTML
-    window.filterBooking = function(status, btn) {
-        // Cập nhật active state cho các nút filter
-        document.querySelectorAll('.status-filter .btn').forEach(function(button) {
-            button.classList.remove('active');
-        });
-        btn.classList.add('active');
+                        });
 
-        // Nếu chọn 'all' thì khôi phục dữ liệu gốc
-        if (status === 'all') {
-            dataTable.rows().update(originalData);
-        } else {
-            // Lọc dữ liệu gốc: giả sử trạng thái booking nằm ở cột thứ 9 (index 8)
-            const filteredData = originalData.filter(function(row) {
-                return row[8].toString().trim() === status;
+                // Xử lý các cột thông thường
+                column.data().unique().sort().each(function (d, j) {
+                    select.append($('<option>').val(d).text(d));
+                });
             });
-            // Cập nhật bảng với dữ liệu đã lọc
-            dataTable.rows().update(filteredData);
-        }
-    }
+        },
+        columnDefs: [
+            {
+                targets: [0, 3, 4, 5, 6, 7, 9, 10, 11], // Các cột không cần tìm kiếm
+                searchable: false,
+                orderable: false
+            }
+        ]
+    });
 });
 
-function confirmAction(form) {
-    let action = form.querySelector("button[name='submit']").value;
+function confirmAction(form, event) {
+    event.preventDefault();
+    const submitter = event.submitter;
+    const action = submitter.value;
     let message = "";
-
     if (action === "accept") {
         message = "Are you sure you want to accept this reservation?";
     } else if (action === "cancel") {
         message = "Are you sure you want to cancel this reservation?";
-    } else if (action === "late") {
-        message = "Are you sure you want to mark this order as 'Late'?";
     }
-
-    return confirm(message);
+    if (confirm(message)) {
+        form.submit();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -65,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
             var bookingStatus = btn.getAttribute('data-bookingstatus');
             var note = btn.getAttribute('data-note');
             var accountFullName = btn.getAttribute('data-accountfullname');
+            var service = btn.getAttribute('data-service');
+            var servicePrice = btn.getAttribute('data-servicePrice');
+            var serviceQuantity = btn.getAttribute('data-serviceQuantity');
 
             document.getElementById('roomNumber').textContent = roomNumber;
             document.getElementById('roomType').textContent = roomType;
@@ -75,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('bookingStatus').textContent = bookingStatus;
             document.getElementById('note').textContent = note;
             document.getElementById('fullName').textContent = accountFullName;
+            document.getElementById('service').textContent = service;
+            document.getElementById('servicePrice').textContent = servicePrice;
+            document.getElementById('serviceQuantity').textContent = serviceQuantity;
         });
     });
 });

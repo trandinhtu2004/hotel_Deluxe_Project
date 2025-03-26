@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 import model.Category;
 import model.Room;
+import model.Service;
 
 public class BookingDAO extends DBContext {
 
@@ -249,11 +250,23 @@ public class BookingDAO extends DBContext {
 
                 booking.setRoom(room);
 
-                booking.setCheckInDate(rs.getDate("CheckInDate"));
-                booking.setCheckOutDate(rs.getDate("CheckOutDate"));
-                booking.setBookingDate(rs.getDate("BookingDate"));
+                Timestamp checkInTimestamp = rs.getTimestamp("CheckInDate");
+                Timestamp checkOutTimestamp = rs.getTimestamp("CheckOutDate");
+                Timestamp bookingTimestamp = rs.getTimestamp("BookingDate");
+
+                booking.setCheckInDate(checkInTimestamp != null ? checkInTimestamp.toLocalDateTime() : null);
+                booking.setCheckOutDate(checkOutTimestamp != null ? checkOutTimestamp.toLocalDateTime() : null);
+                booking.setBookingDate(bookingTimestamp != null ? bookingTimestamp.toLocalDateTime() : null);
+
                 booking.setTotalPrice(rs.getBigDecimal("TotalPrice"));
                 booking.setBookingStatus(rs.getString("BookingStatus"));
+                
+                Service service = new Service();
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setPrice(rs.getDouble("Price"));
+                service.setQuantity(rs.getInt("Quantity"));
+                booking.setService(service);
+                
                 booking.setNote(rs.getString("Note"));
 
                 list.add(booking);

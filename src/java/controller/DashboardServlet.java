@@ -6,6 +6,7 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -55,8 +56,19 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         AccountDAO account = new AccountDAO();
+        RoomDAO room = new RoomDAO();
         
-        request.setAttribute("totalAccount", account.getTotalAccount());
+        //Account Chart
+        request.setAttribute("totalAccount", account.getTotalAllAccountWithStatus());
+        request.setAttribute("customer", account.getTotalAccountWithStatus("Customer"));
+        request.setAttribute("staff", account.getTotalAccountWithStatus("Staff"));
+        request.setAttribute("owner", account.getTotalAccountWithStatus("Owner"));
+        
+        //Room Chart
+        request.setAttribute("rooms", room.getTotalRoomWithStatus());
+        
+        //Feedback Chart
+        request.setAttribute("feedbacks", room.getTotalFeedbackWithRating());
         
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     } 

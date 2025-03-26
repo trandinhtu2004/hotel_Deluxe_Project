@@ -8,6 +8,7 @@ package model;
  *
  * @author Admin
  */
+
 public class Room {
     private int id;
     private String roomNumber;
