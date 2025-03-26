@@ -34,38 +34,47 @@
     <body>
         <div class="sidebar">
             <h2>Menu</h2>
-            <a href="index.jsp" class="<%= "index.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="home" class="<%= "index.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-home"></i> Home
             </a>
-            <% if(role != null && role.equals("Owner")) { %>
-            <a href="dashboard.jsp" class="<%= "dashboard.jsp".equals(activePage) ? "active" : "" %>">
+            <% if (role != null && role.equals("Owner")) {%>
+            <a href="dashboard" class="<%= "dashboard.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-dashboard"></i> Dashboard
             </a>
-            <% } %>
-            <a href="information.jsp" class="<%= "information.jsp".equals(activePage) ? "active" : "" %>">
+            <% }%>
+            <a href="information.jsp" class="<%= "information.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-person"></i> Information
             </a>
-            <% if(role != null && role.equals("Owner")) { %>
-            <a href="manageBooking" class="<%= "manageBooking.jsp".equals(activePage) ? "active" : "" %>">
+            <% if (role != null && role.equals("Owner")) {%>
+            <a href="manageBooking" class="<%= "manageBooking.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="ion-ios-bookmarks"></i> Booking Request
             </a>
-            <a href="manageSalary.jsp" class="<%= "manageSalary.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="manageSalary.jsp" class="<%= "manageSalary.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-money"></i> Manage Salary
             </a>
-            <a href="manageUser" class="<%= "manageUser.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="manageUser" class="<%= "manageUser.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-list-ul"></i> Manage User
             </a>
-            <a href="manageRoom" class="<%= "manageRoom.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="manageRoom" class="<%= "manageRoom.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-room"></i> Manage Room
             </a>
-            <% } %>
-            <a href="staff-checkin.jsp" class="<%= "staff-checkin.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="#" class="<%= ".jsp".equals(activePage) ? "active" : ""%>">
+                <i class="icon-room"></i> Manage Service
+            </a>
+            <a href="#" class="<%= ".jsp".equals(activePage) ? "active" : ""%>">
+                <i class="icon-room"></i> Manage Facility
+            </a>
+            <a href="#" class="<%= ".jsp".equals(activePage) ? "active" : ""%>">
+                <i class="icon-room"></i> Manage Announcement
+            </a>
+            <% }%>
+            <a href="staff-checkin.jsp" class="<%= "staff-checkin.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="ion-arrow-right-b"></i> Check In
             </a>
-            <a href="ongoing.jsp" class="<%= "ongoing.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="ongoing.jsp" class="<%= "ongoing.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="icon-timer"></i> On Going
             </a>
-            <a href="staff-checkout.jsp" class="<%= "staff-checkout.jsp".equals(activePage) ? "active" : "" %>">
+            <a href="staff-checkout.jsp" class="<%= "staff-checkout.jsp".equals(activePage) ? "active" : ""%>">
                 <i class="ion-arrow-left-b"></i> Check Out
             </a>
         </div>
