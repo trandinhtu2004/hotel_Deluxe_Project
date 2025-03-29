@@ -61,10 +61,6 @@
         <servlet-class>controller.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RoomController</servlet-name>
-        <servlet-class>controller.RoomController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DashboardServlet</servlet-name>
         <servlet-class>controller.DashboardServlet</servlet-class>
     </servlet>
@@ -147,10 +143,6 @@
     <servlet-mapping>
         <servlet-name>ForgetPassword</servlet-name>
         <url-pattern>/ForgetPassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RoomController</servlet-name>
-        <url-pattern>/RoomController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>

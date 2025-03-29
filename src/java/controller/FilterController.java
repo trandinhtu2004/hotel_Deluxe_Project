@@ -57,8 +57,24 @@ HttpSession session = request.getSession();
         
         // Kiểm tra điều kiện ngày check-in và check-out
     if (!isValidDateRange(checkinDate, checkoutDate)) {
-    // Đặt thông báo lỗi
-    request.setAttribute("errorMessage", "Check-in date must be before check-out date and within valid range.");
+    // Kiểm tra xem ngày check-in có phải là quá khứ hay không
+    try {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date checkin = sdf.parse(checkinDate);
+        Date today = new Date();
+
+        if (checkin.before(today)) {
+            // Nếu ngày check-in là quá khứ, đặt thông báo lỗi
+            request.setAttribute("errorMessage", "Check-in date cannot be in the past. Please select today or a future date.");
+        } else {
+            // Nếu ngày check-in lớn hơn hoặc bằng ngày check-out, đặt thông báo lỗi
+            request.setAttribute("errorMessage", "Check-in date must be before check-out date.");
+        }
+    } catch (ParseException e) {
+        // Nếu có lỗi parse ngày, đặt thông báo lỗi
+        request.setAttribute("errorMessage", "Invalid date format. Please use the format YYYY-MM-DD.");
+    }
+
     
     // Chuyển tiếp đến trang rooms.jsp
     request.getRequestDispatcher("rooms.jsp").forward(request, response);
@@ -129,11 +145,21 @@ HttpSession session = request.getSession();
     try {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
-
+        
+        // Lấy ngày hiện tại
+        Date today = new Date();
+        String todayStr = sdf.format(today);
+        
         // Parse ngày check-in và check-out
         Date checkin = sdf.parse(checkinDate);
         Date checkout = sdf.parse(checkoutDate);
-
+        
+         // Kiểm tra điều kiện: ngày check-in phải lớn hơn hoặc bằng ngày hiện tại
+        if (checkin.before(sdf.parse(todayStr))) {
+            // Nếu ngày check-in là quá khứ, trả về false
+            return false;
+        }
+        
         // Kiểm tra điều kiện: ngày check-in phải nhỏ hơn ngày check-out
         return checkin.before(checkout);
     } catch (ParseException e) {
