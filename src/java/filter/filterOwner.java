@@ -14,7 +14,6 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -107,7 +106,6 @@ public class filterOwner implements Filter {
         doBeforeProcessing(request, response);
 
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
 
         String role = (String) session.getAttribute("role");
@@ -116,8 +114,12 @@ public class filterOwner implements Filter {
         role = (role != null) ? role.trim() : "";
         status = (status != null) ? status.trim() : "";
         
-        if (!role.equals("Owner") || !status.equals("Active")) {
-            res.sendRedirect("login.jsp");
+        if (!role.equals("Owner")) {
+            req.setAttribute("alert", "You must be login as Owner to visit this page!");
+            req.getRequestDispatcher("login.jsp");
+        } else if(!status.equals("Active")){
+            req.setAttribute("alert", "You're banned on our website!");
+            req.getRequestDispatcher("login.jsp");
         }
 
         Throwable problem = null;

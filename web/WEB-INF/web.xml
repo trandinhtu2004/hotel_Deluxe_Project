@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <!--Filter Owner-->
     <filter>
         <filter-name>filterOwner</filter-name>
         <filter-class>filter.filterOwner</filter-class>
     </filter>
-    <!--Filter Owner-->
     <filter-mapping>
         <filter-name>filterOwner</filter-name>
         <url-pattern>/dashboard</url-pattern>
@@ -15,6 +15,38 @@
         <url-pattern>/manageUser.jsp</url-pattern>
         <url-pattern>/manageRoom.jsp</url-pattern>
         <url-pattern>/manageService.jsp</url-pattern>
+        <url-pattern>/manageService</url-pattern>
+    </filter-mapping>
+    <!--Filter Staff-->
+    <filter>
+        <filter-name>filterStaff</filter-name>
+        <filter-class>filter.filterStaff</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filterStaff</filter-name>
+        <url-pattern>/BookingRequest</url-pattern>
+        <url-pattern>/CheckInLoader</url-pattern>
+        <url-pattern>/CheckOutLoader</url-pattern>
+        <url-pattern>/LoadAllBookingInfo</url-pattern>
+    </filter-mapping>
+    <!--Filter Login-->
+    <filter>
+        <filter-name>filterLogin</filter-name>
+        <filter-class>filter.filterLogin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filterLogin</filter-name>
+        <url-pattern>/register.jsp</url-pattern>
+        <url-pattern>/forgetpassword.jsp</url-pattern>
+    </filter-mapping>
+    <!--Filter BannedUser-->
+    <filter>
+        <filter-name>filterBannedUser</filter-name>
+        <filter-class>filter.filterBannedUser</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filterBannedUser</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
