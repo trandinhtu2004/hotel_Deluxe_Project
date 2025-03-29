@@ -36,8 +36,7 @@ public class FilterController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
+HttpSession session = request.getSession();
 
         String categoryName = request.getParameter("roomType");
         String capacityParam = request.getParameter("capacity");
@@ -58,14 +57,7 @@ public class FilterController extends HttpServlet {
         RoomDAO r = new RoomDAO();
 
         ArrayList<Category> filteredCategories = new ArrayList<>();
-        // Xử lý giá trị mặc định cho checkInDate và checkOutDate
-        LocalDate currentDate = LocalDate.now();
-        String defaultCheckInDate = currentDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        String defaultCheckOutDate = LocalDate.of(currentDate.getYear(), 12, 31)
-                .format(DateTimeFormatter.ISO_LOCAL_DATE);
-
-        checkinDate = (checkinDate != null && !checkinDate.trim().isEmpty()) ? checkinDate : defaultCheckInDate;
-        checkoutDate = (checkoutDate != null && !checkoutDate.trim().isEmpty()) ? checkoutDate : defaultCheckOutDate;
+        
         // Kiểm tra điều kiện ngày check-in và check-out
     if (!isValidDateRange(checkinDate, checkoutDate)) {
     // Đặt thông báo lỗi

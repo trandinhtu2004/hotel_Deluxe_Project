@@ -84,8 +84,8 @@
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
                                             <label for="#">Check-in Date</label>
-                                            <input type="text" name="checkin" id="checkin_date" class="form-control checkin_date" 
-                                               placeholder="Check In Date" value="${sessionScope.checkin}">
+                                            <input type="date" name="checkin" id="checkin_date" class="form-control" 
+                                                   placeholder="Check In Date" value="${sessionScope.checkin}">
                                         </div>
                                     </div>
                                 </div>
@@ -93,8 +93,8 @@
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
                                             <label for="#">Check-out Date</label>
-                                            <input type="text" name="checkout" id="checkout_date" class="form-control checkout_date" 
-                                               placeholder="Check Out Date" value="${sessionScope.checkout}">
+                                            <input type="date" name="checkout" id="checkout_date" class="form-control" 
+                                                   placeholder="Check Out Date" value="${sessionScope.checkout}">
                                         </div>
                                     </div>
                                 </div>
@@ -107,17 +107,17 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="capacity" id="" class="form-control">
-                                                <option value="">Capacity</option>
-                                                <c:forEach var="c" items="${capacities}">
-                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
-                                                </c:forEach>
-                                            </select>
+                                                        <option value="">Capacity</option>
+                                                        <c:forEach var="c" items="${capacities}">
+                                                            <option value="${c.getCapacity()}">${c.getCapacity()}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                        <div class="col-md d-flex">
+                                <div class="col-md d-flex">
                                     <div class="form-group p-4 align-self-stretch d-flex align-items-end">
                                         <div class="wrap">
                                             <label for="#">Bed</label>
@@ -125,11 +125,11 @@
                                                 <div class="select-wrap">
                                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                     <select name="bed" id="" class="form-control">
-                                                <option value="">Bed</option>
-                                                <c:forEach var="c" items="${capacities}">
-                                                    <option value="${c.getCapacity()}">${c.getCapacity()}</option>
-                                                </c:forEach>
-                                            </select>
+                                                        <option value="">Bed</option>
+                                                        <c:forEach var="c" items="${capacities}">
+                                                            <option value="${c.getCapacity()}">${c.getCapacity()}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,68 +177,91 @@
                 </div>
             </div>
         </section>
-
+                                        
         <section class="ftco-section">
             <div class="container">
-                <div class="row d-flex">
-                    <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services py-4 d-block text-center">
-                            <div class="d-flex justify-content-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-reception-bell"></span>
-                                </div>
-                            </div>
-                            <div class="media-body p-2 mt-2">
-                                <h3 class="heading mb-3">25/7 Front Desk</h3>
-                                <p>A small river named Duden flows by their place and supplies.</p>
-                            </div>
-                        </div>      
-                    </div>
-                    <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services py-4 d-block text-center">
-                            <div class="d-flex justify-content-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-serving-dish"></span>
-                                </div>
-                            </div>
-                            <div class="media-body p-2 mt-2">
-                                <h3 class="heading mb-3">Restaurant Bar</h3>
-                                <p>A small river named Duden flows by their place and supplies.</p>
-                            </div>
-                        </div>    
-                    </div>
-                    <div class="col-md-3 d-flex align-sel Searchf-stretch ftco-animate">
-                        <div class="media block-6 services py-4 d-block text-center">
-                            <div class="d-flex justify-content-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-car"></span>
-                                </div>
-                            </div>
-                            <div class="media-body p-2 mt-2">
-                                <h3 class="heading mb-3">Transfer Services</h3>
-                                <p>A small river named Duden flows by their place and supplies.</p>
-                            </div>
-                        </div>      
-                    </div>
-                    <div class="col-md-3 d-flex align-self-stretch ftco-animate">
-                        <div class="media block-6 services py-4 d-block text-center">
-                            <div class="d-flex justify-content-center">
-                                <div class="icon d-flex align-items-center justify-content-center">
-                                    <span class="flaticon-spa"></span>
-                                </div>
-                            </div>
-                            <div class="media-body p-2 mt-2">
-                                <h3 class="heading mb-3">Spa Suites</h3>
-                                <p>A small river named Duden flows by their place and supplies.</p>
-                            </div>
-                        </div>      
-                    </div>
+                <h2 class="text-center">Information - お知らせ</h2>
+                <table class="table table-bordered">
+                    <tbody>
+                    <a style="color: #0b0b0b">get the lastest announcement here!</a>
+                    <c:forEach var="info" items="${informations}">
+                        <tr>
+                            <td style="width: 20%; height: 60%;">${info.dateCreated}</td>
+                            <td  style="height: 60%;">
+                                <a href="#" class="info-link" data-toggle="modal" data-target="#infoModal"
+                                   data-title="${info.announcementName}"
+                                   data-date="${info.dateCreated}"
+                                   data-description="${info.description}">
+                                    ${info.announcementName}
+                                </a></td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a href="history/info_2024.html" class="btn btn-primary">過去のお知らせ一覧を見る</a>
                 </div>
             </div>
         </section>
+                                        
+        <!-- Modal -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoModalLabel">~Information~</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Created-Date:</strong> <span id="modalDate"></span></p>
+                        <p><strong>Title:</strong> <span id="modalTitle"></span></p>
+                        <p><strong>Dsscription:</strong> <span id="modalDescription"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .modal-body {
+                max-height: 300px; /* Giới hạn chiều cao tối đa */
+                overflow-y: auto; /* Cho phép cuộn dọc nếu nội dung dài */
+                word-wrap: break-word; /* Tự động xuống dòng nếu từ quá dài */
+            }
+        </style>
+         <section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+                        <div class="col-md-7 heading-section text-center ftco-animate">
+                            <h2 class="mb-4">Our Recommended Services</h2>
+                        </div>
+                    </div>    		
+        <div class="row d-flex">
+            <c:forEach var="service" items="${top4Services}">
+                <div class="col-md-3 d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services py-4 d-block text-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="flaticon-spa"></span>
+                            </div>
+                        </div>
+                        <div class="media-body p-2 mt-2">
+                            <h3 class="heading mb-3">${service.serviceName}</h3>
+                            <p>${service.description}</p>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</section>
+        
         <!-- recommended rooms -->
-            <section class="ftco-section bg-light">
-                <form action="home">
+        <section class="ftco-section bg-light">
+            <form action="home">
                 <div class="container">
                     <div class="row justify-content-center mb-5 pb-3">
                         <div class="col-md-7 heading-section text-center ftco-animate">
@@ -249,77 +272,28 @@
                         <c:forEach var="c" items="${topRooms}">
                             <div class="col-sm col-md-6 col-lg-4 ftco-animate">
                                 <div class="room">
-                                    <a href="room-detail?categoryId=${c.getCategoryId()}" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
+                                    <a href="rooms.html" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
                                         <div class="icon d-flex justify-content-center align-items-center">
                                             <span class="icon-search2"></span>
                                         </div>
                                     </a>
                                     <div class="text p-3 text-center">
-                                        <h3 class="mb-3"><a href="room-detail?categoryId=${c.getCategoryId()}">${c.getCategoryName()}</a></h3>
+                                        <h3 class="mb-3"><a href="rooms.html">${c.getCategoryName()}</a></h3>
                                         <p><span class="price mr-2">${c.getFormattedPrice()}VND</span> <span class="per">per night</span></p>
                                         <hr>
-                                        <p class="pt-1"><a href="room-detail?categoryId=${c.getCategoryId()}" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                                        <p class="pt-1"><a href="room-single.html" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>		
                     </div>
                 </div>
-                    </form>
-            </section>
-        
-        <!-- information of hotel -->
-        <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_1.jpg);">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                                <div class="block-18 text-center">
-                                    <div class="text">
-
-
-                                        <strong class="number" data-number="
-                                                ${totalCustomers}
-                                                ">0</strong>
-                                        <span>Happy Guests</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                                <div class="block-18 text-center">
-                                    <div class="text">
-
-                                        <strong class="number" data-number="
-
-                                                ${totalRooms}
-                                                ">0</strong>
-
-                                        <span>Rooms</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                                <div class="block-18 text-center">
-                                    <div class="text">
-                                        <strong class="number" data-number="${totalStaffs}">0</strong>
-                                        <span>Staffs</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                                <div class="block-18 text-center">
-                                    <div class="text">
-                                        <strong class="number" data-number="50">0</strong>
-                                        <span>Destination</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </section>
+        
+       
+        
+        
 
         <!-- feedback from customer -->
         <section class="ftco-section testimony-section bg-light">

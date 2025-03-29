@@ -55,15 +55,15 @@
                             <c:forEach var="c" items="${list}">
                                 <div class="col-sm col-md-6 col-lg-4 ftco-animate">
                                     <div class="room">
-                                        
-                                        <a href="room-detail?categoryId=${c.getCategoryId()}" class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
+                                        <!-- Thay ??i href ?? truy?n categoryId -->
+                                        <a href="room-detail?categoryId=${c.getCategoryId()}&checkin=${param.checkin}&checkout=${param.checkout} " class="img d-flex justify-content-center align-items-center" style="background-image: url(${c.getImage()});">
                                             <div class="icon d-flex justify-content-center align-items-center">
                                                 <span class="icon-search2"></span>
                                             </div>
                                         </a>
                                         <div class="text p-3 text-center">
-                                            
-                                            <h3 class="mb-3"><a href="room-detail?categoryId=${c.getCategoryId()}">${c.getCategoryName()}</a></h3>
+                                            <!-- Thay ??i href ?? truy?n categoryId -->
+                                            <h3 class="mb-3"><a href="room-detail?categoryId=${c.getCategoryId()}&checkin=${param.checkin}&checkout=${param.checkout} ">${c.getCategoryName()}</a></h3>
 
                                             <p><span class="price mr-2"><fmt:formatNumber value="${c.getPricePerNight()}" type="number" maxFractionDigits="0"/>VND</span> <span class="per">1 night</span></p>
                                             <ul class="list">
@@ -72,8 +72,8 @@
                                                 <li><span>Bed:</span> ${c.getBed()}</li>
                                             </ul>
                                             <hr>
-                                            
-                                            <p class="pt-1"><a href="room-detail?categoryId=${c.getCategoryId()}" class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
+                                            <!-- Thay ??i href ?? truy?n categoryId -->
+                                            <p class="pt-1"><a href="room-detail?categoryId=${c.getCategoryId()}&checkin=${param.checkin}&checkout=${param.checkout} " class="btn-custom">View Room Details <span class="icon-long-arrow-right"></span></a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -102,6 +102,7 @@
                                         <%= request.getAttribute("errorMessage") %>
                                     </div>
                                     <% } %>
+
                                     <!-- Room Type Dropdown -->
                                     <div class="form-group">
                                         <select name="roomType" id="" class="form-control">
@@ -199,89 +200,6 @@
                                 </script>
                             </form>
                         </div>
-<!--                        <div class="sidebar-wrap bg-light ftco-animate">
-                            <h3 class="heading mb-4">Star Rating</h3>
-                            <form method="post" class="star-rating">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
-                                    </label>
-                                </div>
-                            </form>
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="instagram pt-5">
-            <div class="container-fluid">
-                <div class="row no-gutters justify-content-center pb-5">
-                    <div class="col-md-7 text-center heading-section ftco-animate">
-                        <h2><span>Instagram</span></h2>
-                    </div>
-                </div>
-                <div class="row no-gutters">
-                    <div class="col-sm-12 col-md ftco-animate">
-                        <a href="images/insta-1.jpg" class="insta-img image-popup" style="background-image: url(images/insta-1.jpg);">
-                            <div class="icon d-flex justify-content-center">
-                                <span class="icon-instagram align-self-center"></span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-12 col-md ftco-animate">
-                        <a href="images/insta-2.jpg" class="insta-img image-popup" style="background-image: url(images/insta-2.jpg);">
-                            <div class="icon d-flex justify-content-center">
-                                <span class="icon-instagram align-self-center"></span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-12 col-md ftco-animate">
-                        <a href="images/insta-3.jpg" class="insta-img image-popup" style="background-image: url(images/insta-3.jpg);">
-                            <div class="icon d-flex justify-content-center">
-                                <span class="icon-instagram align-self-center"></span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-12 col-md ftco-animate">
-                        <a href="images/insta-4.jpg" class="insta-img image-popup" style="background-image: url(images/insta-4.jpg);">
-                            <div class="icon d-flex justify-content-center">
-                                <span class="icon-instagram align-self-center"></span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-sm-12 col-md ftco-animate">
-                        <a href="images/insta-5.jpg" class="insta-img image-popup" style="background-image: url(images/insta-5.jpg);">
-                            <div class="icon d-flex justify-content-center">
-                                <span class="icon-instagram align-self-center"></span>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </div>

@@ -34,8 +34,26 @@ public class RoomDetailController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String categoryIdParam = request.getParameter("categoryId");
         
+    } 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        String categoryIdParam = request.getParameter("categoryId");
+//            if (categoryIdParam == null || categoryIdParam.isEmpty()) {
+//                response.sendRedirect("rooms");
+//                return;
+//            }
+            
             int categoryId = Integer.parseInt(categoryIdParam);
             RoomDAO roomDAO = new RoomDAO();
             ServiceDAO serviceDAO = new ServiceDAO();
@@ -61,21 +79,6 @@ public class RoomDetailController extends HttpServlet {
             // Forward to JSP
             request.getRequestDispatcher("rooms-single.jsp").forward(request, response);
             
-       
-    } 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
     } 
 
     /** 

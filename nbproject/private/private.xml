@@ -23,6 +23,8 @@
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/RegisterController.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/VerifyOTPServlet.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/includes/sidebar.jsp</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ServiceManagerController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/manageService.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/rooms.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/CheckRoomAvailabilityController.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/GetDetailInfomation.java</file>
@@ -40,6 +42,7 @@
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ChangeStateDone.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/CheckOutLoader.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/BookingDAO.java</file>
+            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/ServiceDAO.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/dal/RoleDAO.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/OwnerServiceController.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/changePassword.jsp</file>
@@ -61,7 +64,6 @@
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/profile.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/DashboardServlet.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/com/vnpay/common/Config.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/manageservice.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/LoadAllBookingInfo.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/manageBooking.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/confirmBooking.jsp</file>
@@ -71,7 +73,6 @@
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/staff-checkin.jsp</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/Role.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/controller/ResetPasswordServlet.java</file>
-            <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/src/java/model/CategoryService.java</file>
             <file>file:/C:/Users/Admin/Desktop/SWP391_T1_2025/hotel_Deluxe/web/OTPForgetPassword.jsp</file>
         </group>
     </open-files>

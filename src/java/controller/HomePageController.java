@@ -6,7 +6,9 @@
 package controller;
 
 import dal.AccountDAO;
+import dal.AnnouncementDAO;
 import dal.RoomDAO;
+import dal.ServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +16,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import model.Announcement;
 import model.Category;
+import model.Service;
 
 /**
  *
@@ -57,16 +61,20 @@ public class HomePageController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AccountDAO a = new AccountDAO();
+         AccountDAO a = new AccountDAO();
         RoomDAO r = new RoomDAO();
-
+        AnnouncementDAO i = new AnnouncementDAO();
+        ServiceDAO s = new ServiceDAO();
+        ArrayList<Announcement> announcements = i.getTop5Announcement();
         ArrayList<Category> capacities = r.getAllCapacities();
         ArrayList<Category> list = r.ListCategory();
-
+        ArrayList<Service> top4Services = s.getTop4ServicesBooked();
         // Make sure roomList is not null
         if (list == null) {
             list = new ArrayList<>(); // Provide an empty list instead of null
         }
+        request.setAttribute("top4Services", top4Services);
+        request.setAttribute("informations", announcements);
         request.setAttribute("capacities", capacities);
         request.setAttribute("list", list);
         request.setAttribute("totalCustomers", a.getTotalCustumers());
