@@ -72,7 +72,10 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.LogoutController</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>ServiceManagerController</servlet-name>
+        <servlet-class>controller.ServiceManagerController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
@@ -165,7 +168,6 @@
             /payment
         </url-pattern>
     </servlet-mapping>
-        
     <servlet>
         <servlet-name>vnpayReturn</servlet-name>
         <servlet-class>com.vnpay.common.vnpayRefund</servlet-class>
@@ -178,11 +180,14 @@
             /vnpayRefund
         </url-pattern>
     </servlet-mapping>
-    
     <welcome-file-list>
         <welcome-file>home</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>ServiceManagerController</servlet-name>
+        <url-pattern>/manageService</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>30</session-timeout> 
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

@@ -9,12 +9,29 @@ package model;
  * @author Admin
  */
 public class Service{
-    private CategoryService categoryService;
     private String serviceName;
     private String description;
     private double price;
     private String status;
     private int quantity;
+    private int serviceId;
+
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public double getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public void setTotalRevenue(double totalRevenue) {
+        this.totalRevenue = totalRevenue;
+    }
+    private double totalRevenue;
 
     // Constructors
     public Service() {}
@@ -33,14 +50,6 @@ public class Service{
         this.quantity = quantity;
     }
     
-
-    public CategoryService getCategoryService() {
-        return categoryService;
-    }
-
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     
     
