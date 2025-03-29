@@ -2,40 +2,68 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
-
 $(document).ready(function () {
+    // Tạo hàng filter chứa dropdown
     var table = $('#bookingTable').DataTable({
+        lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
         initComplete: function () {
-            this.api().columns().every(function () {
-                var column = this;
-                var colIdx = column.index();
+            // Tạo dropdown filter trong bảng giả
+            var $filterRow = $('.fake-filter-table .filter-row');
+            const columnsToFilter = [1, 2, 8];
+            var $originalHeader = $('#bookingTable thead tr:first');
 
-                // Bỏ qua các cột: No (0), Detail (10), Action (11)
-                if ([0, 3, 4, 5, 6, 7, 9, 10, 11].includes(colIdx))
-                    return;
+            $originalHeader.find('th').each(function (index) {
+                const $filterCell = $('<th>').appendTo($filterRow);
+
+                // Chỉ thêm tên và filter cho các cột được chỉ định
+                if (columnsToFilter.includes(index)) {
+                    const colName = $(this).text().trim();
+                    $filterCell.html(`
+                <div class="column-name">${colName}</div>
+                <div class="filter-container"></div>
+            `);
+                } else {
+                    $filterCell.html('<div class="empty-header"></div>'); // Giữ nguyên layout
+                }
+            });
+
+            // Khởi tạo dropdown chỉ cho các cột được filter
+            this.api().columns(columnsToFilter).every(function () {
+                const column = this;
+                const colIdx = column.index();
+                const $filterContainer = $filterRow.find('th').eq(colIdx).find('.filter-container');
 
                 // Tạo dropdown
-                var select = $('<select class="form-control"><option value="">All</option></select>')
-                        .appendTo($(column.footer()))
+                const $select = $('<select>')
+                        .addClass('form-control')
+                        .append($('<option>').val('').text('All'))
+                        .appendTo($filterContainer)
                         .on('change', function () {
-                            var val = $(this).val();
-                            column.search(val, {exact: true}).draw();
-
+                            column.search(this.value).draw();
                         });
 
-                // Xử lý các cột thông thường
-                column.data().unique().sort().each(function (d, j) {
-                    select.append($('<option>').val(d).text(d));
+                // Điền dữ liệu
+                column.data().unique().sort().each(function (d) {
+                    $select.append($('<option>').text(d).val(d));
                 });
             });
-        },
-        columnDefs: [
-            {
-                targets: [0, 3, 4, 5, 6, 7, 9, 10, 11], // Các cột không cần tìm kiếm
-                searchable: false,
-                orderable: false
+
+            // Đồng bộ kích thước
+            function syncColumnWidths() {
+                $('#bookingTable thead th').each(function (idx) {
+                    const width = $(this).width();
+                    $filterRow.find('th').eq(idx).width(width);
+                });
             }
-        ]
+
+            syncColumnWidths();
+            $(window).resize(syncColumnWidths);
+        }
+    });
+
+    // Đồng bộ scroll ngang
+    $('#bookingTable').on('scroll', function () {
+        $('.fake-thead-filter').scrollLeft($(this).scrollLeft());
     });
 });
 
@@ -69,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var accountFullName = btn.getAttribute('data-accountfullname');
             var service = btn.getAttribute('data-service');
             var servicePrice = btn.getAttribute('data-servicePrice');
-            var serviceQuantity = btn.getAttribute('data-serviceQuantity');
+            var pricePerNight = btn.getAttribute('data-pricePerNight');
 
             document.getElementById('roomNumber').textContent = roomNumber;
             document.getElementById('roomType').textContent = roomType;
@@ -82,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('fullName').textContent = accountFullName;
             document.getElementById('service').textContent = service;
             document.getElementById('servicePrice').textContent = servicePrice;
-            document.getElementById('serviceQuantity').textContent = serviceQuantity;
+            document.getElementById('pricePerNight').textContent = pricePerNight;
         });
     });
 });

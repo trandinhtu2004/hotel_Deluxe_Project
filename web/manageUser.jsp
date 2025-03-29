@@ -83,7 +83,7 @@
                                                 <td>
                                                     <a href="#"><span class="__cf_email__">${user.email}</span></a>
                                                 </td>
-                                                <td>${fn:toLowerCase(user.role.roleName)}</td>
+                                                <td>${user.role.roleName}</td>
                                                 <td style="width: 20%;">
                                                     <c:choose>
                                                         <c:when test="${user.role.roleName eq 'Owner'}">
@@ -333,7 +333,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="createdDate" class="col-sm-2 control-label">CreatedDate</label>
+                                            <label for="createdDate" class="col-sm-2 control-label">Created Date</label>
                                             <div class="col-sm-10 tabular-border">
                                                 <input type="date" class="form-control" id="createdDate" name="createdDate" readonly>
                                                 <label id="createdDate_error" for="createdDate" style="color: red"></label>

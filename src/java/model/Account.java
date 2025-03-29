@@ -50,6 +50,16 @@ public class Account {
         this.createdDate = createdDate;
     }
 
+    public Account(int accountId, Role role, String fullName, String email, String password, String phone, String status) {
+        this.accountId = accountId;
+        this.role = role;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.status = status;
+    }
+
     public Account(String fullName, String email, String password, String phone) {
         this.fullName = fullName;
         this.email = email;

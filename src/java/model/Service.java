@@ -42,6 +42,11 @@ public class Service{
         this.quantity=quantity;
     }
 
+    public Service(String serviceName, double price) {
+        this.serviceName = serviceName;
+        this.price = price;
+    }
+    
     public int getQuantity() {
         return quantity;
     }

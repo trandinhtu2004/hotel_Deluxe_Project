@@ -24,6 +24,7 @@ public class LoginController extends HttpServlet {
             String role = account.getRole().getRoleName();
             HttpSession session = request.getSession();
             session.setAttribute("role", role);
+            session.setAttribute("status", account.getStatus());
             session.setAttribute("account", account);
             response.sendRedirect("index.jsp");  // Chuyển hướng về trang chính
         } else {

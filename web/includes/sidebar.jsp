@@ -43,7 +43,7 @@
             </a>
             <% }%>
             <a href="information.jsp" class="<%= "information.jsp".equals(activePage) ? "active" : ""%>">
-                <i class="icon-person"></i> Information
+                <i class="icon-person"></i> Profile
             </a>
             <% if (role != null && role.equals("Owner")) {%>
             <a href="manageBooking" class="<%= "manageBooking.jsp".equals(activePage) ? "active" : ""%>">

@@ -14,9 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
-import model.Role;
 import model.Booking;
-import java.math.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -219,7 +217,7 @@ public class BookingDAO extends DBContext {
 
     public List<Booking> getBookingList() {
         List<Booking> list = new ArrayList<>();
-        String sql = "SELECT b.[BookingId],b.[AccountId],a.[FullName],b.[RoomId],r.[RoomNumber],c.[CategoryName],[CheckInDate],[CheckOutDate],COALESCE(b.[TotalPrice], 0) AS [TotalPrice],[BookingStatus],[BookingDate],[Note],f.[FacilityName],s.[ServiceName],s.[Price],su.[Quantity],c.[PricePerNight]\n"
+        String sql = "SELECT b.[BookingId],b.[AccountId],a.[FullName],b.[RoomId],r.[RoomNumber],c.[CategoryName],[CheckInDate],[CheckOutDate],COALESCE(b.[TotalPrice], 0) AS [TotalPrice],[BookingStatus],[BookingDate],[Note],f.[FacilityName],s.[ServiceName],s.[Price],c.[PricePerNight]\n"
                 + "FROM [dbo].[Booking] b JOIN [dbo].[Account] a ON b.AccountId = a.AccountId\n"
                 + "		 JOIN [dbo].[Room] r ON b.RoomId = r.RoomId\n"
                 + "		 JOIN [dbo].[Category] c ON r.CategoryId = c.CategoryId\n"
@@ -264,7 +262,6 @@ public class BookingDAO extends DBContext {
                 Service service = new Service();
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setPrice(rs.getDouble("Price"));
-                service.setQuantity(rs.getInt("Quantity"));
                 booking.setService(service);
                 
                 booking.setNote(rs.getString("Note"));

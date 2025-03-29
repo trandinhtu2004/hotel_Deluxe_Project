@@ -322,7 +322,7 @@ public class AccountDAO extends DBContext {
 
     public Account login(String email, String password) {
         Account account = null;
-        String sql = "SELECT a.AccountId,a.[RoleId],r.[RoleName],[FullName],[Email],[Password],a.Phone\n"
+        String sql = "SELECT a.AccountId,a.[RoleId],r.[RoleName],[FullName],[Email],[Password],[Phone],[Status]\n"
                 + "FROM [dbo].[Account] a JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId]\n"
                 + "WHERE Email = ? AND Password = ?";
 
@@ -339,6 +339,7 @@ public class AccountDAO extends DBContext {
                 account.setPassword(rs.getString("Password"));
                 account.setFullName(rs.getString("FullName"));
                 account.setPhone(rs.getString("Phone"));
+                account.setStatus(rs.getString("Status"));
 
                 Role role = new Role();
                 role.setRoleId(rs.getInt("RoleId"));

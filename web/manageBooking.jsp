@@ -15,7 +15,7 @@
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
         <link rel="stylesheet" href="css/animate.css">
@@ -40,7 +40,14 @@
                 <%@ include file="includes/sidebar.jsp" %>
             </div>
             <div class="div3">
-                <h2>All Booking</h2>
+
+                <div class="fake-thead-filter">
+                    <div id="activeFilters" style="margin: 10px 0;"></div>
+                    <table class="fake-filter-table">
+                        <tr class="filter-row"></tr>
+                    </table>
+                </div>
+
                 <table id="bookingTable" border="1" cellpadding="10" cellspacing="0" style="width:100%; border-collapse: collapse; text-align: left;">
                     <thead>
                         <tr>
@@ -48,11 +55,9 @@
                             <th>Room Number</th>
                             <th>Room Type</th>
                             <th>Booking Date</th>
-                            <th>Check In Date</th>
-                            <th>Check Out Date</th>
-                            <th>Note</th>
-                            <th>Name</th>
+                            <th>Customer</th>
                             <th>Status</th>
+                            <th>Price Per Night</th>
                             <th>Total Price</th>
                             <th>Detail</th>
                             <th>Action</th>
@@ -65,23 +70,12 @@
                                 <td>${booking.room.roomNumber}</td>
                                 <td>${booking.room.category.categoryName}</td>
                                 <td>
-                                    <span class="date-format">
-                                        ${fn:replace(fn:substring(booking.bookingDate, 0, 10), '-', '/')}
-                                    </span>
+                                    <span class="date-part">${fn:substring(booking.bookingDate, 0, 10)}</span><br>
+                                    <span class="time-part">${fn:substring(booking.bookingDate, 11, 19)}</span>
                                 </td>
-                                <td>
-                                    <span class="date-format">
-                                        ${fn:replace(fn:substring(booking.checkInDate, 0, 10), '-', '/')}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="date-format">
-                                        ${fn:replace(fn:substring(booking.checkOutDate, 0, 10), '-', '/')}
-                                    </span>
-                                </td>
-                                <td>${booking.note}</td>
                                 <td>${booking.account.fullName}</td>
                                 <td>${booking.bookingStatus}</td>
+                                <td>${booking.room.category.pricePerNight}</td>
                                 <td>${booking.totalPrice}</td>
                                 <td><button type="button" class="btn btn-detail" data-toggle="modal" data-target="#modal-detail-booking"
                                             data-bookingid="${booking.bookingId}"
@@ -96,7 +90,7 @@
                                             data-accountfullname="${booking.account.fullName}" 
                                             data-service="${booking.service.serviceName}" 
                                             data-servicePrice="${booking.service.price}" 
-                                            data-serviceQuantity="${booking.service.quantity}">Detail</button></td>
+                                            data-pricePerNight="${booking.room.category.pricePerNight}">Detail</button></td>
                                 <td>
                                     <c:choose>
                                         <c:when test="${booking.bookingStatus == 'Not Yet'}">
@@ -111,16 +105,6 @@
                             </tr>
                         </c:forEach>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="1"></th>
-                            <th></th>
-                            <th></th>
-                            <th colspan="5"></th>
-                            <th></th>
-                            <th colspan="3"></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
 
@@ -218,12 +202,6 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-4 control-label">Service Quantity</label>
-                                                <div class="col-sm-8 tabular-border">
-                                                    <p class="form-control-static" id="serviceQuantity"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
                                                 <div class="col-sm-12 text-right">
                                                     <button type="button" class="btn btn-silver btn-flat" data-dismiss="modal" style="background-color: #DC143C; color: white;">Close</button>
                                                 </div>
@@ -240,7 +218,7 @@
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/manageBookingScript.js"></script>
